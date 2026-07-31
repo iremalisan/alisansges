@@ -3,155 +3,183 @@ import { NumericInput } from '../components/NumericInput';
 import { SectionCard } from '../components/SectionCard';
 import { ValidationMessage } from '../components/ValidationMessage';
 import { KIOSK_RECIPES } from '../domain/recipes/kioskRecipes';
-import type { KioskInputs, ValidationErrors } from '../domain/types';
+import type {
+  KioskGroupInput,
+  ValidationErrors,
+  ValidationFieldKey,
+} from '../domain/types';
 import { parseNonNegativeNumber } from '../domain/validation';
 
 interface KioskSectionProps {
-  values: KioskInputs;
+  groups: KioskGroupInput[];
   errors: ValidationErrors;
-  onChange: <K extends keyof KioskInputs>(key: K, value: KioskInputs[K]) => void;
-  onSelectRecipe: (recipeId: string) => void;
-  onValidationChange: (
-    field: `kiosk.${keyof KioskInputs}`,
-    message: string | null,
+  onAdd: () => void;
+  onUpdate: <K extends keyof KioskGroupInput>(
+    id: string,
+    key: K,
+    value: KioskGroupInput[K],
   ) => void;
+  onSelectRecipe: (id: string, recipeId: string) => void;
+  onRemove: (id: string) => void;
+  onDuplicate: (id: string) => void;
+  onValidationChange: (field: ValidationFieldKey, message: string | null) => void;
 }
 
 export function KioskSection({
-  values,
+  groups,
   errors,
-  onChange,
+  onAdd,
+  onUpdate,
   onSelectRecipe,
+  onRemove,
+  onDuplicate,
   onValidationChange,
 }: KioskSectionProps) {
   return (
     <SectionCard
       id="kiosk"
       title="Beton Köşk ve Bakır Pabuç"
-      description="Köşk reçetesini seçin; köşk adedi ve birim miktarları düzenlenebilir."
+      description="Birden fazla köşk grubu tanımlayın; aynı malzemeler tek satırda birleşir."
     >
       <p className="recipe-warning" role="note">
         Hazır reçeteler örnek başlangıç değerleridir. Gerçek proje standartlarınıza
         göre kontrol ediniz.
       </p>
 
-      <div className="field-grid">
-        <FormField label="Köşk reçetesi" htmlFor="kiosk-recipe">
-          <select
-            id="kiosk-recipe"
-            className="select-input"
-            value={values.selectedKioskRecipeId ?? ''}
-            onChange={(event) => {
-              if (event.target.value) {
-                onSelectRecipe(event.target.value);
-              } else {
-                onChange('selectedKioskRecipeId', null);
-              }
-            }}
-          >
-            <option value="">Reçete seçin</option>
-            {KIOSK_RECIPES.map((recipe) => (
-              <option key={recipe.id} value={recipe.id}>
-                {recipe.name}
-              </option>
-            ))}
-          </select>
-          <ValidationMessage message={errors['kiosk.selectedKioskRecipeId']} />
-        </FormField>
-
-        <FormField label="Beton köşk adedi" htmlFor="kiosk-count">
-          <NumericInput
-            id="kiosk-count"
-            value={values.kioskCount}
-            unit="adet"
-            error={errors['kiosk.kioskCount']}
-            onValueChange={(value) => onChange('kioskCount', value)}
-            onValidationChange={(message) =>
-              onValidationChange('kiosk.kioskCount', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField
-          label="Köşk başına OG bakır pabuç"
-          htmlFor="og-copper-lugs"
-        >
-          <NumericInput
-            id="og-copper-lugs"
-            value={values.ogCopperLugsPerKiosk}
-            unit="adet"
-            error={errors['kiosk.ogCopperLugsPerKiosk']}
-            onValueChange={(value) => onChange('ogCopperLugsPerKiosk', value)}
-            onValidationChange={(message) =>
-              onValidationChange('kiosk.ogCopperLugsPerKiosk', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField
-          label="Köşk başına AG bakır pabuç"
-          htmlFor="ag-copper-lugs"
-        >
-          <NumericInput
-            id="ag-copper-lugs"
-            value={values.agCopperLugsPerKiosk}
-            unit="adet"
-            error={errors['kiosk.agCopperLugsPerKiosk']}
-            onValueChange={(value) => onChange('agCopperLugsPerKiosk', value)}
-            onValidationChange={(message) =>
-              onValidationChange('kiosk.agCopperLugsPerKiosk', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField
-          label="Köşk başına topraklama pabucu"
-          htmlFor="grounding-lugs"
-        >
-          <NumericInput
-            id="grounding-lugs"
-            value={values.groundingLugsPerKiosk}
-            unit="adet"
-            error={errors['kiosk.groundingLugsPerKiosk']}
-            onValueChange={(value) => onChange('groundingLugsPerKiosk', value)}
-            onValidationChange={(message) =>
-              onValidationChange('kiosk.groundingLugsPerKiosk', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField label="Köşk başına kablo rakoru" htmlFor="cable-glands">
-          <NumericInput
-            id="cable-glands"
-            value={values.cableGlandsPerKiosk}
-            unit="adet"
-            error={errors['kiosk.cableGlandsPerKiosk']}
-            onValueChange={(value) => onChange('cableGlandsPerKiosk', value)}
-            onValidationChange={(message) =>
-              onValidationChange('kiosk.cableGlandsPerKiosk', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField label="Köşk başına bims" htmlFor="kiosk-bims">
-          <NumericInput
-            id="kiosk-bims"
-            value={values.bimsBlocksPerKiosk}
-            unit="adet"
-            error={errors['kiosk.bimsBlocksPerKiosk']}
-            onValueChange={(value) => onChange('bimsBlocksPerKiosk', value)}
-            onValidationChange={(message) =>
-              onValidationChange('kiosk.bimsBlocksPerKiosk', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
+      <div className="entry-toolbar">
+        <button type="button" className="btn btn--secondary" onClick={onAdd}>
+          Köşk Grubu Ekle
+        </button>
       </div>
+
+      {groups.length === 0 ? (
+        <p className="entry-empty">
+          Henüz köşk grubu yok. “Köşk Grubu Ekle” ile başlayın.
+        </p>
+      ) : (
+        <div className="entry-list">
+          {groups.map((group) => (
+            <article key={group.id} className="entry-card">
+              <div className="entry-card__header">
+                <FormField
+                  label="Grup adı"
+                  htmlFor={`kiosk-name-${group.id}`}
+                >
+                  <input
+                    id={`kiosk-name-${group.id}`}
+                    className="text-input"
+                    value={group.name}
+                    onChange={(event) =>
+                      onUpdate(group.id, 'name', event.target.value)
+                    }
+                  />
+                </FormField>
+                <div className="entry-card__actions">
+                  <button
+                    type="button"
+                    className="btn btn--ghost"
+                    onClick={() => onDuplicate(group.id)}
+                  >
+                    Kopyala
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn--ghost"
+                    onClick={() => onRemove(group.id)}
+                  >
+                    Sil
+                  </button>
+                </div>
+              </div>
+
+              <div className="field-grid field-grid--dense">
+                <FormField
+                  label="Köşk reçetesi"
+                  htmlFor={`kiosk-recipe-${group.id}`}
+                >
+                  <select
+                    id={`kiosk-recipe-${group.id}`}
+                    className="select-input"
+                    value={group.recipeId ?? ''}
+                    onChange={(event) => {
+                      if (event.target.value) {
+                        onSelectRecipe(group.id, event.target.value);
+                      } else {
+                        onUpdate(group.id, 'recipeId', null);
+                      }
+                    }}
+                  >
+                    <option value="">Reçete seçin</option>
+                    {KIOSK_RECIPES.map((recipe) => (
+                      <option key={recipe.id} value={recipe.id}>
+                        {recipe.name}
+                      </option>
+                    ))}
+                  </select>
+                  <ValidationMessage
+                    message={errors[`kioskGroup.${group.id}.recipeId`]}
+                  />
+                </FormField>
+
+                <FormField
+                  label="Köşk adedi"
+                  htmlFor={`kiosk-count-${group.id}`}
+                >
+                  <NumericInput
+                    id={`kiosk-count-${group.id}`}
+                    value={group.count}
+                    unit="adet"
+                    error={errors[`kioskGroup.${group.id}.count`]}
+                    onValueChange={(value) =>
+                      onUpdate(group.id, 'count', value)
+                    }
+                    onValidationChange={(message) =>
+                      onValidationChange(
+                        `kioskGroup.${group.id}.count`,
+                        message,
+                      )
+                    }
+                    parseValue={parseNonNegativeNumber}
+                  />
+                </FormField>
+
+                {(
+                  [
+                    ['ogCopperLugPerKiosk', 'OG bakır pabuç / köşk'],
+                    ['agCopperLugPerKiosk', 'AG bakır pabuç / köşk'],
+                    ['groundingLugPerKiosk', 'Topraklama pabucu / köşk'],
+                    ['cableGlandPerKiosk', 'Kablo rakoru / köşk'],
+                    ['bimsBlockPerKiosk', 'Bims / köşk'],
+                  ] as const
+                ).map(([key, label]) => (
+                  <FormField
+                    key={key}
+                    label={label}
+                    htmlFor={`kiosk-${key}-${group.id}`}
+                  >
+                    <NumericInput
+                      id={`kiosk-${key}-${group.id}`}
+                      value={group[key]}
+                      unit="adet"
+                      error={errors[`kioskGroup.${group.id}.${key}`]}
+                      onValueChange={(value) =>
+                        onUpdate(group.id, key, value)
+                      }
+                      onValidationChange={(message) =>
+                        onValidationChange(
+                          `kioskGroup.${group.id}.${key}`,
+                          message,
+                        )
+                      }
+                      parseValue={parseNonNegativeNumber}
+                    />
+                  </FormField>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
     </SectionCard>
   );
 }

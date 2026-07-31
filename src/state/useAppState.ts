@@ -1,23 +1,31 @@
 import { useCallback, useState } from 'react';
 import { applyCalculation, createInitialAppState } from '../domain/defaults';
-import { getKioskRecipe, kioskRecipeToInputValues } from '../domain/recipes/kioskRecipes';
-import { getTableRecipe } from '../domain/recipes/tableRecipes';
+import {
+  applyKioskRecipeToGroup,
+  createEmptyKioskGroup,
+  createEmptyTrench,
+  createEmptyWall,
+  duplicateKioskGroupEntry,
+  duplicateTrenchEntry,
+  duplicateWallEntry,
+} from '../domain/entries';
 import {
   sampleCalculationInputs,
   sampleProjectInputs,
 } from '../domain/sampleProject';
 import type {
   AppState,
-  BimsInputs,
-  CableTrenchInputs,
+  CableTrenchInput,
   ConcreteFootMode,
   FoundationInputs,
-  KioskInputs,
+  KioskGroupInput,
   PanelTableInputs,
   ProjectInput,
   ValidationFieldKey,
+  WallInput,
 } from '../domain/types';
-import { setFieldError } from '../domain/validation';
+import { clearErrorsForPrefix, setFieldError } from '../domain/validation';
+import { getTableRecipe } from '../domain/recipes/tableRecipes';
 
 function commit(updater: (prev: AppState) => AppState) {
   return (prev: AppState) => applyCalculation(updater(prev));
@@ -63,15 +71,13 @@ export function useAppState() {
           panelTable: {
             ...prev.calculations.panelTable,
             selectedTableRecipeId: recipeId,
-            panelsPerTable: recipe?.panelsPerTable ?? prev.calculations.panelTable.panelsPerTable,
-            legsPerTable: recipe?.feetPerTable ?? prev.calculations.panelTable.legsPerTable,
+            panelsPerTable:
+              recipe?.panelsPerTable ??
+              prev.calculations.panelTable.panelsPerTable,
+            legsPerTable:
+              recipe?.feetPerTable ?? prev.calculations.panelTable.legsPerTable,
           },
         },
-        validationErrors: setFieldError(
-          prev.validationErrors,
-          'panelTable.selectedTableRecipeId',
-          recipe ? null : 'Geçersiz masa reçetesi seçildi.',
-        ),
       })),
     );
   }, []);
@@ -106,74 +112,232 @@ export function useAppState() {
     );
   }, []);
 
-  const updateCableTrench = useCallback(
-    <K extends keyof CableTrenchInputs>(key: K, value: CableTrenchInputs[K]) => {
-      setState(
-        commit((prev) => ({
-          ...prev,
-          calculations: {
-            ...prev.calculations,
-            cableTrench: { ...prev.calculations.cableTrench, [key]: value },
-          },
-        })),
-      );
-    },
-    [],
-  );
-
-  const updateKiosk = useCallback(
-    <K extends keyof KioskInputs>(key: K, value: KioskInputs[K]) => {
-      setState(
-        commit((prev) => ({
-          ...prev,
-          calculations: {
-            ...prev.calculations,
-            kiosk: { ...prev.calculations.kiosk, [key]: value },
-          },
-        })),
-      );
-    },
-    [],
-  );
-
-  const selectKioskRecipe = useCallback((recipeId: string) => {
-    const recipe = getKioskRecipe(recipeId);
-    const values = recipe ? kioskRecipeToInputValues(recipe) : null;
-
+  const addTrench = useCallback(() => {
     setState(
       commit((prev) => ({
         ...prev,
         calculations: {
           ...prev.calculations,
-          kiosk: {
-            ...prev.calculations.kiosk,
-            selectedKioskRecipeId: recipeId,
-            ...(values ?? {}),
-          },
+          trenches: [...prev.calculations.trenches, createEmptyTrench()],
         },
-        validationErrors: setFieldError(
-          prev.validationErrors,
-          'kiosk.selectedKioskRecipeId',
-          recipe ? null : 'Geçersiz köşk reçetesi seçildi.',
-        ),
       })),
     );
   }, []);
 
-  const updateBims = useCallback(
-    <K extends keyof BimsInputs>(key: K, value: BimsInputs[K]) => {
+  const updateTrench = useCallback(
+    <K extends keyof CableTrenchInput>(
+      id: string,
+      key: K,
+      value: CableTrenchInput[K],
+    ) => {
       setState(
         commit((prev) => ({
           ...prev,
           calculations: {
             ...prev.calculations,
-            bims: { ...prev.calculations.bims, [key]: value },
+            trenches: prev.calculations.trenches.map((trench) =>
+              trench.id === id ? { ...trench, [key]: value } : trench,
+            ),
           },
         })),
       );
     },
     [],
   );
+
+  const removeTrench = useCallback((id: string) => {
+    setState(
+      commit((prev) => ({
+        ...prev,
+        validationErrors: clearErrorsForPrefix(
+          prev.validationErrors,
+          `trench.${id}.`,
+        ),
+        calculations: {
+          ...prev.calculations,
+          trenches: prev.calculations.trenches.filter(
+            (trench) => trench.id !== id,
+          ),
+        },
+      })),
+    );
+  }, []);
+
+  const duplicateTrench = useCallback((id: string) => {
+    setState(
+      commit((prev) => {
+        const source = prev.calculations.trenches.find((t) => t.id === id);
+        if (!source) {
+          return prev;
+        }
+
+        return {
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            trenches: [
+              ...prev.calculations.trenches,
+              duplicateTrenchEntry(source),
+            ],
+          },
+        };
+      }),
+    );
+  }, []);
+
+  const addKioskGroup = useCallback(() => {
+    setState(
+      commit((prev) => ({
+        ...prev,
+        calculations: {
+          ...prev.calculations,
+          kioskGroups: [
+            ...prev.calculations.kioskGroups,
+            createEmptyKioskGroup(),
+          ],
+        },
+      })),
+    );
+  }, []);
+
+  const updateKioskGroup = useCallback(
+    <K extends keyof KioskGroupInput>(
+      id: string,
+      key: K,
+      value: KioskGroupInput[K],
+    ) => {
+      setState(
+        commit((prev) => ({
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            kioskGroups: prev.calculations.kioskGroups.map((group) =>
+              group.id === id ? { ...group, [key]: value } : group,
+            ),
+          },
+        })),
+      );
+    },
+    [],
+  );
+
+  const selectKioskGroupRecipe = useCallback((id: string, recipeId: string) => {
+    setState(
+      commit((prev) => ({
+        ...prev,
+        calculations: {
+          ...prev.calculations,
+          kioskGroups: prev.calculations.kioskGroups.map((group) =>
+            group.id === id ? applyKioskRecipeToGroup(group, recipeId) : group,
+          ),
+        },
+      })),
+    );
+  }, []);
+
+  const removeKioskGroup = useCallback((id: string) => {
+    setState(
+      commit((prev) => ({
+        ...prev,
+        validationErrors: clearErrorsForPrefix(
+          prev.validationErrors,
+          `kioskGroup.${id}.`,
+        ),
+        calculations: {
+          ...prev.calculations,
+          kioskGroups: prev.calculations.kioskGroups.filter(
+            (group) => group.id !== id,
+          ),
+        },
+      })),
+    );
+  }, []);
+
+  const duplicateKioskGroup = useCallback((id: string) => {
+    setState(
+      commit((prev) => {
+        const source = prev.calculations.kioskGroups.find((g) => g.id === id);
+        if (!source) {
+          return prev;
+        }
+
+        return {
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            kioskGroups: [
+              ...prev.calculations.kioskGroups,
+              duplicateKioskGroupEntry(source),
+            ],
+          },
+        };
+      }),
+    );
+  }, []);
+
+  const addWall = useCallback(() => {
+    setState(
+      commit((prev) => ({
+        ...prev,
+        calculations: {
+          ...prev.calculations,
+          walls: [...prev.calculations.walls, createEmptyWall()],
+        },
+      })),
+    );
+  }, []);
+
+  const updateWall = useCallback(
+    <K extends keyof WallInput>(id: string, key: K, value: WallInput[K]) => {
+      setState(
+        commit((prev) => ({
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            walls: prev.calculations.walls.map((wall) =>
+              wall.id === id ? { ...wall, [key]: value } : wall,
+            ),
+          },
+        })),
+      );
+    },
+    [],
+  );
+
+  const removeWall = useCallback((id: string) => {
+    setState(
+      commit((prev) => ({
+        ...prev,
+        validationErrors: clearErrorsForPrefix(
+          prev.validationErrors,
+          `wall.${id}.`,
+        ),
+        calculations: {
+          ...prev.calculations,
+          walls: prev.calculations.walls.filter((wall) => wall.id !== id),
+        },
+      })),
+    );
+  }, []);
+
+  const duplicateWall = useCallback((id: string) => {
+    setState(
+      commit((prev) => {
+        const source = prev.calculations.walls.find((w) => w.id === id);
+        if (!source) {
+          return prev;
+        }
+
+        return {
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            walls: [...prev.calculations.walls, duplicateWallEntry(source)],
+          },
+        };
+      }),
+    );
+  }, []);
 
   const setValidationError = useCallback(
     (field: ValidationFieldKey, message: string | null) => {
@@ -200,6 +364,8 @@ export function useAppState() {
           sand: null,
           bims: null,
         },
+        trenchSummaries: {},
+        wallSummaries: {},
       }),
     );
   }, []);
@@ -215,10 +381,19 @@ export function useAppState() {
     selectTableRecipe,
     updateFoundation,
     setConcreteFootMode,
-    updateCableTrench,
-    updateKiosk,
-    selectKioskRecipe,
-    updateBims,
+    addTrench,
+    updateTrench,
+    removeTrench,
+    duplicateTrench,
+    addKioskGroup,
+    updateKioskGroup,
+    selectKioskGroupRecipe,
+    removeKioskGroup,
+    duplicateKioskGroup,
+    addWall,
+    updateWall,
+    removeWall,
+    duplicateWall,
     setValidationError,
     loadSampleProject,
     resetForm,

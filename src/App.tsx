@@ -27,10 +27,19 @@ export default function App() {
     selectTableRecipe,
     updateFoundation,
     setConcreteFootMode,
-    updateCableTrench,
-    updateKiosk,
-    selectKioskRecipe,
-    updateBims,
+    addTrench,
+    updateTrench,
+    removeTrench,
+    duplicateTrench,
+    addKioskGroup,
+    updateKioskGroup,
+    selectKioskGroupRecipe,
+    removeKioskGroup,
+    duplicateKioskGroup,
+    addWall,
+    updateWall,
+    removeWall,
+    duplicateWall,
     setValidationError,
     loadSampleProject,
     resetForm,
@@ -95,24 +104,35 @@ export default function App() {
           />
 
           <CableTrenchSection
-            values={state.calculations.cableTrench}
+            trenches={state.calculations.trenches}
+            summaries={state.trenchSummaries}
             errors={state.validationErrors}
-            onChange={updateCableTrench}
+            onAdd={addTrench}
+            onUpdate={updateTrench}
+            onRemove={removeTrench}
+            onDuplicate={duplicateTrench}
             onValidationChange={setValidationError}
           />
 
           <KioskSection
-            values={state.calculations.kiosk}
+            groups={state.calculations.kioskGroups}
             errors={state.validationErrors}
-            onChange={updateKiosk}
-            onSelectRecipe={selectKioskRecipe}
+            onAdd={addKioskGroup}
+            onUpdate={updateKioskGroup}
+            onSelectRecipe={selectKioskGroupRecipe}
+            onRemove={removeKioskGroup}
+            onDuplicate={duplicateKioskGroup}
             onValidationChange={setValidationError}
           />
 
           <BimsSection
-            values={state.calculations.bims}
+            walls={state.calculations.walls}
+            summaries={state.wallSummaries}
             errors={state.validationErrors}
-            onChange={updateBims}
+            onAdd={addWall}
+            onUpdate={updateWall}
+            onRemove={removeWall}
+            onDuplicate={duplicateWall}
             onValidationChange={setValidationError}
           />
 

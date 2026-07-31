@@ -12,6 +12,16 @@ export type MaterialId =
   | 'BOLT'
   | 'CONCRETE'
   | 'SAND'
+  | 'EXCAVATION'
+  | 'DC_CABLE'
+  | 'AC_CABLE'
+  | 'MV_CABLE'
+  | 'COMMUNICATION_CABLE'
+  | 'GROUNDING_CABLE'
+  | 'OTHER_CABLE'
+  | 'WARNING_TAPE'
+  | 'CABLE_PROTECTION_PLATE'
+  | 'CONDUIT'
   | 'OG_COPPER_LUG'
   | 'AG_COPPER_LUG'
   | 'GROUNDING_LUG'
@@ -31,11 +41,10 @@ export interface ProjectInput {
   projectName: string;
   plantPowerMWp: number | null;
   panelPowerWp: number | null;
-  /** Reserved for a later step — not applied globally in PR-002. */
+  /** Reserved — not applied globally yet. */
   generalWastePercent: number | null;
 }
 
-/** @deprecated Prefer ProjectInput — kept as alias for existing imports. */
 export type ProjectInputs = ProjectInput;
 
 export interface TableRecipeItem {
@@ -80,26 +89,48 @@ export interface FoundationInputs {
   concreteWastePercent: number | null;
 }
 
-export interface CableTrenchInputs {
-  trenchLengthM: number | null;
-  trenchWidthM: number | null;
-  sandHeightM: number | null;
+export type TrenchType =
+  | 'DC'
+  | 'AC'
+  | 'OG'
+  | 'Haberleşme'
+  | 'Topraklama'
+  | 'Diğer';
+
+export interface CableTrenchInput {
+  id: string;
+  name: string;
+  type: TrenchType;
+  lengthM: number | null;
+  widthM: number | null;
+  depthM: number | null;
+  lowerSandHeightM: number | null;
+  upperSandHeightM: number | null;
   sandWastePercent: number | null;
+  cableLengthM: number | null;
+  cableWastePercent: number | null;
+  warningTapeRuns: number | null;
+  protectionPlateRuns: number | null;
+  conduitRuns: number | null;
 }
 
-export interface KioskInputs {
-  selectedKioskRecipeId: string | null;
-  kioskCount: number | null;
-  ogCopperLugsPerKiosk: number | null;
-  agCopperLugsPerKiosk: number | null;
-  groundingLugsPerKiosk: number | null;
-  cableGlandsPerKiosk: number | null;
-  bimsBlocksPerKiosk: number | null;
+export interface KioskGroupInput {
+  id: string;
+  name: string;
+  recipeId: string | null;
+  count: number | null;
+  ogCopperLugPerKiosk: number | null;
+  agCopperLugPerKiosk: number | null;
+  groundingLugPerKiosk: number | null;
+  cableGlandPerKiosk: number | null;
+  bimsBlockPerKiosk: number | null;
 }
 
-export interface BimsInputs {
-  wallLengthM: number | null;
-  wallHeightM: number | null;
+export interface WallInput {
+  id: string;
+  name: string;
+  lengthM: number | null;
+  heightM: number | null;
   openingAreaM2: number | null;
   bimsWidthM: number | null;
   bimsHeightM: number | null;
@@ -109,18 +140,18 @@ export interface BimsInputs {
 export interface CalculationInputs {
   panelTable: PanelTableInputs;
   foundation: FoundationInputs;
-  cableTrench: CableTrenchInputs;
-  kiosk: KioskInputs;
-  bims: BimsInputs;
+  trenches: CableTrenchInput[];
+  kioskGroups: KioskGroupInput[];
+  walls: WallInput[];
 }
 
 export type ValidationFieldKey =
   | keyof ProjectInput
   | `panelTable.${keyof PanelTableInputs}`
   | `foundation.${keyof FoundationInputs}`
-  | `cableTrench.${keyof CableTrenchInputs}`
-  | `kiosk.${keyof KioskInputs}`
-  | `bims.${keyof BimsInputs}`;
+  | `trench.${string}.${keyof CableTrenchInput}`
+  | `kioskGroup.${string}.${keyof KioskGroupInput}`
+  | `wall.${string}.${keyof WallInput}`;
 
 export interface ValidationError {
   field: ValidationFieldKey;
@@ -149,10 +180,24 @@ export interface SummaryValues {
   bims: number | null;
 }
 
+export interface TrenchRowSummary {
+  excavationM3: number | null;
+  sandOrderM3: number | null;
+  cableOrderM: number | null;
+}
+
+export interface WallRowSummary {
+  grossAreaM2: number | null;
+  netAreaM2: number | null;
+  orderBimsCount: number | null;
+}
+
 export interface CalculationResult {
   summary: SummaryValues;
   materialRows: MaterialResultRow[];
   validationErrors: ValidationErrors;
+  trenchSummaries: Record<string, TrenchRowSummary>;
+  wallSummaries: Record<string, WallRowSummary>;
 }
 
 export interface AppState {
@@ -161,6 +206,8 @@ export interface AppState {
   validationErrors: ValidationErrors;
   materialRows: MaterialResultRow[];
   summary: SummaryValues;
+  trenchSummaries: Record<string, TrenchRowSummary>;
+  wallSummaries: Record<string, WallRowSummary>;
 }
 
 export type AppSectionId =
@@ -171,3 +218,12 @@ export type AppSectionId =
   | 'kiosk'
   | 'bims'
   | 'materials';
+
+export const TRENCH_TYPES: TrenchType[] = [
+  'DC',
+  'AC',
+  'OG',
+  'Haberleşme',
+  'Topraklama',
+  'Diğer',
+];

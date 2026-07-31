@@ -34,7 +34,6 @@ npm run build
 - Masaüstü öncelikli düzen ve sol bölüm navigasyonu
 - Türkçe arayüz metinleri
 - Form bölümleri ve yeniden kullanılabilir bileşenler
-- Tip güvenli girdi modelleri
 
 ## PR-002 kapsamı
 
@@ -42,33 +41,43 @@ npm run build
 - Masa ve beton köşk reçete sistemi
 - Canlı özet kartlar ve malzeme sonuç tablosu
 - Aynı malzeme kimliğinin tek satırda birleştirilmesi
-- Formül doğrulama ve otomatik testler
 
-### Uygulanan formüller
+## PR-003 kapsamı
 
-- Panel: `ceil(santralMWp × 1.000.000 / panelWp)`
-- Masa: `ceil(panelAdedi / masaBaşınaPanel)`
-- Toplam ayak: `masaAdedi × masaBaşınaAyak`
-- Beton ayak (yüzde): `ceil(toplamAyak × oran / 100)`
-- Beton hacmi: ayak × (genişlik × uzunluk × derinlik), sipariş = net × (1 + fire/100)
-- Kum: kanal × genişlik × yükseklik, sipariş = net × (1 + fire/100)
-- Köşk malzemeleri: `köşkAdedi × köşkBaşınaMiktar`
-- Bims (duvar): `ceil(netAlan / (bimsGenişlik × bimsYükseklik))`, sipariş fire ile yukarı yuvarlanır
-- Reçete malzemeleri: `masaAdedi × masaBaşınaMiktar`
+- Çoklu kablo kanalı satırları
+- Çoklu köşk grupları
+- Çoklu yapı/duvar satırları
+- Satır ekleme / silme / kopyalama
+- Satır bazlı doğrulama
+- Tüm satırların malzeme sonuçlarında toplanması
 
-### Reçete sistemi
+### PR-003 formülleri
 
-- Masa reçeteleri (`2P x 14`, `2P x 28`) mekanik malzeme miktarlarını tanımlar.
-- Köşk reçeteleri (`Standart Beton Köşk`, `Büyük Beton Köşk`) birim başına elektrik/inşaat malzemelerini tanımlar.
-- Reçete seçimi alanları doldurur; kullanıcı değerleri elle değiştirebilir.
-- **Uyarı:** Hazır reçeteler örnek başlangıç değerleridir. Gerçek proje standartlarınıza göre kontrol ediniz.
+- Kazı: `uzunluk × genişlik × derinlik`
+- Alt/üst kum: `uzunluk × genişlik × kumYüksekliği`
+- Sipariş kum: `netKum × (1 + fire/100)`
+- Sipariş kablo: `kabloUzunluğu × (1 + fire/100)` (tip → malzeme kimliği)
+- Uyarı bandı / plaka / boru: `uzunluk × hatAdedi`
+- Köşk grubu: `adet × görünürBirimMiktar` (gruplar toplanır)
+- Duvar bims: `ceil(netAlan / (genişlik × yükseklik))`, fire ile sipariş
+
+### Çoklu girdi davranışı
+
+- Kanal, köşk ve duvar koleksiyonları boş başlayabilir.
+- Örnek proje birden fazla satır yükler.
+- Aynı `MaterialId` tek satırda birleşir; açıklamalar kaynakları özetler.
+- Geçersiz bir satır diğer geçerli satırların hesabını bozmaz.
+
+### Reçete uyarısı
+
+Hazır reçeteler örnek başlangıç değerleridir. Gerçek proje standartlarınıza göre kontrol ediniz.
 
 ### Bilinen sınırlamalar
 
-- Genel proje fire oranı henüz küresel uygulanmaz (sonraki adım için ayrılmıştır).
-- Kablo kanalı tek satırlıdır; çoklu hat / kablo metrajı yoktur.
-- Reçete editörü yoktur; starter reçeteler kod içindedir.
+- Genel proje fire oranı küresel uygulanmaz.
+- Reçete editörü yoktur.
+- Excel dışa aktarma ve yerel proje kaydı yoktur.
 
 ## Sonraki planlanan PR
 
-Çok satırlı kablo kanalı ve kablo hesaplamaları.
+Excel dışa aktarma ve yerel proje kalıcılığı.
