@@ -1,0 +1,28 @@
+.app-header {
+  padding: 1.15rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--header-top) 0%, var(--surface) 100%);
+}
+
+.app-header__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.app-header__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.2vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--brand);
+  line-height: 1.15;
+}
+
+.app-header__tagline {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}

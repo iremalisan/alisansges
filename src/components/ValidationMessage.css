@@ -1,0 +1,6 @@
+.validation-message {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--danger);
+  line-height: 1.35;
+}

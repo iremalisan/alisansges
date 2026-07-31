@@ -1,0 +1,26 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.form-field__label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 550;
+  color: var(--text);
+}
+
+.form-field__required {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.form-field__hint {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
