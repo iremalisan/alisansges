@@ -42,20 +42,10 @@ export function setFieldError(
   return next;
 }
 
-/** Clear calculation-owned keys before merging fresh calculation errors. */
-export const CALCULATION_ERROR_KEYS: ValidationFieldKey[] = [
-  'plantPowerMWp',
-  'panelPowerWp',
-  'panelTable.selectedTableRecipeId',
-  'panelTable.panelsPerTable',
-  'panelTable.legsPerTable',
-  'foundation.concreteLegsCount',
-  'foundation.concreteLegsPercent',
-  'kiosk.selectedKioskRecipeId',
-  'bims.openingAreaM2',
-  'bims.bimsWidthM',
-  'bims.bimsHeightM',
-];
+const PARSE_MESSAGES = new Set([
+  NEGATIVE_VALUE_MESSAGE,
+  INVALID_NUMBER_MESSAGE,
+]);
 
 export function mergeValidationErrors(
   previousErrors: ValidationErrors,
@@ -66,14 +56,27 @@ export function mergeValidationErrors(
   for (const [key, message] of Object.entries(previousErrors) as Array<
     [ValidationFieldKey, string]
   >) {
-    const isParseError =
-      message === NEGATIVE_VALUE_MESSAGE ||
-      message === INVALID_NUMBER_MESSAGE;
-
-    if (!CALCULATION_ERROR_KEYS.includes(key) || isParseError) {
+    if (PARSE_MESSAGES.has(message)) {
       merged[key] = message;
     }
   }
 
   return { ...merged, ...calculationErrors };
+}
+
+export function clearErrorsForPrefix(
+  errors: ValidationErrors,
+  prefix: string,
+): ValidationErrors {
+  const next: ValidationErrors = {};
+
+  for (const [key, message] of Object.entries(errors) as Array<
+    [ValidationFieldKey, string]
+  >) {
+    if (!key.startsWith(prefix)) {
+      next[key] = message;
+    }
+  }
+
+  return next;
 }

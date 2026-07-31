@@ -1,4 +1,4 @@
-/** Pure numeric formulas for GES Metraj Pro (PR-002). */
+/** Pure numeric formulas for GES Metraj Pro. */
 
 export function calculatePanelCount(
   plantPowerMWp: number,
@@ -65,11 +65,40 @@ export function calculateOrderSandVolume(
   return sandVolume * (1 + sandWastePercent / 100);
 }
 
+export function calculateExcavationVolume(
+  lengthM: number,
+  widthM: number,
+  depthM: number,
+): number {
+  return lengthM * widthM * depthM;
+}
+
+export function calculateOrderCableLength(
+  cableLengthM: number,
+  cableWastePercent: number,
+): number {
+  return cableLengthM * (1 + cableWastePercent / 100);
+}
+
+export function calculateRunLength(
+  lengthM: number,
+  runs: number,
+): number {
+  return lengthM * runs;
+}
+
 export function calculateKioskMaterialTotal(
   kioskCount: number,
   perKioskQuantity: number,
 ): number {
   return kioskCount * perKioskQuantity;
+}
+
+export function calculateGrossWallArea(
+  wallLengthM: number,
+  wallHeightM: number,
+): number {
+  return wallLengthM * wallHeightM;
 }
 
 export function calculateNetWallArea(
@@ -104,4 +133,8 @@ export function calculateRecipeMaterialTotal(
 
 export function isFiniteNumber(value: number): boolean {
   return Number.isFinite(value);
+}
+
+export function isNonNegativeInteger(value: number): boolean {
+  return Number.isInteger(value) && value >= 0;
 }

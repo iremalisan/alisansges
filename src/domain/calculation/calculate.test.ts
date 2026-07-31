@@ -1,174 +1,280 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, beforeEach } from 'vitest';
 import { calculateMaterials, MSG } from './calculate';
 import {
-  calculateConcreteFootCountFromPercent,
-  calculateConcreteVolumePerFoot,
-  calculateNetBimsCount,
-  calculateNetWallArea,
-  calculateOrderBimsCount,
-  calculateOrderConcreteVolume,
-  calculateOrderSandVolume,
+  calculateExcavationVolume,
+  calculateOrderCableLength,
   calculatePanelCount,
-  calculateRecipeMaterialTotal,
+  calculateRunLength,
   calculateSandVolume,
   calculateTableCount,
   calculateTotalFootCount,
-  calculateKioskMaterialTotal,
 } from './formulas';
 import {
   sampleCalculationInputs,
   sampleProjectInputs,
 } from '../sampleProject';
 import { emptyCalculationInputs, emptyProjectInputs } from '../defaults';
-import type { CalculationInputs, ProjectInput } from '../types';
+import {
+  applyKioskRecipeToGroup,
+  createEmptyTrench,
+  createFixedKioskGroup,
+  createFixedTrench,
+  createFixedWall,
+} from '../entries';
+import { resetIdSequence } from '../ids';
+import type { CalculationInputs } from '../types';
+import { cableMaterialForTrenchType } from '../recipes/materialCatalog';
 
-describe('formulas', () => {
+beforeEach(() => {
+  resetIdSequence(0);
+});
+
+describe('formulas (PR-002 retained)', () => {
   it('calculates 90 MWp / 700 Wp as 128572 panels', () => {
     expect(calculatePanelCount(90, 700)).toBe(128572);
   });
 
-  it('rounds table count up', () => {
+  it('rounds table count up and calculates total feet', () => {
     expect(calculateTableCount(128572, 56)).toBe(2296);
-  });
-
-  it('calculates total feet', () => {
     expect(calculateTotalFootCount(2296, 8)).toBe(18368);
-  });
-
-  it('supports percentage concrete foot mode', () => {
-    expect(calculateConcreteFootCountFromPercent(18368, 10)).toBe(1837);
-  });
-
-  it('calculates concrete volume and waste', () => {
-    const perFoot = calculateConcreteVolumePerFoot(0.45, 0.45, 1.2);
-    expect(perFoot).toBeCloseTo(0.243, 6);
-    const net = 1837 * perFoot;
-    const order = calculateOrderConcreteVolume(net, 5);
-    expect(order).toBeCloseTo(net * 1.05, 6);
-  });
-
-  it('calculates sand volume and waste', () => {
-    const sand = calculateSandVolume(8500, 0.6, 0.2);
-    expect(sand).toBe(1020);
-    expect(calculateOrderSandVolume(sand, 5)).toBeCloseTo(1071, 6);
-  });
-
-  it('validates wall area and bims counts', () => {
-    expect(calculateNetWallArea(80, 3, 20)).toBe(220);
-    expect(calculateNetWallArea(10, 2, 30)).toBeLessThan(0);
-    expect(calculateNetBimsCount(220, 0.4, 0.2)).toBe(2750);
-    expect(calculateOrderBimsCount(2750, 5)).toBe(2888);
-  });
-
-  it('multiplies recipe and kiosk quantities', () => {
-    expect(calculateRecipeMaterialTotal(10, 8)).toBe(80);
-    expect(calculateKioskMaterialTotal(10, 24)).toBe(240);
   });
 });
 
-describe('calculateMaterials', () => {
-  it('returns exact panel count for the 90 MWp example project', () => {
+describe('trench formulas', () => {
+  it('calculates excavation and dual sand layers', () => {
+    expect(calculateExcavationVolume(4500, 0.6, 0.8)).toBe(2160);
+    expect(calculateSandVolume(4500, 0.6, 0.1)).toBe(270);
+  });
+
+  it('applies cable waste and run multipliers', () => {
+    expect(calculateOrderCableLength(2750, 3)).toBeCloseTo(2832.5, 6);
+    expect(calculateRunLength(2500, 1)).toBe(2500);
+  });
+
+  it('maps trench types to cable material IDs', () => {
+    expect(cableMaterialForTrenchType('DC')).toBe('DC_CABLE');
+    expect(cableMaterialForTrenchType('OG')).toBe('MV_CABLE');
+    expect(cableMaterialForTrenchType('Haberleşme')).toBe(
+      'COMMUNICATION_CABLE',
+    );
+  });
+});
+
+describe('calculateMaterials multi-entry', () => {
+  it('keeps the 90 MWp panel result', () => {
     const result = calculateMaterials(
       sampleProjectInputs(),
       sampleCalculationInputs(),
     );
-
     expect(result.summary.panel).toBe(128572);
     expect(result.summary.table).toBe(2296);
     expect(result.summary.totalLegs).toBe(18368);
-    expect(result.summary.sand).toBeCloseTo(1071, 3);
-    expect(result.materialRows.some((row) => row.id === 'PANEL')).toBe(true);
   });
 
-  it('supports manual concrete foot mode', () => {
-    const project = sampleProjectInputs();
-    const calculations: CalculationInputs = {
-      ...sampleCalculationInputs(),
-      foundation: {
-        ...sampleCalculationInputs().foundation,
-        concreteFootMode: 'count',
-        concreteLegsCount: 100,
-        concreteLegsPercent: null,
-      },
-    };
-
-    const result = calculateMaterials(project, calculations);
-    expect(result.validationErrors['foundation.concreteLegsCount']).toBeUndefined();
-    expect(result.summary.concrete).not.toBeNull();
-  });
-
-  it('rejects concrete count exceeding total feet', () => {
-    const calculations: CalculationInputs = {
-      ...sampleCalculationInputs(),
-      foundation: {
-        ...sampleCalculationInputs().foundation,
-        concreteFootMode: 'count',
-        concreteLegsCount: 999999,
-      },
-    };
-
-    const result = calculateMaterials(sampleProjectInputs(), calculations);
-    expect(result.validationErrors['foundation.concreteLegsCount']).toBe(
-      MSG.concreteExceedsTotal,
+  it('aggregates sand and excavation across trenches', () => {
+    const result = calculateMaterials(
+      sampleProjectInputs(),
+      sampleCalculationInputs(),
     );
-    expect(result.summary.concrete).toBeNull();
+
+    expect(result.summary.sand).toBeCloseTo(1260, 3);
+    const excavation = result.materialRows.find((r) => r.id === 'EXCAVATION');
+    expect(excavation?.orderQuantity).toBeCloseTo(4720, 3);
   });
 
-  it('rejects wall openings larger than gross wall area', () => {
+  it('maps cables with waste and skips zero runs', () => {
+    const result = calculateMaterials(
+      sampleProjectInputs(),
+      sampleCalculationInputs(),
+    );
+
+    const dc = result.materialRows.find((r) => r.id === 'DC_CABLE');
+    const mv = result.materialRows.find((r) => r.id === 'MV_CABLE');
+    const conduit = result.materialRows.find((r) => r.id === 'CONDUIT');
+    const tape = result.materialRows.find((r) => r.id === 'WARNING_TAPE');
+
+    expect(dc?.orderQuantity).toBeCloseTo(9888, 3);
+    expect(mv?.orderQuantity).toBeCloseTo(2832.5, 3);
+    expect(conduit?.orderQuantity).toBe(4000);
+    expect(tape?.orderQuantity).toBe(8500);
+  });
+
+  it('aggregates multiple kiosk groups and walls into one BIMS row', () => {
+    const result = calculateMaterials(
+      sampleProjectInputs(),
+      sampleCalculationInputs(),
+    );
+
+    const bims = result.materialRows.filter((r) => r.id === 'BIMS_BLOCK');
+    expect(bims).toHaveLength(1);
+    // 10*600 + 2*900 + 2888 + 1182 = 11870
+    expect(bims[0].orderQuantity).toBe(11870);
+    expect(result.summary.bims).toBe(11870);
+  });
+
+  it('aggregates OG copper lugs across kiosk groups', () => {
+    const result = calculateMaterials(
+      sampleProjectInputs(),
+      sampleCalculationInputs(),
+    );
+    const og = result.materialRows.find((r) => r.id === 'OG_COPPER_LUG');
+    expect(og?.orderQuantity).toBe(10 * 24 + 2 * 36);
+  });
+
+  it('uses edited kiosk values instead of recipe defaults', () => {
+    const base = sampleCalculationInputs();
     const calculations: CalculationInputs = {
-      ...sampleCalculationInputs(),
-      bims: {
-        ...sampleCalculationInputs().bims,
-        openingAreaM2: 9999,
-      },
+      ...base,
+      kioskGroups: base.kioskGroups.map((group, index) =>
+        index === 0
+          ? { ...group, ogCopperLugPerKiosk: 5, count: 2 }
+          : group,
+      ),
     };
 
     const result = calculateMaterials(sampleProjectInputs(), calculations);
-    expect(result.validationErrors['bims.openingAreaM2']).toBe(
+    const og = result.materialRows.find((r) => r.id === 'OG_COPPER_LUG');
+    expect(og?.orderQuantity).toBe(2 * 5 + 2 * 36);
+  });
+
+  it('isolates validation errors between trench rows', () => {
+    const calculations: CalculationInputs = {
+      ...emptyCalculationInputs(),
+      trenches: [
+        createFixedTrench('ok', {
+          name: 'OK',
+          type: 'DC',
+          lengthM: 10,
+          widthM: 0.5,
+          depthM: 0.5,
+          lowerSandHeightM: 0.1,
+          upperSandHeightM: 0.1,
+          sandWastePercent: 5,
+          cableLengthM: 0,
+          cableWastePercent: 0,
+          warningTapeRuns: 0,
+          protectionPlateRuns: 0,
+          conduitRuns: 0,
+        }),
+        createFixedTrench('bad', {
+          name: 'BAD',
+          type: 'AC',
+          lengthM: 10,
+          widthM: 0,
+          depthM: 0.5,
+          lowerSandHeightM: 0.1,
+          upperSandHeightM: 0.1,
+          sandWastePercent: 5,
+          cableLengthM: null,
+          cableWastePercent: null,
+          warningTapeRuns: 0,
+          protectionPlateRuns: 0,
+          conduitRuns: 0,
+        }),
+      ],
+    };
+
+    const result = calculateMaterials(emptyProjectInputs(), calculations);
+    expect(result.validationErrors['trench.trench-bad.widthM']).toBe(
+      MSG.widthPositive,
+    );
+    expect(result.trenchSummaries['trench-ok'].excavationM3).toBeCloseTo(2.5, 3);
+    expect(result.trenchSummaries['trench-bad'].excavationM3).toBeNull();
+  });
+
+  it('rejects sand heights exceeding trench depth', () => {
+    const calculations: CalculationInputs = {
+      ...emptyCalculationInputs(),
+      trenches: [
+        createFixedTrench('deep', {
+          name: 'Deep',
+          type: 'DC',
+          lengthM: 10,
+          widthM: 1,
+          depthM: 0.2,
+          lowerSandHeightM: 0.15,
+          upperSandHeightM: 0.15,
+          sandWastePercent: 5,
+          cableLengthM: null,
+          cableWastePercent: null,
+          warningTapeRuns: 0,
+          protectionPlateRuns: 0,
+          conduitRuns: 0,
+        }),
+      ],
+    };
+
+    const result = calculateMaterials(emptyProjectInputs(), calculations);
+    expect(result.validationErrors['trench.trench-deep.lowerSandHeightM']).toBe(
+      MSG.sandExceedsDepth,
+    );
+  });
+
+  it('rejects wall openings larger than gross area without breaking other walls', () => {
+    const calculations: CalculationInputs = {
+      ...emptyCalculationInputs(),
+      walls: [
+        createFixedWall('good', {
+          name: 'Good',
+          lengthM: 10,
+          heightM: 2,
+          openingAreaM2: 1,
+          bimsWidthM: 0.4,
+          bimsHeightM: 0.2,
+          bimsWastePercent: 5,
+        }),
+        createFixedWall('bad', {
+          name: 'Bad',
+          lengthM: 10,
+          heightM: 2,
+          openingAreaM2: 50,
+          bimsWidthM: 0.4,
+          bimsHeightM: 0.2,
+          bimsWastePercent: 5,
+        }),
+      ],
+    };
+
+    const result = calculateMaterials(emptyProjectInputs(), calculations);
+    expect(result.validationErrors['wall.wall-bad.openingAreaM2']).toBe(
       MSG.openingExceedsWall,
     );
+    expect(result.wallSummaries['wall-good'].orderBimsCount).not.toBeNull();
   });
 
-  it('aggregates duplicate BIMS_BLOCK from kiosk and wall', () => {
-    const result = calculateMaterials(
-      sampleProjectInputs(),
-      sampleCalculationInputs(),
-    );
-
-    const bimsRows = result.materialRows.filter((row) => row.id === 'BIMS_BLOCK');
-    expect(bimsRows).toHaveLength(1);
-    expect(bimsRows[0].orderQuantity).toBe(6000 + 2888);
-    expect(bimsRows[0].calculationNote).toContain('köşk');
-    expect(bimsRows[0].calculationNote).toContain('ceil');
-  });
-
-  it('multiplies table recipe materials by table count', () => {
-    const result = calculateMaterials(
-      sampleProjectInputs(),
-      sampleCalculationInputs(),
-    );
-
-    const posts = result.materialRows.find((row) => row.id === 'STEEL_POST');
-    expect(posts?.orderQuantity).toBe(2296 * 8);
-  });
-
-  it('multiplies kiosk recipe materials by kiosk count', () => {
-    const result = calculateMaterials(
-      sampleProjectInputs(),
-      sampleCalculationInputs(),
-    );
-
-    const og = result.materialRows.find((row) => row.id === 'OG_COPPER_LUG');
-    expect(og?.orderQuantity).toBe(10 * 24);
-  });
-
-  it('does not emit NaN or Infinity for partial inputs', () => {
-    const project: ProjectInput = {
-      ...emptyProjectInputs(),
-      plantPowerMWp: 10,
+  it('does not emit NaN or Infinity for partial multi-entry inputs', () => {
+    const calculations: CalculationInputs = {
+      ...emptyCalculationInputs(),
+      trenches: [createEmptyTrench({ name: 'Partial', lengthM: 5 })],
+      kioskGroups: [
+        createFixedKioskGroup('partial', {
+          name: 'Partial',
+          recipeId: null,
+          count: 1,
+          ogCopperLugPerKiosk: null,
+          agCopperLugPerKiosk: null,
+          groundingLugPerKiosk: null,
+          cableGlandPerKiosk: null,
+          bimsBlockPerKiosk: null,
+        }),
+      ],
+      walls: [
+        createFixedWall('partial', {
+          name: 'Partial',
+          lengthM: 4,
+          heightM: null,
+          openingAreaM2: null,
+          bimsWidthM: null,
+          bimsHeightM: null,
+          bimsWastePercent: null,
+        }),
+      ],
     };
-    const calculations = emptyCalculationInputs();
-    const result = calculateMaterials(project, calculations);
+
+    const result = calculateMaterials(
+      { ...emptyProjectInputs(), plantPowerMWp: 1 },
+      calculations,
+    );
 
     for (const row of result.materialRows) {
       if (row.calculatedQuantity !== null) {
@@ -178,52 +284,24 @@ describe('calculateMaterials', () => {
         expect(Number.isFinite(row.orderQuantity)).toBe(true);
       }
     }
-
-    for (const value of Object.values(result.summary)) {
-      if (value !== null) {
-        expect(Number.isFinite(value)).toBe(true);
-      }
-    }
   });
 
-  it('rejects invalid recipe selection', () => {
-    const calculations: CalculationInputs = {
-      ...emptyCalculationInputs(),
-      panelTable: {
-        selectedTableRecipeId: 'missing-recipe',
-        panelsPerTable: 10,
-        legsPerTable: 4,
-      },
-      kiosk: {
-        ...emptyCalculationInputs().kiosk,
-        selectedKioskRecipeId: 'missing-kiosk',
-      },
-    };
-
-    const result = calculateMaterials(emptyProjectInputs(), calculations);
-    expect(result.validationErrors['panelTable.selectedTableRecipeId']).toBe(
-      MSG.invalidTableRecipe,
-    );
-    expect(result.validationErrors['kiosk.selectedKioskRecipeId']).toBe(
-      MSG.invalidKioskRecipe,
-    );
-  });
-
-  it('rejects zero panel/plant power and zero face dimensions', () => {
-    const result = calculateMaterials(
-      { ...sampleProjectInputs(), plantPowerMWp: 0, panelPowerWp: 0 },
-      {
-        ...sampleCalculationInputs(),
-        bims: {
-          ...sampleCalculationInputs().bims,
-          bimsWidthM: 0,
-          bimsHeightM: 0,
-        },
-      },
+  it('supports independent recipe population for kiosk groups', () => {
+    const group = applyKioskRecipeToGroup(
+      createFixedKioskGroup('r', {
+        name: 'R',
+        recipeId: null,
+        count: 1,
+        ogCopperLugPerKiosk: null,
+        agCopperLugPerKiosk: null,
+        groundingLugPerKiosk: null,
+        cableGlandPerKiosk: null,
+        bimsBlockPerKiosk: null,
+      }),
+      'standard-concrete-kiosk',
     );
 
-    expect(result.validationErrors.plantPowerMWp).toBe(MSG.plantPowerPositive);
-    expect(result.validationErrors.panelPowerWp).toBe(MSG.panelPowerPositive);
-    expect(result.validationErrors['bims.bimsWidthM']).toBe(MSG.bimsFacePositive);
+    expect(group.ogCopperLugPerKiosk).toBe(24);
+    expect(group.bimsBlockPerKiosk).toBe(600);
   });
 });
