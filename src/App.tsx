@@ -24,9 +24,12 @@ export default function App() {
     state,
     updateProject,
     updatePanelTable,
+    selectTableRecipe,
     updateFoundation,
+    setConcreteFootMode,
     updateCableTrench,
     updateKiosk,
+    selectKioskRecipe,
     updateBims,
     setValidationError,
     loadSampleProject,
@@ -58,8 +61,7 @@ export default function App() {
           </button>
         </div>
         <p className="app-toolbar__hint">
-          Girdi alanlarını doldurun. Sonuçlar hesaplama motoru eklendikten sonra
-          üretilecek.
+          Girdiler değiştikçe malzeme sonuçları anında yeniden hesaplanır.
         </p>
       </div>
 
@@ -80,6 +82,7 @@ export default function App() {
             values={state.calculations.panelTable}
             errors={state.validationErrors}
             onChange={updatePanelTable}
+            onSelectRecipe={selectTableRecipe}
             onValidationChange={setValidationError}
           />
 
@@ -87,6 +90,7 @@ export default function App() {
             values={state.calculations.foundation}
             errors={state.validationErrors}
             onChange={updateFoundation}
+            onModeChange={setConcreteFootMode}
             onValidationChange={setValidationError}
           />
 
@@ -101,6 +105,7 @@ export default function App() {
             values={state.calculations.kiosk}
             errors={state.validationErrors}
             onChange={updateKiosk}
+            onSelectRecipe={selectKioskRecipe}
             onValidationChange={setValidationError}
           />
 

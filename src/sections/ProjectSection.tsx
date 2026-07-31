@@ -2,14 +2,14 @@ import { FormField } from '../components/FormField';
 import { NumericInput } from '../components/NumericInput';
 import { SectionCard } from '../components/SectionCard';
 import { ValidationMessage } from '../components/ValidationMessage';
-import type { ProjectInputs, ValidationErrors } from '../domain/types';
+import type { ProjectInput, ValidationErrors } from '../domain/types';
 import { parseNonNegativeNumber } from '../domain/validation';
 
 interface ProjectSectionProps {
-  values: ProjectInputs;
+  values: ProjectInput;
   errors: ValidationErrors;
-  onChange: <K extends keyof ProjectInputs>(key: K, value: ProjectInputs[K]) => void;
-  onValidationChange: (field: keyof ProjectInputs, message: string | null) => void;
+  onChange: <K extends keyof ProjectInput>(key: K, value: ProjectInput[K]) => void;
+  onValidationChange: (field: keyof ProjectInput, message: string | null) => void;
 }
 
 export function ProjectSection({
@@ -64,7 +64,11 @@ export function ProjectSection({
           />
         </FormField>
 
-        <FormField label="Genel fire oranı" htmlFor="general-waste">
+        <FormField
+          label="Genel fire oranı"
+          htmlFor="general-waste"
+          hint="Sonraki adım için ayrılmıştır; PR-002’de küresel fire uygulanmaz."
+        >
           <NumericInput
             id="general-waste"
             value={values.generalWastePercent}

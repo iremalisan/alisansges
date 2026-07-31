@@ -13,23 +13,45 @@ export function MaterialsSection({ summary, rows }: MaterialsSectionProps) {
     <SectionCard
       id="materials"
       title="Malzeme Listesi"
-      description="Özet kartlar ve malzeme tablosu. Hesaplama motoru sonraki adımda eklenecek."
+      description="Canlı özet kartlar ve birleştirilmiş malzeme sonuçları."
     >
-      <p className="engine-notice" role="status">
-        Hesaplama motoru sonraki adımda eklenecek.
-      </p>
-
       <div className="summary-grid" aria-label="Özet sonuçlar">
-        <ResultSummaryCard label="Panel" value={summary.panel} unit="adet" />
-        <ResultSummaryCard label="Masa" value={summary.table} unit="adet" />
+        <ResultSummaryCard
+          label="Panel"
+          value={summary.panel}
+          unit="adet"
+          decimals={0}
+        />
+        <ResultSummaryCard
+          label="Masa"
+          value={summary.table}
+          unit="adet"
+          decimals={0}
+        />
         <ResultSummaryCard
           label="Toplam Ayak"
           value={summary.totalLegs}
           unit="adet"
+          decimals={0}
         />
-        <ResultSummaryCard label="Beton" value={summary.concrete} unit="m³" />
-        <ResultSummaryCard label="Kum" value={summary.sand} unit="m³" />
-        <ResultSummaryCard label="Bims" value={summary.bims} unit="adet" />
+        <ResultSummaryCard
+          label="Beton"
+          value={summary.concrete}
+          unit="m³"
+          decimals={3}
+        />
+        <ResultSummaryCard
+          label="Kum"
+          value={summary.sand}
+          unit="m³"
+          decimals={3}
+        />
+        <ResultSummaryCard
+          label="Bims"
+          value={summary.bims}
+          unit="adet"
+          decimals={0}
+        />
       </div>
 
       <MaterialResultTable rows={rows} />

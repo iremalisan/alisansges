@@ -5,14 +5,28 @@ interface MaterialResultTableProps {
   rows: MaterialResultRow[];
 }
 
-function formatCell(value: number | null): string {
-  if (value === null || value === undefined) {
+function formatQuantity(value: number | null, unit: string): string {
+  if (value === null || value === undefined || !Number.isFinite(value)) {
     return '—';
   }
 
+  const decimals = unit === 'm³' || unit === 'm²' || unit === 'm' ? 3 : 0;
+
   return new Intl.NumberFormat('tr-TR', {
-    maximumFractionDigits: 3,
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
   }).format(value);
+}
+
+function formatPercent(value: number | null): string {
+  if (value === null || value === undefined || !Number.isFinite(value)) {
+    return '—';
+  }
+
+  return `% ${new Intl.NumberFormat('tr-TR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value)}`;
 }
 
 export function MaterialResultTable({ rows }: MaterialResultTableProps) {
@@ -34,7 +48,8 @@ export function MaterialResultTable({ rows }: MaterialResultTableProps) {
           {rows.length === 0 ? (
             <tr>
               <td colSpan={7} className="material-table__empty">
-                Henüz malzeme satırı yok. Hesaplama motoru sonraki adımda eklenecek.
+                Hesaplama için gerekli girdileri doldurun. Sonuçlar otomatik
+                güncellenir.
               </td>
             </tr>
           ) : (
@@ -42,14 +57,10 @@ export function MaterialResultTable({ rows }: MaterialResultTableProps) {
               <tr key={row.id}>
                 <td>{row.category}</td>
                 <td>{row.material}</td>
-                <td>{formatCell(row.calculatedQuantity)}</td>
+                <td>{formatQuantity(row.calculatedQuantity, row.unit)}</td>
                 <td>{row.unit}</td>
-                <td>
-                  {row.wasteRatePercent === null
-                    ? '—'
-                    : `% ${formatCell(row.wasteRatePercent)}`}
-                </td>
-                <td>{formatCell(row.orderQuantity)}</td>
+                <td>{formatPercent(row.wasteRatePercent)}</td>
+                <td>{formatQuantity(row.orderQuantity, row.unit)}</td>
                 <td>{row.calculationNote || '—'}</td>
               </tr>
             ))

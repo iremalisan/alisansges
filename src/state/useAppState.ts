@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react';
-import { createInitialAppState } from '../domain/defaults';
+import { applyCalculation, createInitialAppState } from '../domain/defaults';
+import { getKioskRecipe, kioskRecipeToInputValues } from '../domain/recipes/kioskRecipes';
+import { getTableRecipe } from '../domain/recipes/tableRecipes';
 import {
   sampleCalculationInputs,
   sampleProjectInputs,
@@ -8,88 +10,167 @@ import type {
   AppState,
   BimsInputs,
   CableTrenchInputs,
+  ConcreteFootMode,
   FoundationInputs,
   KioskInputs,
   PanelTableInputs,
-  ProjectInputs,
+  ProjectInput,
   ValidationFieldKey,
 } from '../domain/types';
 import { setFieldError } from '../domain/validation';
+
+function commit(updater: (prev: AppState) => AppState) {
+  return (prev: AppState) => applyCalculation(updater(prev));
+}
 
 export function useAppState() {
   const [state, setState] = useState<AppState>(createInitialAppState);
 
   const updateProject = useCallback(
-    <K extends keyof ProjectInputs>(key: K, value: ProjectInputs[K]) => {
-      setState((prev) => ({
-        ...prev,
-        project: { ...prev.project, [key]: value },
-      }));
+    <K extends keyof ProjectInput>(key: K, value: ProjectInput[K]) => {
+      setState(
+        commit((prev) => ({
+          ...prev,
+          project: { ...prev.project, [key]: value },
+        })),
+      );
     },
     [],
   );
 
   const updatePanelTable = useCallback(
     <K extends keyof PanelTableInputs>(key: K, value: PanelTableInputs[K]) => {
-      setState((prev) => ({
-        ...prev,
-        calculations: {
-          ...prev.calculations,
-          panelTable: { ...prev.calculations.panelTable, [key]: value },
-        },
-      }));
+      setState(
+        commit((prev) => ({
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            panelTable: { ...prev.calculations.panelTable, [key]: value },
+          },
+        })),
+      );
     },
     [],
   );
+
+  const selectTableRecipe = useCallback((recipeId: string) => {
+    const recipe = getTableRecipe(recipeId);
+    setState(
+      commit((prev) => ({
+        ...prev,
+        calculations: {
+          ...prev.calculations,
+          panelTable: {
+            ...prev.calculations.panelTable,
+            selectedTableRecipeId: recipeId,
+            panelsPerTable: recipe?.panelsPerTable ?? prev.calculations.panelTable.panelsPerTable,
+            legsPerTable: recipe?.feetPerTable ?? prev.calculations.panelTable.legsPerTable,
+          },
+        },
+        validationErrors: setFieldError(
+          prev.validationErrors,
+          'panelTable.selectedTableRecipeId',
+          recipe ? null : 'Geçersiz masa reçetesi seçildi.',
+        ),
+      })),
+    );
+  }, []);
 
   const updateFoundation = useCallback(
     <K extends keyof FoundationInputs>(key: K, value: FoundationInputs[K]) => {
-      setState((prev) => ({
-        ...prev,
-        calculations: {
-          ...prev.calculations,
-          foundation: { ...prev.calculations.foundation, [key]: value },
-        },
-      }));
+      setState(
+        commit((prev) => ({
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            foundation: { ...prev.calculations.foundation, [key]: value },
+          },
+        })),
+      );
     },
     [],
   );
 
-  const updateCableTrench = useCallback(
-    <K extends keyof CableTrenchInputs>(key: K, value: CableTrenchInputs[K]) => {
-      setState((prev) => ({
+  const setConcreteFootMode = useCallback((mode: ConcreteFootMode) => {
+    setState(
+      commit((prev) => ({
         ...prev,
         calculations: {
           ...prev.calculations,
-          cableTrench: { ...prev.calculations.cableTrench, [key]: value },
+          foundation: {
+            ...prev.calculations.foundation,
+            concreteFootMode: mode,
+          },
         },
-      }));
+      })),
+    );
+  }, []);
+
+  const updateCableTrench = useCallback(
+    <K extends keyof CableTrenchInputs>(key: K, value: CableTrenchInputs[K]) => {
+      setState(
+        commit((prev) => ({
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            cableTrench: { ...prev.calculations.cableTrench, [key]: value },
+          },
+        })),
+      );
     },
     [],
   );
 
   const updateKiosk = useCallback(
     <K extends keyof KioskInputs>(key: K, value: KioskInputs[K]) => {
-      setState((prev) => ({
-        ...prev,
-        calculations: {
-          ...prev.calculations,
-          kiosk: { ...prev.calculations.kiosk, [key]: value },
-        },
-      }));
+      setState(
+        commit((prev) => ({
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            kiosk: { ...prev.calculations.kiosk, [key]: value },
+          },
+        })),
+      );
     },
     [],
   );
 
-  const updateBims = useCallback(
-    <K extends keyof BimsInputs>(key: K, value: BimsInputs[K]) => {
-      setState((prev) => ({
+  const selectKioskRecipe = useCallback((recipeId: string) => {
+    const recipe = getKioskRecipe(recipeId);
+    const values = recipe ? kioskRecipeToInputValues(recipe) : null;
+
+    setState(
+      commit((prev) => ({
         ...prev,
         calculations: {
           ...prev.calculations,
-          bims: { ...prev.calculations.bims, [key]: value },
+          kiosk: {
+            ...prev.calculations.kiosk,
+            selectedKioskRecipeId: recipeId,
+            ...(values ?? {}),
+          },
         },
-      }));
+        validationErrors: setFieldError(
+          prev.validationErrors,
+          'kiosk.selectedKioskRecipeId',
+          recipe ? null : 'Geçersiz köşk reçetesi seçildi.',
+        ),
+      })),
+    );
+  }, []);
+
+  const updateBims = useCallback(
+    <K extends keyof BimsInputs>(key: K, value: BimsInputs[K]) => {
+      setState(
+        commit((prev) => ({
+          ...prev,
+          calculations: {
+            ...prev.calculations,
+            bims: { ...prev.calculations.bims, [key]: value },
+          },
+        })),
+      );
     },
     [],
   );
@@ -105,22 +186,22 @@ export function useAppState() {
   );
 
   const loadSampleProject = useCallback(() => {
-    setState((prev) => ({
-      ...prev,
-      project: sampleProjectInputs(),
-      calculations: sampleCalculationInputs(),
-      validationErrors: {},
-      // Results stay empty until the calculation engine is added.
-      materialRows: [],
-      summary: {
-        panel: null,
-        table: null,
-        totalLegs: null,
-        concrete: null,
-        sand: null,
-        bims: null,
-      },
-    }));
+    setState(
+      applyCalculation({
+        project: sampleProjectInputs(),
+        calculations: sampleCalculationInputs(),
+        validationErrors: {},
+        materialRows: [],
+        summary: {
+          panel: null,
+          table: null,
+          totalLegs: null,
+          concrete: null,
+          sand: null,
+          bims: null,
+        },
+      }),
+    );
   }, []);
 
   const resetForm = useCallback(() => {
@@ -131,9 +212,12 @@ export function useAppState() {
     state,
     updateProject,
     updatePanelTable,
+    selectTableRecipe,
     updateFoundation,
+    setConcreteFootMode,
     updateCableTrench,
     updateKiosk,
+    selectKioskRecipe,
     updateBims,
     setValidationError,
     loadSampleProject,

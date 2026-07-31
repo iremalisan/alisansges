@@ -69,7 +69,8 @@
   font-size: 0.92rem;
 }
 
-.text-input {
+.text-input,
+.select-input {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -80,9 +81,22 @@
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.text-input:focus {
+.text-input:focus,
+.select-input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.recipe-warning {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-left: 3px solid #b78105;
+  background: rgba(183, 129, 5, 0.1);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: #7a5600;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .btn {

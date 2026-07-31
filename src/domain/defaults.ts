@@ -1,6 +1,8 @@
-import type { AppState, CalculationInputs, ProjectInputs } from './types';
+import { calculateMaterials } from './calculation/calculate';
+import type { AppState, CalculationInputs, ProjectInput } from './types';
+import { mergeValidationErrors } from './validation';
 
-export const emptyProjectInputs = (): ProjectInputs => ({
+export const emptyProjectInputs = (): ProjectInput => ({
   projectName: '',
   plantPowerMWp: null,
   panelPowerWp: null,
@@ -9,10 +11,12 @@ export const emptyProjectInputs = (): ProjectInputs => ({
 
 export const emptyCalculationInputs = (): CalculationInputs => ({
   panelTable: {
+    selectedTableRecipeId: null,
     panelsPerTable: null,
     legsPerTable: null,
   },
   foundation: {
+    concreteFootMode: 'percent',
     concreteLegsCount: null,
     concreteLegsPercent: null,
     pitWidthM: null,
@@ -27,10 +31,13 @@ export const emptyCalculationInputs = (): CalculationInputs => ({
     sandWastePercent: null,
   },
   kiosk: {
+    selectedKioskRecipeId: null,
     kioskCount: null,
     ogCopperLugsPerKiosk: null,
     agCopperLugsPerKiosk: null,
     groundingLugsPerKiosk: null,
+    cableGlandsPerKiosk: null,
+    bimsBlocksPerKiosk: null,
   },
   bims: {
     wallLengthM: null,
@@ -42,17 +49,32 @@ export const emptyCalculationInputs = (): CalculationInputs => ({
   },
 });
 
-export const createInitialAppState = (): AppState => ({
-  project: emptyProjectInputs(),
-  calculations: emptyCalculationInputs(),
-  validationErrors: {},
-  materialRows: [],
-  summary: {
-    panel: null,
-    table: null,
-    totalLegs: null,
-    concrete: null,
-    sand: null,
-    bims: null,
-  },
-});
+export function applyCalculation(state: AppState): AppState {
+  const result = calculateMaterials(state.project, state.calculations);
+
+  return {
+    ...state,
+    summary: result.summary,
+    materialRows: result.materialRows,
+    validationErrors: mergeValidationErrors(
+      state.validationErrors,
+      result.validationErrors,
+    ),
+  };
+}
+
+export const createInitialAppState = (): AppState =>
+  applyCalculation({
+    project: emptyProjectInputs(),
+    calculations: emptyCalculationInputs(),
+    validationErrors: {},
+    materialRows: [],
+    summary: {
+      panel: null,
+      table: null,
+      totalLegs: null,
+      concrete: null,
+      sand: null,
+      bims: null,
+    },
+  });
