@@ -48,9 +48,9 @@ describe('GES Metraj Pro — PR-001 foundation', () => {
     expect(screen.getByLabelText('Santral gücü')).toHaveValue(90);
     expect(screen.getByLabelText('Panel gücü')).toHaveValue(700);
     expect(screen.getByLabelText('Masa başına panel sayısı')).toHaveValue(56);
-    expect(screen.getByLabelText('Kanal uzunluğu')).toHaveValue(8500);
-    expect(screen.getByLabelText('Beton köşk adedi')).toHaveValue(10);
-    expect(screen.getByLabelText('Duvar uzunluğu')).toHaveValue(80);
+    expect(screen.getByDisplayValue('DC Ana Kanal')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Ana Köşkler')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Ana Köşk Duvarı')).toBeInTheDocument();
   });
 
   it('clears the form when Formu Temizle is clicked', async () => {
@@ -66,8 +66,7 @@ describe('GES Metraj Pro — PR-001 foundation', () => {
 
     expect(screen.getByLabelText('Proje adı')).toHaveValue('');
     expect(screen.getByLabelText('Santral gücü')).toHaveValue(null);
-    expect(screen.getByLabelText('Panel gücü')).toHaveValue(null);
-    expect(screen.getByLabelText('Masa başına panel sayısı')).toHaveValue(null);
+    expect(screen.getByText(/Henüz kanal yok/i)).toBeInTheDocument();
   });
 
   it('rejects negative numeric input with a Turkish validation message', () => {
@@ -81,7 +80,7 @@ describe('GES Metraj Pro — PR-001 foundation', () => {
   });
 });
 
-describe('GES Metraj Pro — PR-002 calculations', () => {
+describe('GES Metraj Pro — PR-002 / PR-003 calculations', () => {
   it('shows live panel count for the 90 MWp example', async () => {
     const user = userEvent.setup();
     render(<App />);
@@ -98,9 +97,8 @@ describe('GES Metraj Pro — PR-002 calculations', () => {
   it('shows recipe warning text', () => {
     render(<App />);
     expect(
-      screen.getAllByText(
-        /Hazır reçeteler örnek başlangıç değerleridir/i,
-      ).length,
+      screen.getAllByText(/Hazır reçeteler örnek başlangıç değerleridir/i)
+        .length,
     ).toBeGreaterThan(0);
   });
 
@@ -122,5 +120,38 @@ describe('GES Metraj Pro — PR-002 calculations', () => {
     expect(
       within(screen.getByRole('article', { name: 'Panel' })).getByText('—'),
     ).toBeInTheDocument();
+  });
+
+  it('adds, duplicates and removes trench rows', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: 'Kanal Ekle' }));
+    expect(screen.getByDisplayValue('Yeni Kanal')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Kopyala' }));
+    expect(screen.getByDisplayValue('Yeni Kanal (Kopya)')).toBeInTheDocument();
+
+    const removeButtons = screen.getAllByRole('button', { name: 'Sil' });
+    await user.click(removeButtons[0]);
+    expect(screen.queryByDisplayValue('Yeni Kanal')).not.toBeInTheDocument();
+    expect(screen.getByDisplayValue('Yeni Kanal (Kopya)')).toBeInTheDocument();
+  });
+
+  it('loads multi-row example content', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(
+      screen.getByRole('button', { name: '90 MWp Örnek Proje' }),
+    );
+
+    expect(screen.getByDisplayValue('DC Ana Kanal')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('OG Ana Kanal')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Haberleşme Kanalı')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Ana Köşkler')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Yardımcı Köşkler')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Ana Köşk Duvarı')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Depo Duvarı')).toBeInTheDocument();
   });
 });

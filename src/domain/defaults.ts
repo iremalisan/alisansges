@@ -24,29 +24,9 @@ export const emptyCalculationInputs = (): CalculationInputs => ({
     pitDepthM: null,
     concreteWastePercent: null,
   },
-  cableTrench: {
-    trenchLengthM: null,
-    trenchWidthM: null,
-    sandHeightM: null,
-    sandWastePercent: null,
-  },
-  kiosk: {
-    selectedKioskRecipeId: null,
-    kioskCount: null,
-    ogCopperLugsPerKiosk: null,
-    agCopperLugsPerKiosk: null,
-    groundingLugsPerKiosk: null,
-    cableGlandsPerKiosk: null,
-    bimsBlocksPerKiosk: null,
-  },
-  bims: {
-    wallLengthM: null,
-    wallHeightM: null,
-    openingAreaM2: null,
-    bimsWidthM: null,
-    bimsHeightM: null,
-    bimsWastePercent: null,
-  },
+  trenches: [],
+  kioskGroups: [],
+  walls: [],
 });
 
 export function applyCalculation(state: AppState): AppState {
@@ -56,6 +36,8 @@ export function applyCalculation(state: AppState): AppState {
     ...state,
     summary: result.summary,
     materialRows: result.materialRows,
+    trenchSummaries: result.trenchSummaries,
+    wallSummaries: result.wallSummaries,
     validationErrors: mergeValidationErrors(
       state.validationErrors,
       result.validationErrors,
@@ -77,4 +59,6 @@ export const createInitialAppState = (): AppState =>
       sand: null,
       bims: null,
     },
+    trenchSummaries: {},
+    wallSummaries: {},
   });

@@ -1,119 +1,153 @@
 import { FormField } from '../components/FormField';
 import { NumericInput } from '../components/NumericInput';
 import { SectionCard } from '../components/SectionCard';
-import type { BimsInputs, ValidationErrors } from '../domain/types';
+import { formatSummaryNumber } from '../components/ResultSummaryCard';
+import type {
+  ValidationErrors,
+  ValidationFieldKey,
+  WallInput,
+  WallRowSummary,
+} from '../domain/types';
 import { parseNonNegativeNumber } from '../domain/validation';
 
 interface BimsSectionProps {
-  values: BimsInputs;
+  walls: WallInput[];
+  summaries: Record<string, WallRowSummary>;
   errors: ValidationErrors;
-  onChange: <K extends keyof BimsInputs>(key: K, value: BimsInputs[K]) => void;
-  onValidationChange: (
-    field: `bims.${keyof BimsInputs}`,
-    message: string | null,
+  onAdd: () => void;
+  onUpdate: <K extends keyof WallInput>(
+    id: string,
+    key: K,
+    value: WallInput[K],
   ) => void;
+  onRemove: (id: string) => void;
+  onDuplicate: (id: string) => void;
+  onValidationChange: (field: ValidationFieldKey, message: string | null) => void;
 }
 
 export function BimsSection({
-  values,
+  walls,
+  summaries,
   errors,
-  onChange,
+  onAdd,
+  onUpdate,
+  onRemove,
+  onDuplicate,
   onValidationChange,
 }: BimsSectionProps) {
   return (
     <SectionCard
       id="bims"
       title="Bims Duvar"
-      description="Duvar ölçüleri ve bims boyutlarını girin."
+      description="Birden fazla yapı/duvar satırı ekleyin; bims sonuçları köşk reçetesiyle birleşir."
     >
-      <div className="field-grid">
-        <FormField label="Duvar uzunluğu" htmlFor="wall-length">
-          <NumericInput
-            id="wall-length"
-            value={values.wallLengthM}
-            unit="m"
-            error={errors['bims.wallLengthM']}
-            onValueChange={(value) => onChange('wallLengthM', value)}
-            onValidationChange={(message) =>
-              onValidationChange('bims.wallLengthM', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField label="Duvar yüksekliği" htmlFor="wall-height">
-          <NumericInput
-            id="wall-height"
-            value={values.wallHeightM}
-            unit="m"
-            error={errors['bims.wallHeightM']}
-            onValueChange={(value) => onChange('wallHeightM', value)}
-            onValidationChange={(message) =>
-              onValidationChange('bims.wallHeightM', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField
-          label="Kapı ve pencere boşluğu"
-          htmlFor="opening-area"
-        >
-          <NumericInput
-            id="opening-area"
-            value={values.openingAreaM2}
-            unit="m²"
-            error={errors['bims.openingAreaM2']}
-            onValueChange={(value) => onChange('openingAreaM2', value)}
-            onValidationChange={(message) =>
-              onValidationChange('bims.openingAreaM2', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField label="Bims genişliği" htmlFor="bims-width">
-          <NumericInput
-            id="bims-width"
-            value={values.bimsWidthM}
-            unit="m"
-            error={errors['bims.bimsWidthM']}
-            onValueChange={(value) => onChange('bimsWidthM', value)}
-            onValidationChange={(message) =>
-              onValidationChange('bims.bimsWidthM', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField label="Bims yüksekliği" htmlFor="bims-height">
-          <NumericInput
-            id="bims-height"
-            value={values.bimsHeightM}
-            unit="m"
-            error={errors['bims.bimsHeightM']}
-            onValueChange={(value) => onChange('bimsHeightM', value)}
-            onValidationChange={(message) =>
-              onValidationChange('bims.bimsHeightM', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
-
-        <FormField label="Bims fire oranı" htmlFor="bims-waste">
-          <NumericInput
-            id="bims-waste"
-            value={values.bimsWastePercent}
-            unit="%"
-            error={errors['bims.bimsWastePercent']}
-            onValueChange={(value) => onChange('bimsWastePercent', value)}
-            onValidationChange={(message) =>
-              onValidationChange('bims.bimsWastePercent', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
+      <div className="entry-toolbar">
+        <button type="button" className="btn btn--secondary" onClick={onAdd}>
+          Yapı/Duvar Ekle
+        </button>
       </div>
+
+      {walls.length === 0 ? (
+        <p className="entry-empty">
+          Henüz duvar yok. “Yapı/Duvar Ekle” ile başlayın.
+        </p>
+      ) : (
+        <div className="entry-list">
+          {walls.map((wall) => {
+            const summary = summaries[wall.id];
+            return (
+              <article key={wall.id} className="entry-card">
+                <div className="entry-card__header">
+                  <FormField label="Yapı / duvar adı" htmlFor={`wall-name-${wall.id}`}>
+                    <input
+                      id={`wall-name-${wall.id}`}
+                      className="text-input"
+                      value={wall.name}
+                      onChange={(event) =>
+                        onUpdate(wall.id, 'name', event.target.value)
+                      }
+                    />
+                  </FormField>
+                  <div className="entry-card__actions">
+                    <button
+                      type="button"
+                      className="btn btn--ghost"
+                      onClick={() => onDuplicate(wall.id)}
+                    >
+                      Kopyala
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn--ghost"
+                      onClick={() => onRemove(wall.id)}
+                    >
+                      Sil
+                    </button>
+                  </div>
+                </div>
+
+                <div className="field-grid field-grid--dense">
+                  {(
+                    [
+                      ['lengthM', 'Duvar uzunluğu', 'm'],
+                      ['heightM', 'Duvar yüksekliği', 'm'],
+                      ['openingAreaM2', 'Kapı ve pencere boşluğu', 'm²'],
+                      ['bimsWidthM', 'Bims genişliği', 'm'],
+                      ['bimsHeightM', 'Bims yüksekliği', 'm'],
+                      ['bimsWastePercent', 'Bims fire oranı', '%'],
+                    ] as const
+                  ).map(([key, label, unit]) => (
+                    <FormField
+                      key={key}
+                      label={label}
+                      htmlFor={`wall-${key}-${wall.id}`}
+                    >
+                      <NumericInput
+                        id={`wall-${key}-${wall.id}`}
+                        value={wall[key]}
+                        unit={unit}
+                        error={errors[`wall.${wall.id}.${key}`]}
+                        onValueChange={(value) =>
+                          onUpdate(wall.id, key, value)
+                        }
+                        onValidationChange={(message) =>
+                          onValidationChange(
+                            `wall.${wall.id}.${key}`,
+                            message,
+                          )
+                        }
+                        parseValue={parseNonNegativeNumber}
+                      />
+                    </FormField>
+                  ))}
+                </div>
+
+                <div className="entry-summary" aria-label={`${wall.name} özet`}>
+                  <span>
+                    Brüt alan:{' '}
+                    <strong>
+                      {formatSummaryNumber(summary?.grossAreaM2 ?? null, 3)} m²
+                    </strong>
+                  </span>
+                  <span>
+                    Net alan:{' '}
+                    <strong>
+                      {formatSummaryNumber(summary?.netAreaM2 ?? null, 3)} m²
+                    </strong>
+                  </span>
+                  <span>
+                    Sipariş bims:{' '}
+                    <strong>
+                      {formatSummaryNumber(summary?.orderBimsCount ?? null, 0)}{' '}
+                      adet
+                    </strong>
+                  </span>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
     </SectionCard>
   );
 }
