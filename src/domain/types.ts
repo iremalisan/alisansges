@@ -1,18 +1,77 @@
-/** Domain models for GES Metraj Pro (PR-001 placeholders). */
+/** Domain models for GES Metraj Pro. */
 
-export interface ProjectInputs {
+export type MaterialId =
+  | 'PANEL'
+  | 'TABLE'
+  | 'FOUNDATION_FOOT'
+  | 'STEEL_POST'
+  | 'PURLIN'
+  | 'DIAGONAL_BRACE'
+  | 'MID_CLAMP'
+  | 'END_CLAMP'
+  | 'BOLT'
+  | 'CONCRETE'
+  | 'SAND'
+  | 'OG_COPPER_LUG'
+  | 'AG_COPPER_LUG'
+  | 'GROUNDING_LUG'
+  | 'CABLE_GLAND'
+  | 'BIMS_BLOCK';
+
+export type MaterialUnit = 'adet' | 'm' | 'm²' | 'm³';
+
+export interface MaterialDefinition {
+  id: MaterialId;
+  name: string;
+  category: string;
+  unit: MaterialUnit;
+}
+
+export interface ProjectInput {
   projectName: string;
   plantPowerMWp: number | null;
   panelPowerWp: number | null;
+  /** Reserved for a later step — not applied globally in PR-002. */
   generalWastePercent: number | null;
 }
 
+/** @deprecated Prefer ProjectInput — kept as alias for existing imports. */
+export type ProjectInputs = ProjectInput;
+
+export interface TableRecipeItem {
+  materialId: MaterialId;
+  quantityPerTable: number;
+}
+
+export interface TableRecipe {
+  id: string;
+  name: string;
+  panelsPerTable: number;
+  feetPerTable: number;
+  items: TableRecipeItem[];
+}
+
+export interface KioskRecipeItem {
+  materialId: MaterialId;
+  quantityPerKiosk: number;
+}
+
+export interface KioskRecipe {
+  id: string;
+  name: string;
+  items: KioskRecipeItem[];
+}
+
 export interface PanelTableInputs {
+  selectedTableRecipeId: string | null;
   panelsPerTable: number | null;
   legsPerTable: number | null;
 }
 
+export type ConcreteFootMode = 'count' | 'percent';
+
 export interface FoundationInputs {
+  concreteFootMode: ConcreteFootMode;
   concreteLegsCount: number | null;
   concreteLegsPercent: number | null;
   pitWidthM: number | null;
@@ -29,10 +88,13 @@ export interface CableTrenchInputs {
 }
 
 export interface KioskInputs {
+  selectedKioskRecipeId: string | null;
   kioskCount: number | null;
   ogCopperLugsPerKiosk: number | null;
   agCopperLugsPerKiosk: number | null;
   groundingLugsPerKiosk: number | null;
+  cableGlandsPerKiosk: number | null;
+  bimsBlocksPerKiosk: number | null;
 }
 
 export interface BimsInputs {
@@ -53,21 +115,26 @@ export interface CalculationInputs {
 }
 
 export type ValidationFieldKey =
-  | keyof ProjectInputs
+  | keyof ProjectInput
   | `panelTable.${keyof PanelTableInputs}`
   | `foundation.${keyof FoundationInputs}`
   | `cableTrench.${keyof CableTrenchInputs}`
   | `kiosk.${keyof KioskInputs}`
   | `bims.${keyof BimsInputs}`;
 
+export interface ValidationError {
+  field: ValidationFieldKey;
+  message: string;
+}
+
 export type ValidationErrors = Partial<Record<ValidationFieldKey, string>>;
 
 export interface MaterialResultRow {
-  id: string;
+  id: MaterialId | string;
   category: string;
   material: string;
   calculatedQuantity: number | null;
-  unit: string;
+  unit: MaterialUnit | string;
   wasteRatePercent: number | null;
   orderQuantity: number | null;
   calculationNote: string;
@@ -82,8 +149,14 @@ export interface SummaryValues {
   bims: number | null;
 }
 
+export interface CalculationResult {
+  summary: SummaryValues;
+  materialRows: MaterialResultRow[];
+  validationErrors: ValidationErrors;
+}
+
 export interface AppState {
-  project: ProjectInputs;
+  project: ProjectInput;
   calculations: CalculationInputs;
   validationErrors: ValidationErrors;
   materialRows: MaterialResultRow[];

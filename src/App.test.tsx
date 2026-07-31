@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import App from './App';
@@ -34,9 +34,6 @@ describe('GES Metraj Pro — PR-001 foundation', () => {
     expect(
       screen.getByRole('heading', { name: 'Malzeme Listesi' }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText('Hesaplama motoru sonraki adımda eklenecek.'),
-    ).toBeInTheDocument();
   });
 
   it('loads sample project input values when örnek proje is clicked', async () => {
@@ -49,11 +46,11 @@ describe('GES Metraj Pro — PR-001 foundation', () => {
 
     expect(screen.getByLabelText('Proje adı')).toHaveValue(SAMPLE_PROJECT_NAME);
     expect(screen.getByLabelText('Santral gücü')).toHaveValue(90);
-    expect(screen.getByLabelText('Panel gücü')).toHaveValue(580);
-    expect(screen.getByLabelText('Masa başına panel sayısı')).toHaveValue(28);
-    expect(screen.getByLabelText('Kanal uzunluğu')).toHaveValue(12000);
-    expect(screen.getByLabelText('Beton köşk adedi')).toHaveValue(18);
-    expect(screen.getByLabelText('Duvar uzunluğu')).toHaveValue(120);
+    expect(screen.getByLabelText('Panel gücü')).toHaveValue(700);
+    expect(screen.getByLabelText('Masa başına panel sayısı')).toHaveValue(56);
+    expect(screen.getByLabelText('Kanal uzunluğu')).toHaveValue(8500);
+    expect(screen.getByLabelText('Beton köşk adedi')).toHaveValue(10);
+    expect(screen.getByLabelText('Duvar uzunluğu')).toHaveValue(80);
   });
 
   it('clears the form when Formu Temizle is clicked', async () => {
@@ -81,5 +78,49 @@ describe('GES Metraj Pro — PR-001 foundation', () => {
 
     expect(screen.getByRole('alert')).toHaveTextContent(NEGATIVE_VALUE_MESSAGE);
     expect(plantPower).toHaveValue(null);
+  });
+});
+
+describe('GES Metraj Pro — PR-002 calculations', () => {
+  it('shows live panel count for the 90 MWp example', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(
+      screen.getByRole('button', { name: '90 MWp Örnek Proje' }),
+    );
+
+    const panelCard = screen.getByRole('article', { name: 'Panel' });
+    expect(within(panelCard).getByText('128.572')).toBeInTheDocument();
+    expect(screen.getAllByText(/ceil\(90 MWp/).length).toBeGreaterThan(0);
+  });
+
+  it('shows recipe warning text', () => {
+    render(<App />);
+    expect(
+      screen.getAllByText(
+        /Hazır reçeteler örnek başlangıç değerleridir/i,
+      ).length,
+    ).toBeGreaterThan(0);
+  });
+
+  it('resets calculated results with Formu Temizle', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(
+      screen.getByRole('button', { name: '90 MWp Örnek Proje' }),
+    );
+    expect(
+      within(screen.getByRole('article', { name: 'Panel' })).getByText(
+        '128.572',
+      ),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Formu Temizle' }));
+
+    expect(
+      within(screen.getByRole('article', { name: 'Panel' })).getByText('—'),
+    ).toBeInTheDocument();
   });
 });

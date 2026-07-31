@@ -1,7 +1,11 @@
 import { FormField } from '../components/FormField';
 import { NumericInput } from '../components/NumericInput';
 import { SectionCard } from '../components/SectionCard';
-import type { FoundationInputs, ValidationErrors } from '../domain/types';
+import type {
+  ConcreteFootMode,
+  FoundationInputs,
+  ValidationErrors,
+} from '../domain/types';
 import { parseNonNegativeNumber } from '../domain/validation';
 
 interface FoundationSectionProps {
@@ -11,6 +15,7 @@ interface FoundationSectionProps {
     key: K,
     value: FoundationInputs[K],
   ) => void;
+  onModeChange: (mode: ConcreteFootMode) => void;
   onValidationChange: (
     field: `foundation.${keyof FoundationInputs}`,
     message: string | null,
@@ -21,6 +26,7 @@ export function FoundationSection({
   values,
   errors,
   onChange,
+  onModeChange,
   onValidationChange,
 }: FoundationSectionProps) {
   return (
@@ -30,36 +36,55 @@ export function FoundationSection({
       description="Betonlanacak ayak ve çukur ölçülerini girin."
     >
       <div className="field-grid">
-        <FormField label="Betonlanacak ayak sayısı" htmlFor="concrete-legs-count">
-          <NumericInput
-            id="concrete-legs-count"
-            value={values.concreteLegsCount}
-            unit="adet"
-            error={errors['foundation.concreteLegsCount']}
-            onValueChange={(value) => onChange('concreteLegsCount', value)}
-            onValidationChange={(message) =>
-              onValidationChange('foundation.concreteLegsCount', message)
+        <FormField label="Beton ayak hesaplama modu" htmlFor="concrete-mode">
+          <select
+            id="concrete-mode"
+            className="select-input"
+            value={values.concreteFootMode}
+            onChange={(event) =>
+              onModeChange(event.target.value as ConcreteFootMode)
             }
-            parseValue={parseNonNegativeNumber}
-          />
+          >
+            <option value="count">Adet</option>
+            <option value="percent">Yüzde</option>
+          </select>
         </FormField>
 
-        <FormField
-          label="Betonlanacak ayak oranı"
-          htmlFor="concrete-legs-percent"
-        >
-          <NumericInput
-            id="concrete-legs-percent"
-            value={values.concreteLegsPercent}
-            unit="%"
-            error={errors['foundation.concreteLegsPercent']}
-            onValueChange={(value) => onChange('concreteLegsPercent', value)}
-            onValidationChange={(message) =>
-              onValidationChange('foundation.concreteLegsPercent', message)
-            }
-            parseValue={parseNonNegativeNumber}
-          />
-        </FormField>
+        {values.concreteFootMode === 'count' ? (
+          <FormField
+            label="Betonlanacak ayak sayısı"
+            htmlFor="concrete-legs-count"
+          >
+            <NumericInput
+              id="concrete-legs-count"
+              value={values.concreteLegsCount}
+              unit="adet"
+              error={errors['foundation.concreteLegsCount']}
+              onValueChange={(value) => onChange('concreteLegsCount', value)}
+              onValidationChange={(message) =>
+                onValidationChange('foundation.concreteLegsCount', message)
+              }
+              parseValue={parseNonNegativeNumber}
+            />
+          </FormField>
+        ) : (
+          <FormField
+            label="Betonlanacak ayak oranı"
+            htmlFor="concrete-legs-percent"
+          >
+            <NumericInput
+              id="concrete-legs-percent"
+              value={values.concreteLegsPercent}
+              unit="%"
+              error={errors['foundation.concreteLegsPercent']}
+              onValueChange={(value) => onChange('concreteLegsPercent', value)}
+              onValidationChange={(message) =>
+                onValidationChange('foundation.concreteLegsPercent', message)
+              }
+              parseValue={parseNonNegativeNumber}
+            />
+          </FormField>
+        )}
 
         <FormField label="Çukur genişliği" htmlFor="pit-width">
           <NumericInput
