@@ -10,6 +10,9 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
+from xml.sax.saxutils import escape
+
+DRAWIO_SCALE = 4.5  # 1 m → 4.5 px, draw.io’da rahat düzenleme
 
 OUT_DIR = Path(__file__).resolve().parent
 ROTATION_DEG = 30.0  # uzun cephe sağa-yukarı
@@ -79,6 +82,18 @@ ETIKETLER = [
     (-20.0, 14.0, "ÜRÜN ÇIKIŞI", 7.5, True),
     (-20.0, 3.0, "ÜRÜN ÇIKIŞI", 7.5, True),
     (-22.0, -52.0, "208/5", 10, False),
+]
+
+
+def rect_poly(x0: float, y0: float, x1: float, y1: float) -> list[tuple[float, float]]:
+    return [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
+
+
+# draw.io içinde sürüklenebilir örnek hacimler (silinebilir / kopyalanabilir)
+IC_HACIMLER = [
+    (rect_poly(6.0, 8.0, 66.0, 54.0), "ÜRETİM", "#dae8fc", "#6c8ebf"),
+    (rect_poly(84.0, 8.0, 168.0, 46.0), "DEPO", "#d5e8d4", "#82b366"),
+    (rect_poly(90.0, -50.0, 168.0, -8.0), "TEVSİYAT / GENİŞLEME", "#fff2cc", "#d6b656"),
 ]
 
 
@@ -525,6 +540,228 @@ def write_docx(png_path: Path, docx_path: Path) -> None:
     document.save(docx_path)
 
 
+def _canvas_pts(
+    pts: list[tuple[float, float]], minx: float, maxy: float, scale: float
+) -> list[tuple[float, float]]:
+    return [((x - minx) * scale, (maxy - y) * scale) for x, y in pts]
+
+
+def _poly_coords(pts: list[tuple[float, float]]) -> tuple[float, float, float, float, str]:
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    x0, y0, x1, y1 = min(xs), min(ys), max(xs), max(ys)
+    width = max(x1 - x0, 1.0)
+    height = max(y1 - y0, 1.0)
+    coords = ",".join(f"[{(x - x0) / width:.5f},{(y - y0) / height:.5f}]" for x, y in pts)
+    return x0, y0, width, height, coords
+
+
+def _drawio_value(text: str) -> str:
+    return escape(text).replace("\n", "&lt;br&gt;")
+
+
+def write_drawio(
+    bina: list[tuple[float, float]],
+    tevsiyat: list[tuple[float, float]],
+    parsel: list[tuple[float, float]],
+    giris_tris: list[list[tuple[float, float]]],
+    labels: list[tuple[float, float, str, float, bool]],
+    ic_hacimler: list[tuple[list[tuple[float, float]], str, str, str]],
+    minx: float,
+    miny: float,
+    maxx: float,
+    maxy: float,
+    path: Path,
+) -> None:
+    scale = DRAWIO_SCALE
+    page_w = (maxx - minx) * scale
+    page_h = (maxy - miny) * scale
+    bina_c = _canvas_pts(bina, minx, maxy, scale)
+    tev_c = _canvas_pts(tevsiyat, minx, maxy, scale)
+    parsel_c = _canvas_pts(parsel, minx, maxy, scale)
+    tris_c = [_canvas_pts(tri, minx, maxy, scale) for tri in giris_tris]
+    labels_c = [
+        (((x - minx) * scale, (maxy - y) * scale, text, size, follow))
+        for x, y, text, size, follow in labels
+    ]
+    rooms_c = [
+        (_canvas_pts(poly, minx, maxy, scale), name, fill, stroke)
+        for poly, name, fill, stroke in ic_hacimler
+    ]
+
+    cells: list[str] = [
+        '    <mxCell id="0"/>',
+        '    <mxCell id="1" parent="0"/>',
+        '    <mxCell id="parsel" value="Parsel" parent="0"/>',
+        '    <mxCell id="tevsiyat" value="Tevsiiyat" parent="0"/>',
+        '    <mxCell id="bina" value="Bina" parent="0"/>',
+        '    <mxCell id="ic" value="Ic hacimler (surukle / kopyala / boya)" parent="0"/>',
+        '    <mxCell id="giris" value="Girisler" parent="0"/>',
+        '    <mxCell id="yazi" value="Yazilar" parent="0"/>',
+        '    <mxCell id="sembol" value="Semboller" parent="0"/>',
+    ]
+
+    def add_polygon(
+        cell_id: str,
+        parent: str,
+        pts: list[tuple[float, float]],
+        extra_style: str,
+        value: str = "",
+        closed: bool = True,
+    ) -> None:
+        x0, y0, width, height, coords = _poly_coords(pts)
+        style = (
+            "html=1;whiteSpace=wrap;shape=mxgraph.basic.polygon;"
+            f"polyCoords=[{coords}];polyline={0 if closed else 1};"
+            "movable=1;resizable=1;rotatable=1;deletable=1;editable=1;"
+            f"{extra_style}"
+        )
+        cells.append(
+            f'    <mxCell id="{cell_id}" value="{_drawio_value(value)}" style="{style}" '
+            f'vertex="1" parent="{parent}">\n'
+            f'      <mxGeometry x="{x0:.2f}" y="{y0:.2f}" width="{width:.2f}" '
+            f'height="{height:.2f}" as="geometry"/>\n'
+            "    </mxCell>"
+        )
+
+    def add_text(
+        cell_id: str,
+        parent: str,
+        x: float,
+        y: float,
+        text: str,
+        size: float,
+        follow: bool,
+    ) -> None:
+        font = max(11.0, size * 1.55)
+        lines = text.split("\n")
+        longest = max(len(line) for line in lines)
+        width = max(80.0, longest * font * 0.72)
+        height = font * 1.7 * len(lines) + 8
+        rotation = f"rotation={-ROTATION_DEG};" if follow else ""
+        style = (
+            "text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;"
+            f"fontFamily=Arial;fontSize={font:.1f};fontColor=#111111;"
+            "movable=1;resizable=1;rotatable=1;deletable=1;editable=1;"
+            f"{rotation}labelBackgroundColor=none;"
+        )
+        cells.append(
+            f'    <mxCell id="{cell_id}" value="{_drawio_value(text)}" style="{style}" '
+            f'vertex="1" parent="{parent}">\n'
+            f'      <mxGeometry x="{x - width / 2:.2f}" y="{y - height / 2:.2f}" '
+            f'width="{width:.2f}" height="{height:.2f}" as="geometry"/>\n'
+            "    </mxCell>"
+        )
+
+    add_polygon(
+        "parsel-hat",
+        "parsel",
+        parsel_c,
+        "fillColor=none;strokeColor=#111111;strokeWidth=2;dashed=1;dashPattern=12 6;",
+    )
+    add_polygon(
+        "tevsiyat-hat",
+        "tevsiyat",
+        tev_c,
+        "fillColor=#f5f5f5;strokeColor=#111111;strokeWidth=2;dashed=1;dashPattern=8 4;",
+    )
+    add_polygon(
+        "bina-hat",
+        "bina",
+        bina_c,
+        "fillColor=#ffffff;strokeColor=#111111;strokeWidth=2.6;",
+    )
+    for i, (poly, name, fill, stroke) in enumerate(rooms_c, start=1):
+        add_polygon(
+            f"oda-{i}",
+            "ic",
+            poly,
+            f"fillColor={fill};strokeColor={stroke};strokeWidth=1.5;opacity=75;fontSize=16;"
+            "fontFamily=Arial;fontStyle=1;align=center;verticalAlign=middle;",
+            value=name,
+        )
+    for i, tri in enumerate(tris_c, start=1):
+        add_polygon(
+            f"giris-{i}",
+            "giris",
+            tri,
+            "fillColor=#111111;strokeColor=#111111;strokeWidth=1;",
+        )
+    for i, (x, y, text, size, follow) in enumerate(labels_c, start=1):
+        add_text(f"yazi-{i}", "yazi", x, y, text, size, follow)
+
+    # Kuzey oku
+    nx, ny = page_w - 90, 70
+    cells.append(
+        f'    <mxCell id="kuzey-ok" value="" style="endArrow=block;endFill=1;html=1;'
+        f'strokeColor=#111111;strokeWidth=2;movable=1;resizable=1;rotatable=1;" '
+        f'edge="1" parent="sembol">\n'
+        f'      <mxGeometry relative="1" as="geometry">\n'
+        f'        <mxPoint x="{nx:.2f}" y="{ny + 36:.2f}" as="sourcePoint"/>\n'
+        f'        <mxPoint x="{nx:.2f}" y="{ny - 20:.2f}" as="targetPoint"/>\n'
+        f"      </mxGeometry>\n"
+        "    </mxCell>"
+    )
+    add_text("kuzey-k", "sembol", nx, ny - 36, "K", 12, False)
+
+    # 50 m ölçek
+    sx, syb = 80.0, page_h - 55
+    cells.append(
+        f'    <mxCell id="olcek" value="" style="endArrow=none;startArrow=none;html=1;'
+        f'strokeColor=#111111;strokeWidth=2;movable=1;" edge="1" parent="sembol">\n'
+        f'      <mxGeometry relative="1" as="geometry">\n'
+        f'        <mxPoint x="{sx:.2f}" y="{syb:.2f}" as="sourcePoint"/>\n'
+        f'        <mxPoint x="{sx + 50 * scale:.2f}" y="{syb:.2f}" as="targetPoint"/>\n'
+        f"      </mxGeometry>\n"
+        "    </mxCell>"
+    )
+    add_text("olcek-0", "sembol", sx, syb + 18, "0", 8, False)
+    add_text("olcek-50", "sembol", sx + 50 * scale, syb + 18, "50 m", 8, False)
+
+    add_text(
+        "baslik",
+        "yazi",
+        page_w - 220,
+        page_h - 28,
+        "VAZİYET PLANI — DRAW.IO  ·  şekilleri sürükle, boya, kopyala",
+        8,
+        False,
+    )
+    cells.append(
+        '    <mxCell id="not" value="'
+        + _drawio_value(
+            "Nasıl oynarım?\n"
+            "• Şekli tutup sürükle\n"
+            "• Çift tıkla yazıyı değiştir\n"
+            "• Fill / Line ile boya\n"
+            "• Ctrl+D ile oda kopyala\n"
+            "• Soldan dikdörtgen ekle"
+        )
+        + '" style="shape=note;whiteSpace=wrap;html=1;align=left;verticalAlign=top;'
+        "fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontFamily=Arial;"
+        'spacing=8;movable=1;resizable=1;deletable=1;editable=1;" vertex="1" parent="sembol">\n'
+        f'      <mxGeometry x="16" y="16" width="230" height="150" as="geometry"/>\n'
+        "    </mxCell>"
+    )
+
+    xml = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<mxfile host="app.diagrams.net" agent="GES-Metraj-Pro" version="22.1.0">',
+        '  <diagram id="b1-vaziyet" name="B1 Blok Vaziyet Dış Hat">',
+        f'    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" '
+        f'connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="{page_w:.0f}" '
+        f'pageHeight="{page_h:.0f}" math="0" shadow="0">',
+        "      <root>",
+        *cells,
+        "      </root>",
+        "    </mxGraphModel>",
+        "  </diagram>",
+        "</mxfile>",
+        "",
+    ]
+    path.write_text("\n".join(xml), encoding="utf-8")
+
+
 def main() -> None:
     bina = rot_pts(BINA)
     tevsiyat = rot_pts(TEVSIYAT)
@@ -560,10 +797,28 @@ def main() -> None:
     png_path_out = OUT_DIR / "b1-blok-vaziyet-dis-hat.png"
     bmp_path_out = OUT_DIR / "b1-blok-vaziyet-dis-hat.bmp"
     docx_path_out = OUT_DIR / "b1-blok-vaziyet-dis-hat.docx"
+    drawio_path_out = OUT_DIR / "b1-blok-vaziyet-dis-hat.drawio"
+    ic_hacimler = [
+        (rot_pts(poly), name, fill, stroke) for poly, name, fill, stroke in IC_HACIMLER
+    ]
     write_svg(bina, tevsiyat, parsel, giris_tris, labels, minx, miny, maxx, maxy, svg_path_out)
     write_dxf(bina, tevsiyat, parsel, giris_tris, labels, minx, miny, maxx, maxy, dxf_path_out)
+    write_drawio(
+        bina,
+        tevsiyat,
+        parsel,
+        giris_tris,
+        labels,
+        ic_hacimler,
+        minx,
+        miny,
+        maxx,
+        maxy,
+        drawio_path_out,
+    )
     print(f"yazıldı: {svg_path_out}")
     print(f"yazıldı: {dxf_path_out}")
+    print(f"yazıldı: {drawio_path_out}")
     try:
         write_png(bina, tevsiyat, parsel, giris_tris, labels, minx, miny, maxx, maxy, png_path_out)
         print(f"yazıldı: {png_path_out}")
