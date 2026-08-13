@@ -132,6 +132,26 @@ Yüzeysel çizik, çapak veya uç deformasyonu gibi küçük kusurlar kesme veya
 
 ---
 
+## 5.1 Hava emisyonları
+
+Tesiste hava emisyonu kaynağı olarak **4 adet proses bacası** bulunmaktadır. Yakma bacası, proses dışı baca ve alan kaynağı bulunmamaktadır. Bacalar yerden 15 m, çatıdan 2,5 m yüksekliktedir. Bacalarda sürekli (online) izleme sistemi yoktur. Tesis, Çevre İzin ve Lisans Yönetmeliği kapsamında hava emisyonu konulu çevre izin / lisans belgesi yenileme sürecindedir. Baca teknik bilgileri, Sanayi Kaynaklı Hava Kirliliğinin Kontrolü Yönetmeliği (SKHKKY) çerçevesinde yapılacak emisyon ölçümleri sonrasında güncellenecektir.
+
+**HB1 — Stiren emiş bacası 1.** CTP boru üretim (winder) ünitesine hizmet eder. Proses emisyonu (stiren) bu baca ile tahliye edilir. Bu bacada toz toplama sistemi bulunmamaktadır.
+
+**HB2 — Kalibrasyon proses bacası.** CTP boru ucu kalibrasyon ünitesine hizmet eder. Proses emisyonudur. Bu baca toz toplama sistemi ile çalışır: işlem sırasında oluşan toz emişle çekilir, borularla taşınır ve çuvallarda toplanır.
+
+**HB3 — ODD tamir proses bacası.** CTP boru ODD tamir ünitesine hizmet eder. Proses emisyonudur. Bu baca toz toplama sistemi ile çalışır: oluşan toz emişle çekilir, borularla taşınır ve çuvallarda toplanır.
+
+**HB4 — Kaplin (coupling) kanal açma proses bacası.** Coupling kanal açma ünitesine hizmet eder. Proses emisyonudur. Bu baca toz toplama sistemi ile çalışır: oluşan toz emişle çekilir, borularla taşınır ve çuvallarda toplanır.
+
+Özetle; stiren emiş bacası (HB1) hariç diğer üç proses bacası (HB2, HB3, HB4) toz toplama sistemi ile donatılmıştır. Toz, kaynakta emilerek boru hattı üzerinden çuvallara alınmakta, böylece ilgili ünitelerden atmosfere toz salımı azaltılmaktadır.
+
+### Resmi başvuru paragrafı
+
+Tesiste emisyon kaynağı niteliğinde 4 adet proses bacası mevcut olup yakma bacası, proses dışı baca ve alan kaynağı bulunmamaktadır. HB1 stiren emiş bacası CTP boru üretim ünitesine hizmet etmekte olup proses emisyonunu tahliye etmektedir; bu bacada toz toplama sistemi bulunmamaktadır. HB2 kalibrasyon proses bacası, HB3 ODD tamir proses bacası ve HB4 kaplin kanal açma proses bacası ilgili ünitelere hizmet eden proses bacalarıdır. Stiren bacası hariç söz konusu üç baca toz toplama sistemi ile çalışmakta; ünite çıkışında oluşan tozlar emiş sistemiyle çekilerek borular vasıtasıyla çuvallara alınmaktadır. Bacaların yerden yüksekliği 15 m, çatıdan yüksekliği 2,5 m olup sürekli izleme sistemi bulunmamaktadır. Hava emisyonu konulu çevre izin ve lisans belgesi yenileme işlemleri Çevre İzin ve Lisans Yönetmeliği kapsamında yürütülmekte; baca teknik bilgileri SKHKKY çerçevesinde gerçekleştirilecek emisyon ölçümleri sonrasında güncellenecektir.
+
+---
+
 ## Eski şemalardan ne değişti?
 
 | Konu | Önceki şemalar | Bu sürüm |
