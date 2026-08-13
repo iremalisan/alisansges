@@ -447,8 +447,82 @@ def write_png(
     ax.set_ylim(miny, maxy)
     ax.axis("off")
     fig.tight_layout(pad=0.2)
-    fig.savefig(path, dpi=160, facecolor="white")
+    fig.savefig(path, dpi=180, facecolor="white")
     plt.close(fig)
+
+
+def write_bmp(png_path: Path, bmp_path: Path) -> None:
+    from PIL import Image
+
+    image = Image.open(png_path).convert("RGB")
+    image.save(bmp_path, format="BMP")
+
+
+def write_docx(png_path: Path, docx_path: Path) -> None:
+    from docx import Document
+    from docx.enum.section import WD_ORIENT
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.shared import Mm, Pt, RGBColor
+    from PIL import Image
+
+    document = Document()
+    section = document.sections[0]
+    section.orientation = WD_ORIENT.LANDSCAPE
+    section.page_width = Mm(420)
+    section.page_height = Mm(297)
+    section.left_margin = Mm(12)
+    section.right_margin = Mm(12)
+    section.top_margin = Mm(12)
+    section.bottom_margin = Mm(12)
+
+    title = document.add_paragraph()
+    title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    title.paragraph_format.space_after = Pt(4)
+    run = title.add_run("VAZİYET PLANI — DIŞ HAT")
+    run.bold = True
+    run.font.size = Pt(16)
+    run.font.color.rgb = RGBColor(0x11, 0x11, 0x11)
+    run.font.name = "Calibri"
+
+    subtitle = document.add_paragraph()
+    subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    subtitle.paragraph_format.space_after = Pt(8)
+    sub = subtitle.add_run(
+        "B1 Blok Ana Üretim Tesisi  ·  içini Word’de şekil ekleyerek doldurabilirsiniz"
+    )
+    sub.font.size = Pt(11)
+    sub.font.name = "Calibri"
+
+    usable_width = section.page_width - section.left_margin - section.right_margin
+    usable_height = (
+        section.page_height
+        - section.top_margin
+        - section.bottom_margin
+        - Mm(32)
+    )
+    with Image.open(png_path) as preview:
+        aspect = preview.height / preview.width
+    width = usable_width
+    height = int(width * aspect)
+    if height > usable_height:
+        width = int(usable_height / aspect)
+
+    picture = document.add_paragraph()
+    picture.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    picture.paragraph_format.space_after = Pt(6)
+    picture.add_run().add_picture(str(png_path), width=width)
+
+    note = document.add_paragraph()
+    note.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    note_run = note.add_run(
+        "Not: Fotoğraftan yaklaşık dış hat. Resmi imar / ÇED / ruhsat paftası yerine geçmez. "
+        "Paint ile boyamak için aynı klasördeki .bmp dosyasını açın."
+    )
+    note_run.font.size = Pt(9)
+    note_run.italic = True
+    note_run.font.name = "Calibri"
+
+    document.save(docx_path)
 
 
 def main() -> None:
@@ -484,6 +558,8 @@ def main() -> None:
     svg_path_out = OUT_DIR / "b1-blok-vaziyet-dis-hat.svg"
     dxf_path_out = OUT_DIR / "b1-blok-vaziyet-dis-hat.dxf"
     png_path_out = OUT_DIR / "b1-blok-vaziyet-dis-hat.png"
+    bmp_path_out = OUT_DIR / "b1-blok-vaziyet-dis-hat.bmp"
+    docx_path_out = OUT_DIR / "b1-blok-vaziyet-dis-hat.docx"
     write_svg(bina, tevsiyat, parsel, giris_tris, labels, minx, miny, maxx, maxy, svg_path_out)
     write_dxf(bina, tevsiyat, parsel, giris_tris, labels, minx, miny, maxx, maxy, dxf_path_out)
     print(f"yazıldı: {svg_path_out}")
@@ -491,8 +567,12 @@ def main() -> None:
     try:
         write_png(bina, tevsiyat, parsel, giris_tris, labels, minx, miny, maxx, maxy, png_path_out)
         print(f"yazıldı: {png_path_out}")
-    except ImportError:
-        print("PNG atlandı: matplotlib yok")
+        write_bmp(png_path_out, bmp_path_out)
+        print(f"yazıldı: {bmp_path_out}")
+        write_docx(png_path_out, docx_path_out)
+        print(f"yazıldı: {docx_path_out}")
+    except ImportError as exc:
+        print(f"PNG/BMP/Word atlandı: {exc}")
 
 
 if __name__ == "__main__":
