@@ -76,29 +76,49 @@ Bu faaliyet, altyapıda kullanılan cam elyaf takviyeli polyester (CTP / GRP) bo
 
 Tesise cam elyaf, kum ve reçine sevk irsaliyesi ve kalite belgeleri ile birlikte gelir. Bu ünitede malzemenin siparişe uygunluğu, ambalaj bütünlüğü, etiket bilgisi ve teknik özellikleri kontrol edilir. Gerek duyulduğunda numune kimya laboratuvarına alınarak hammadde kalitesi doğrulanır. Uygun bulunan hammaddeler belirlenen depolama alanlarına alınır; reçine, cam elyaf ve kum birbirine karışmayacak ve üretim planına göre kolay çekilebilecek şekilde stoklanır. Uygun bulunmayan malzeme üretime verilmez. Stoklanan malzeme, günlük üretim ihtiyacına göre sonraki üniteye (winder) sevk edilir.
 
+**Çıkan atık:** Tehlikesiz — plastik ve kâğıt ambalaj atığı. Kimya laboratuvarında ayrıca tehlikesiz conta ve cam elyaf atığı; tehlikeli reçine ve kontamine olmuş malzeme oluşabilir.
+
 ### 2. Winder ünitesi (boru üretimi)
 
-Bu ünite hattın asıl imalat noktasıdır. Reçine ve yardımcı malzemeler günlük tanklardan, cam elyaf raflardan winder makinesine beslenir. Winder’da cam elyaf reçine ile emprenye edilir (elyaf reçineye doyurulur) ve döner kalıp (mandrel) üzerine katman katman sarılır. Kum, boru yapısına reçine ile birlikte verilir. Sarım hızı, reçine miktarı ve katman sayısı ayarlanarak boru istenen çap ve et kalınlığında şekillendirilir. Üretimi tamamlanan boru kalıptan alınarak boy kesme ünitesine aktarılır.
+Bu ünite hattın asıl imalat noktasıdır. Reçine ve yardımcı malzemeler günlük tanklardan, cam elyaf raflardan winder makinesine beslenir. Winder’da cam elyaf reçine ile emprenye edilir (elyaf reçineye doyurulur) ve döner kalıp (mandrel) üzerine katman katman sarılır. Kum, boru yapısına reçine ile birlikte verilir. Sarım hızı, reçine miktarı ve katman sayısı ayarlanarak boru istenen çap ve et kalınlığında şekillendirilir. Mandrel hazırlama bu ünitenin ön adımıdır. Üretimi tamamlanan boru kalıptan alınarak boy kesme ünitesine aktarılır. Mekanik laboratuvar numuneleri bu aşamadan alınabilir.
+
+**Çıkan atık:** Tehlikesiz — mandrel hazırlamada conta ve cam elyaf; mekanik laboratuvarda CTP cürufu ve CTP tozu.
 
 ### 3. Boru boy kesme ünitesi
 
 Winder’dan çıkan boru, müşteri siparişindeki veya ilgili standarttaki boya getirilmek üzere kesme ünitesine alınır. Kesim özel kesme makineleriyle yapılır. Bu ünitede amaç, borunun doğru boyda olması ve uçların düzgün, çapak kontrolü yapılmış halde bir sonraki işleme hazırlanmasıdır. Boy ve uç kontrolü uygunsa boru kalibrasyona; yüzeyde küçük hata varsa ODD tamir ünitesine yönlendirilir.
 
+**Çıkan atık:** Tehlikesiz — CTP cürufu ve CTP tozu.
+
 ### 4. ODD tamir ünitesi (ihtiyaç halinde)
 
 Bu ünite sürekli çalışan bir istasyon değildir. Üretim veya kalite kontrol sırasında yüzeysel çizik, küçük yüzey bozukluğu gibi hatalar görülürse boru buraya alınır. Hatalı bölge uygun tamir malzemeleriyle düzeltilir. Tamir yalnızca gerekli görüldüğünde uygulanır. Yüzey uygunsa boru kalibrasyon ünitesine geçer.
+
+**Çıkan atık:** Tehlikesiz — CTP tozu.
 
 ### 5. Boru ucu kalibrasyon ünitesi
 
 Boru uçları kalibrasyon makinelerinde işlenerek montaja uygun çap, form ve ölçüye getirilir. Amaç, sahada boruların birbirine ve manşona (coupling) boşluksuz ve standart biçimde bağlanabilmesidir. Uç ölçüleri kalite standardına uygun hale geldikten sonra boru hidrotest ünitesine alınır.
 
+**Çıkan atık:** Tehlikesiz — metal atıklar.
+
+### 5a. Markalama
+
+Kalibrasyon sonrası borulara kimlik / ürün işaretlemesi yapılır.
+
+**Çıkan atık:** Tehlikeli — kontamine ambalaj, kontamine malzeme atığı ve kontamine olmuş malzeme.
+
 ### 6. Hidrotest ünitesi
 
 Kalibre edilen boru su ile doldurulur ve belirli bir basınç altında teste tabi tutulur. Bu ünitede sızdırmazlık ve mekanik dayanım kontrol edilir. Test süresince basınç kaybı, sızıntı ve deformasyon olup olmadığı izlenir. Testi geçen boru coupling kanal açma ünitesine alınır. Testi geçmeyen veya kusurlu görülen ürün, hasarlı/kusurlu imalat değerlendirmesine yönlendirilir. Gerekli görülen mekanik kontroller mekanik laboratuvarda da yapılabilir.
 
+**Çıkan atık:** Tehlikesiz — CTP tozu. Tehlikeli — hidrolik yağ atığı.
+
 ### 7. Coupling kanal açma ünitesi
 
 Hidrotesti uygun bulunan borunun uçlarına, manşon yerleştirmek için özel makinelerle kanal açılır. Kanalın yeri, derinliği ve ölçüsü montaj standardına uygun olmalıdır. Bu işlem, boruların sızdırmaz ve güvenli bağlanmasının mekanik altyapısını hazırlar. Kanal kontrolü tamamlanan boru stopper ve conta montaj ünitesine geçer.
+
+**Çıkan atık:** Tehlikesiz — metal atıklar.
 
 ### 8. Stopper ve conta montaj ünitesi
 
@@ -108,6 +128,8 @@ Açılan coupling kanallarına sızdırmazlık elemanları (stopper ve conta) ye
 
 Tüm üretim, test ve montaj işlemleri biten borular stok sahasına taşınır. Borular ezilmeyecek, yuvarlanmayacak ve işaretleri okunacak şekilde istiflenir. Sevkiyat planına göre müşteriye / son kullanıcıya gönderilmek üzere hazır tutulur.
 
+**Çıkan atık:** Tehlikesiz — tahta ve metal atıklar.
+
 ### 10. Hasarlı / kusurlu imalat değerlendirmesi
 
 Yüzeysel çizik, çapak veya uç deformasyonu gibi küçük kusurlar varsa kesme veya kaynak uygulamalarıyla ürün tekrar kullanılabilir hale getirilir. Onarılan boru uygun üniteden (genellikle boy kesme) hatta geri alınır. Tesiste tekrar kullanılamayan hasarlı ürünler lisanslı geri dönüşüm tesislerine gönderilir.
@@ -115,6 +137,9 @@ Yüzeysel çizik, çapak veya uç deformasyonu gibi küçük kusurlar varsa kesm
 ### Fitting ünitesi (ayrı hat)
 
 Aynı tesiste boruya paralel, daha kısa bir imalat hattı vardır. Fitting (ek parça) üretiminde cam elyaf ve reçine kullanılır; bu hatta kum yoktur. Fitting imalatını boyutsal kontrol, manşon takma, markalama ve sevkiyat izler.
+
+**Çıkan atık:** Hammadde kabulünde tehlikesiz cam elyaf. Fitting imalatında tehlikesiz CTP cürufu ve CTP tozu. Boyutsal kontrolde tehlikeli reçine ve kontamine olmuş malzeme. Markalamada tehlikeli kontamine ambalaj / kontamine malzeme.
+
 
 ---
 
@@ -129,6 +154,8 @@ Kalite kontrol sırasında yüzey hatası tespit edilmesi halinde borular ODD ta
 Testi uygun bulunan borular coupling kanal açma ünitesinde manşon yuvası açılmakta, stopper ve conta montaj ünitesinde sızdırmazlık elemanları yerleştirilmektedir. Tüm işlemleri tamamlanan borular stok sahasına alınarak istiflenmekte ve sevkiyat planına göre hazır hale getirilmektedir. Üretim faaliyetinde su, hava ve elektrik kullanılmaktadır. Üretilen boruların mekanik özellikleri mekanik laboratuvarda doğrulanabilmektedir.
 
 Yüzeysel çizik, çapak veya uç deformasyonu gibi küçük kusurlar kesme veya kaynak uygulamalarıyla giderilerek ürün tekrar kullanılabilir hale getirilebilmektedir. Tesiste değerlendirilemeyen hasarlı ürünler lisanslı geri dönüşüm tesislerine gönderilmektedir. Aynı tesiste fitting imalatı cam elyaf ve reçine ile ayrı bir hatta yürütülmekte; imalatı boyutsal kontrol, manşon takma, markalama ve sevkiyat izlemektedir.
+
+Proses sırasında oluşan atıklar ünite bazında şöyledir. Hammadde kabul ve stoklamada plastik ve kâğıt ambalaj atığı (tehlikesiz); kimya laboratuvarında conta ve cam elyaf (tehlikesiz) ile reçine ve kontamine olmuş malzeme (tehlikeli) oluşmaktadır. Mandrel hazırlama / winder aşamasında conta ve cam elyaf, mekanik laboratuvarda CTP cürufu ve CTP tozu (tehlikesiz) oluşmaktadır. Boy kesmede CTP cürufu ve CTP tozu (tehlikesiz); ODD tamirde CTP tozu (tehlikesiz); kalibrasyonda metal atık (tehlikesiz); markalamada kontamine ambalaj ve kontamine malzeme (tehlikeli); hidrotestte CTP tozu (tehlikesiz) ve hidrolik yağ atığı (tehlikeli); kaplin kanal açmada metal atık (tehlikesiz); sevkiyatta tahta ve metal atık (tehlikesiz) oluşmaktadır. Fitting hattında cam elyaf, CTP cürufu ve CTP tozu tehlikesiz; reçine / kontamine malzeme ve kontamine ambalaj tehlikeli atık olarak oluşmaktadır. Tehlikesiz atıklar geri dönüşüm yoluna, tehlikeli atıklar lisanslı tesislere yönlendirilmektedir.
 
 ---
 
