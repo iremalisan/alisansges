@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CTP Altyapı Boruları Üretim İş Akım Şeması</title>
+  <style>
+    :root {
+      --navy: #1b4f72;
+      --blue: #2471a3;
+      --blue-soft: #d4e6f1;
+      --sky: #5dade2;
+      --orange: #d35400;
+      --orange-soft: #fdebd0;
+      --green: #196f3d;
+      --green-soft: #d5f5e3;
+      --red: #922b21;
+      --red-soft: #fadbd8;
+      --gold: #b7950b;
+      --gold-soft: #fcf3cf;
+      --ink: #1c2833;
+      --muted: #5d6d7e;
+      --line: #2e86c1;
+      --paper: #f4f7fa;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Calibri", "Liberation Sans", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    header.doc-head {
+      background: linear-gradient(135deg, #154360 0%, #1b4f72 55%, #2471a3 100%);
+      color: var(--white);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+
+    header.doc-head p.kicker {
+      margin: 0 0 8px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 12px;
+      opacity: 0.85;
+    }
+
+    header.doc-head h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    header.doc-head .sub {
+      margin: 0;
+      font-size: 15px;
+      opacity: 0.92;
+    }
+
+    .banner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      background: #eaf2f8;
+      border: 1px solid #aed6f1;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin: 0 0 28px;
+      font-size: 14px;
+    }
+
+    .banner strong { color: var(--navy); }
+
+    .chip {
+      background: var(--white);
+      border: 1px solid #aed6f1;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    nav.toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    nav.toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--navy);
+      background: var(--white);
+      border: 1px solid #d5d8dc;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    nav.toc a:hover { border-color: var(--blue); }
+
+    h2 {
+      font-size: 20px;
+      color: var(--navy);
+      margin: 40px 0 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #d4e6f1;
+    }
+
+    h3 {
+      font-size: 16px;
+      color: var(--blue);
+      margin: 24px 0 8px;
+    }
+
+    .lead {
+      color: var(--muted);
+      margin: 0 0 20px;
+      font-size: 15px;
+    }
+
+    .flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--white);
+      border: 1px solid #d5d8dc;
+      border-radius: 16px;
+      padding: 28px 16px 32px;
+      margin: 16px 0 24px;
+    }
+
+    .step {
+      width: min(440px, 100%);
+      background: var(--blue);
+      color: var(--white);
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(27, 79, 114, 0.18);
+    }
+
+    .step .num {
+      display: inline-block;
+      min-width: 22px;
+      height: 22px;
+      line-height: 22px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      font-size: 12px;
+      margin-right: 6px;
+    }
+
+    .step .title {
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .step .hint {
+      display: block;
+      margin-top: 4px;
+      font-size: 12.5px;
+      font-weight: 400;
+      opacity: 0.92;
+    }
+
+    .step.start { background: #154360; }
+    .step.end { background: #117a65; }
+    .step.optional {
+      background: var(--white);
+      color: var(--orange);
+      border: 2px dashed var(--orange);
+      box-shadow: none;
+    }
+    .step.optional .hint { color: #a04000; opacity: 1; }
+    .step.defect {
+      background: var(--white);
+      color: var(--red);
+      border: 2px solid var(--red);
+      box-shadow: none;
+    }
+    .step.recycle {
+      background: var(--green);
+    }
+
+    .arrow {
+      width: 3px;
+      height: 22px;
+      background: var(--line);
+      position: relative;
+      margin: 2px 0 8px;
+    }
+
+    .arrow::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -7px;
+      transform: translateX(-50%);
+      border: 7px solid transparent;
+      border-top-color: var(--line);
+      border-bottom-width: 0;
+    }
+
+    .arrow.dashed {
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--orange) 0 6px,
+        transparent 6px 10px
+      );
+    }
+
+    .arrow.dashed::after { border-top-color: var(--orange); }
+
+    .row-split {
+      display: grid;
+      grid-template-columns: 1fr 160px 1fr;
+      gap: 8px;
+      align-items: center;
+      width: min(760px, 100%);
+      margin: 4px 0;
+    }
+
+    .diamond {
+      width: 148px;
+      height: 148px;
+      background: var(--gold-soft);
+      border: 2px solid var(--gold);
+      transform: rotate(45deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px auto 18px;
+    }
+
+    .diamond span {
+      transform: rotate(-45deg);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #7d6608;
+      padding: 8px;
+      line-height: 1.3;
+    }
+
+    .side-note {
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .side-note.yes { color: var(--orange); }
+    .side-note.ok { color: var(--green); }
+    .side-note.no { color: var(--red); }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 22px;
+      font-size: 13px;
+      margin: 8px 0 0;
+      justify-content: center;
+    }
+
+    .legend i {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      margin-right: 6px;
+      vertical-align: -2px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid #d5d8dc;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 12px 0 20px;
+    }
+
+    .card p:first-child { margin-top: 0; }
+    .card p:last-child { margin-bottom: 0; }
+
+    ol.plain, ul.plain {
+      margin: 8px 0 0;
+      padding-left: 22px;
+    }
+
+    ol.plain li, ul.plain li { margin: 6px 0; }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .mini {
+      background: var(--white);
+      border-left: 4px solid var(--blue);
+      border-radius: 8px;
+      padding: 12px 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .mini.opt { border-left-color: var(--orange); }
+    .mini.def { border-left-color: var(--red); }
+    .mini h4 {
+      margin: 0 0 6px;
+      font-size: 14px;
+      color: var(--navy);
+    }
+    .mini p { margin: 0; font-size: 13.5px; color: var(--muted); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid #d5d8dc;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eaf2f8;
+      color: var(--navy);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .caption {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 8px;
+      font-weight: 600;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 720px) {
+      .two-col, .row-split { grid-template-columns: 1fr; }
+      .diamond { margin-bottom: 8px; }
+    }
+
+    @media print {
+      body { background: white; }
+      .page { padding: 0; max-width: none; }
+      header.doc-head { break-inside: avoid; }
+      .flow, .card { break-inside: avoid; }
+      nav.toc { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="doc-head">
+      <p class="kicker">3.1 Üretim faaliyeti</p>
+      <h1>Cam Elyaf Takviyeli Polyester Altyapı Boruları Üretim İş Akım Şeması</h1>
+      <p class="sub">CTP / GRP boru hattı — hammaddeden stok sahasına sade süreç haritası</p>
+    </header>
+
+    <div class="banner">
+      <strong>Doğal kaynak kullanımı (tüm hat boyunca):</strong>
+      <span class="chip">Su</span>
+      <span class="chip">Hava</span>
+      <span class="chip">Elektrik</span>
+    </div>
+
+    <nav class="toc">
+      <a href="#sema-sade">Şema A — Sade hat</a>
+      <a href="#sema-tam">Şema B — Tam iş akışı (önerilen)</a>
+      <a href="#fitting">Şema C — Fitting hattı</a>
+      <a href="#ozetler">Proses özeti versiyonları</a>
+    </nav>
+
+    <!-- ŞEMA A -->
+    <h2 id="sema-sade">Şema A — Sade hat</h2>
+    <p class="lead">İlk kez okuyan biri için ana yol. Kesik çerçeveli kutu her boruda uygulanmaz; yalnızca ihtiyaç olursa devreye girer.</p>
+    <p class="caption">Şema A: Cam elyaf takviyeli polyester altyapı boruları — ana üretim hattı</p>
+
+    <div class="flow">
+      <div class="step start">
+        <div class="title"><span class="num">1</span> Hammadde girdi kontrol ve stoklama</div>
+        <span class="hint">Cam elyaf, kum, reçine — belge ve ambalaj kontrolü, depoya alma</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title"><span class="num">2</span> Winder’da boru üretimi</div>
+        <span class="hint">Günlük tank ve raflardan besleme · reçine emprenye · döner kalıba sarım</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title"><span class="num">3</span> Boru boy kesme</div>
+        <span class="hint">Sipariş boyuna göre kesim, düzgün uç</span>
+      </div>
+      <div class="arrow dashed"></div>
+      <div class="step optional">
+        <div class="title">ODD tamir ünitesi — ihtiyaç halinde</div>
+        <span class="hint">Küçük yüzey hataları düzeltilir. Hata yoksa bu adım atlanır.</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title"><span class="num">4</span> Boru ucu kalibrasyon</div>
+        <span class="hint">Uçlar montaj ölçüsüne getirilir</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title"><span class="num">5</span> Hidrotest</div>
+        <span class="hint">Su ve basınç ile sızdırmazlık ve dayanım kontrolü</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title"><span class="num">6</span> Coupling kanal açma</div>
+        <span class="hint">Manşon için kanal · ölçü standartlara uygun olmalı</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title"><span class="num">7</span> Stopper ve conta montajı</div>
+        <span class="hint">Sızdırmazlık elemanlarının yerleştirilmesi</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step end">
+        <div class="title"><span class="num">8</span> Stok sahasına sevk</div>
+        <span class="hint">İstifleme ve sevkiyat hazırlığı · müşteri / son kullanıcı</span>
+      </div>
+      <div class="legend" style="margin-top:22px">
+        <span><i style="background:#2471a3"></i> Her üründe uygulanan adım</span>
+        <span><i style="background:#fff;border:2px dashed #d35400"></i> Yalnızca ihtiyaç halinde</span>
+        <span><i style="background:#117a65"></i> Stok / sevkiyat</span>
+      </div>
+    </div>
+
+    <!-- ŞEMA B -->
+    <h2 id="sema-tam">Şema B — Tam iş akışı (önerilen)</h2>
+    <p class="lead">Şema A ile aynı hat; kalite kararları ve hasarlı ürün yolu eklenmiştir. Laboratuvarlar ve atıklar şemayı kalabalıklaştırmamak için alt notta toplanmıştır.</p>
+    <p class="caption">Şema B: Üretim hattı, isteğe bağlı tamir ve hasarlı imalat yönlendirmesi</p>
+
+    <div class="flow">
+      <div class="step start">
+        <div class="title">Hammadde girdi kontrol ve stoklama</div>
+        <span class="hint">Cam elyaf · kum · reçine</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title">Winder ünitesinde boru üretimi</div>
+        <span class="hint">Emprenye ve döner kalıp üzerine sarım · çap / kalınlık</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title">Boru boy kesme</div>
+      </div>
+      <div class="arrow"></div>
+
+      <div class="diamond"><span>Yüzey hatası var mı?</span></div>
+      <div class="row-split">
+        <div>
+          <div class="side-note yes">Evet → tamir</div>
+          <div class="step optional" style="width:100%;margin-top:6px">
+            <div class="title">ODD tamir ünitesi</div>
+            <span class="hint">Küçük yüzey hataları giderilir</span>
+          </div>
+        </div>
+        <div></div>
+        <div class="side-note ok">Hayır → kalibrasyona geç</div>
+      </div>
+      <div class="arrow"></div>
+
+      <div class="step">
+        <div class="title">Boru ucu kalibrasyon</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title">Hidrotest</div>
+        <span class="hint">Basınç kaybı ve deformasyon izlenir</span>
+      </div>
+      <div class="arrow"></div>
+
+      <div class="diamond"><span>Test ve ürün uygun mu?</span></div>
+      <div class="row-split">
+        <div>
+          <div class="side-note no">Hayır → hasarlı imalat</div>
+          <div class="step defect" style="width:100%;margin-top:6px">
+            <div class="title">Hasarlı / kusurlu imalat</div>
+            <span class="hint">Çizik, çapak, uç deformasyonu</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;margin-top:8px">
+            <div class="arrow"></div>
+            <div class="step recycle" style="width:100%">
+              <div class="title">İki yol</div>
+              <span class="hint">Küçük kusur: kesme / kaynak ile onarım, hatta dönüş<br>Kullanılamaz: lisanslı geri dönüşüm tesisi</span>
+            </div>
+          </div>
+        </div>
+        <div></div>
+        <div class="side-note ok">Evet → montaja geç</div>
+      </div>
+      <div class="arrow"></div>
+
+      <div class="step">
+        <div class="title">Coupling kanal açma</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title">Stopper ve conta montajı</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="step end">
+        <div class="title">Stok sahası → sevkiyat → müşteri</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0">Şemayı kalabalıklaştırmayan notlar</h3>
+      <ul class="plain">
+        <li><strong>Laboratuvar:</strong> Hammadde kimya laboratuvarında; üretilen boru mekanik laboratuvarda doğrulanır.</li>
+        <li><strong>Geri dönüştürülebilir atık örnekleri:</strong> plastik/kâğıt ambalaj, CTP cürufu ve tozu, metal atık, tahta.</li>
+        <li><strong>Tehlikeli atık örnekleri:</strong> reçine ve kontamine malzeme, kontamine ambalaj, hidrolik yağ. Bunlar lisanslı bertaraf / geri kazanıma gider.</li>
+      </ul>
+    </div>
+
+    <!-- ŞEMA C -->
+    <h2 id="fitting">Şema C — Fitting (ek parça) hattı</h2>
+    <p class="lead">Aynı tesiste boru hattına paralel, daha kısa bir imalat. Ana hammadde cam elyaf ve reçinedir (kum bu hatta yoktur).</p>
+    <p class="caption">Şema C: Fitting imalatı — hammaddeden sevkiyata</p>
+
+    <div class="flow">
+      <div class="step start">
+        <div class="title">Hammadde girdi kontrol</div>
+        <span class="hint">Cam elyaf, reçine</span>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title">Fitting imalatı</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title">Boyutsal kontrol</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title">Manşon takma</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="step">
+        <div class="title">Markalama</div>
+      </div>
+      <div class="arrow"></div>
+      <div class="step end">
+        <div class="title">Sevkiyat</div>
+      </div>
+    </div>
+
+    <!-- ÖZETLER -->
+    <h2 id="ozetler">Proses özeti — birkaç sade versiyon</h2>
+    <p class="lead">Aynı süreç, farklı uzunlukta. Belgeye hangisi uyuyorsa onu kullanın; hepsi Şema B ile uyumludur.</p>
+
+    <h3>Versiyon 1 — 30 saniyelik özet</h3>
+    <div class="card">
+      <p>Tesise gelen cam elyaf, kum ve reçine kontrol edilip depolanır. Hammaddeler winder makinesinde döner kalıba sarılarak boru olur. Boru istenen boyda kesilir; yüzeyde küçük hata varsa tamir edilir. Uçlar kalibre edilir, boru su basıncıyla (hidrotest) sızdırmazlık ve dayanım için test edilir. Bağlantı için kanal açılır, stopper ve conta takılır. Uygun ürünler stok sahasına alınır. Küçük kusurlar onarılır; onarılamayanlar lisanslı geri dönüşüme gönderilir.</p>
+    </div>
+
+    <h3>Versiyon 2 — İlk kez okuyanlar için (önerilen)</h3>
+    <div class="card">
+      <p>Bu faaliyet, altyapıda kullanılan <strong>cam elyaf takviyeli polyester (CTP / GRP) boruların</strong> hammaddeden sevkiyata kadar üretimini anlatır. Süreç tek bir hat üzerindedir; tamir yalnızca ihtiyaç olursa yapılır.</p>
+      <ol class="plain">
+        <li><strong>Malzeme gelir.</strong> Cam elyaf, kum ve reçine sevk belgesi ve kalite evraklarıyla kontrol edilir. Ambalajı sağlam ve özellikleri uygun olanlar depoya alınır.</li>
+        <li><strong>Boru şekillenir.</strong> Reçine günlük tanklardan, cam elyaf raflardan winder ünitesine verilir. Elyaf reçine ile ıslatılır (emprenye) ve dönen kalıba sarılır. Boru bu sarımla istenen çap ve kalınlığa gelir.</li>
+        <li><strong>Boyuna kesilir.</strong> Bitmiş boru, siparişteki boya göre kesilir. Uçların düzgün olmasına bakılır.</li>
+        <li><strong>Gerekirse tamir edilir.</strong> Küçük yüzey hataları ODD tamir ünitesinde düzeltilir. Hata yoksa bu adım atlanır.</li>
+        <li><strong>Uçlar ölçüye getirilir.</strong> Kalibrasyon, boruların sahada birbirine uyumlu bağlanmasını sağlar.</li>
+        <li><strong>Basınç testi yapılır.</strong> Boru su ile doldurulur, belirli basınca tabi tutulur. Sızıntı veya şekil bozukluğu aranır.</li>
+        <li><strong>Bağlantı hazırlanır.</strong> Manşon (coupling) için kanal açılır; stopper ve conta takılır.</li>
+        <li><strong>Stoklanır.</strong> Tamamlanan borular stok sahasına istiflenir, sevkiyata hazır hale gelir.</li>
+      </ol>
+      <p><strong>Hasarlı ürün:</strong> Çizik, çapak veya uç bozulması gibi küçük kusurlar kesme veya kaynakla giderilip ürün tekrar kullanılabilir. Tesiste kurtarılamayan ürünler lisanslı geri dönüşüm tesisine gönderilir.</p>
+    </div>
+
+    <h3>Versiyon 3 — Resmi belge paragrafı</h3>
+    <div class="card">
+      <p>Üretim süreci kapsamında tesise temin edilen cam elyaf, kum ve reçine girdi kontrolünden geçirilerek uygun stok alanlarında depolanmaktadır. Üretim aşamasında hammaddeler günlük tanklar ve raf sistemlerinden winder ünitesine beslenmekte; cam elyaf reçine ile emprenye edilerek döner kalıp üzerine sarım yöntemiyle boru haline getirilmektedir. Üretimi tamamlanan borular talep edilen standart boylara getirilmek üzere kesme ünitesinde işlenmektedir. Kalite kontrol sırasında ihtiyaç duyulması halinde yüzey hataları ODD tamir ünitesinde giderilmektedir. Ardından boru uçları kalibrasyon ile montaja uygun ölçülere getirilmekte ve hidrotest ile dayanım ile sızdırmazlık özellikleri kontrol edilmektedir. Testi uygun bulunan boruların uçlarına coupling kanalı açılmakta, stopper ve conta montajı yapılmaktadır. Tüm işlemleri tamamlanan borular sevkiyat öncesinde stok sahasına alınarak istiflenmektedir. Yüzeysel çizik, çapak veya uç deformasyonu gibi küçük kusurlar kesme veya kaynak uygulamalarıyla giderilerek ürün tekrar kullanılabilir hale getirilebilmektedir. Tesiste değerlendirilemeyen hasarlı ürünler lisanslı geri dönüşüm tesislerine gönderilerek geri kazanımı sağlanmaktadır.</p>
+    </div>
+
+    <h3>Versiyon 4 — Adım kartları</h3>
+    <div class="steps-grid">
+      <div class="mini">
+        <h4>1. Hammadde girdi kontrol ve stoklama</h4>
+        <p>Cam elyaf, kum ve reçine sevk irsaliyesi ve kalite belgeleriyle kontrol edilir. Ambalaj ve teknik özellikler doğrulanır. Uygun malzemeler depolanır.</p>
+      </div>
+      <div class="mini">
+        <h4>2. Winder’a besleme ve boru üretimi</h4>
+        <p>Reçine günlük tanklardan, cam elyaf raflardan winder’a gelir. Elyaf reçine ile emprenye edilip döner kalıba sarılır; boru çap ve kalınlık kazanır.</p>
+      </div>
+      <div class="mini">
+        <h4>3. Boru boy kesme</h4>
+        <p>Boru, talep edilen boya göre kesilir. Uçların düzgün ve standart ölçüde olmasına dikkat edilir.</p>
+      </div>
+      <div class="mini opt">
+        <h4>ODD tamir (ihtiyaç halinde)</h4>
+        <p>Küçük yüzey hataları uygun malzemeyle düzeltilir. Bu adım yalnızca gerekli görüldüğünde uygulanır.</p>
+      </div>
+      <div class="mini">
+        <h4>4. Boru ucu kalibrasyon</h4>
+        <p>Uçlar kalibrasyon makinesinde işlenir. Montajda boruların birbirine uyumu sağlanır.</p>
+      </div>
+      <div class="mini">
+        <h4>5. Hidrotest</h4>
+        <p>Boru su ile doldurulup basınç altında tutulur. Sızdırmazlık, dayanım, basınç kaybı ve deformasyon izlenir.</p>
+      </div>
+      <div class="mini">
+        <h4>6. Coupling kanal açma</h4>
+        <p>Manşon yerleştirmek için uca kanal açılır. Kanal ölçüleri montaj standardına uygun olmalıdır.</p>
+      </div>
+      <div class="mini">
+        <h4>7. Stopper ve conta montajı</h4>
+        <p>Kanal açılan uçlara sızdırmazlık elemanları takılır. Bağlantının sızdırmaması bu adımla güvenceye alınır.</p>
+      </div>
+      <div class="mini">
+        <h4>8. Stok sahasına sevk</h4>
+        <p>Montajı ve kontrolleri biten borular stok sahasına taşınır, istiflenir ve sevkiyat planına göre hazırlanır.</p>
+      </div>
+      <div class="mini def">
+        <h4>Hasarlı / kusurlu imalat</h4>
+        <p>Küçük kusur: kesme veya kaynakla onarım, hatta dönüş. Kullanılamayan ürün: lisanslı geri dönüşüm tesisi.</p>
+      </div>
+    </div>
+
+    <h3>Eski şemalardan ne değişti?</h3>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Konu</th>
+            <th>Önceki şemalar</th>
+            <th>Bu sürüm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ana hat</td>
+            <td>Yedi adımlık sade dikey şema</td>
+            <td>Aynı sıra korundu; adımlar kısaltıldı</td>
+          </tr>
+          <tr>
+            <td>ODD tamir</td>
+            <td>Metinde vardı, sade şemada yoktu</td>
+            <td>Kesik çerçeve / karar baklavası ile eklendi</td>
+          </tr>
+          <tr>
+            <td>Hasarlı imalat</td>
+            <td>Metinde vardı, sade şemada yoktu</td>
+            <td>Onarım veya lisanslı geri dönüşüm olarak eklendi</td>
+          </tr>
+          <tr>
+            <td>Atık ve laboratuvar</td>
+            <td>Detaylı şemada her kutudan dal</td>
+            <td>Ana şemadan çıkarıldı; alt notta toplandı</td>
+          </tr>
+          <tr>
+            <td>Fitting</td>
+            <td>Ayrı, daha kısa hat</td>
+            <td>Şema C olarak ayrı ve sade bırakıldı</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      Cam Elyaf Takviyeli Polyester Altyapı Boruları Üretim Faaliyeti — iş akım şeması ve proses özeti.<br />
+      Şema A günlük anlatım, Şema B resmi süreç haritası, Şema C fitting hattı içindir.
+    </footer>
+  </div>
+</body>
+</html>
