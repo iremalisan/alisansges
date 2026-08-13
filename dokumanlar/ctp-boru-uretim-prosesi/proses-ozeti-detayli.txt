@@ -1,68 +1,66 @@
 CAM ELYAF TAKVİYELİ POLYESTER ALTYAPI BORULARI
-ÜRETİM FAALİYETİ — DETAYLI PROSES ÖZETİ
+ÜRETİM FAALİYETİ — ÜNİTE ÜNİTE PROSES ÖZETİ
 
-Versiyon 2 — Detaylı proses özeti (önerilen)
+## Proses özeti — ünite ünite
 
-Bu faaliyet, altyapıda kullanılan cam elyaf takviyeli polyester (CTP / GRP) boruların hammaddenin tesise girişinden sevkiyata kadar üretimini kapsar. Üretim tek bir hat üzerindedir. ODD tamir ünitesi her boruda çalışmaz; yalnızca yüzey hatası görüldüğünde devreye girer. Süreç boyunca su, hava ve elektrik kullanılır. Hammadde kalitesi kimya laboratuvarında, üretilen borunun mekanik özellikleri mekanik laboratuvarda doğrulanır.
+Bu faaliyet, altyapıda kullanılan cam elyaf takviyeli polyester (CTP / GRP) boruların hammaddenin tesise girişinden sevkiyata kadar üretimini kapsar. Üretim tek hat üzerindedir. ODD tamir ünitesi her boruda çalışmaz; yalnızca ihtiyaç halinde devreye girer. Süreç boyunca su, hava ve elektrik kullanılır.
 
-1. Hammadde girdi kontrol ve stoklama. Tesise cam elyaf, kum ve reçine sevk irsaliyesi, kalite belgeleri ve teknik özelliklerle birlikte gelir. Ambalaj bütünlüğü, etiket bilgisi ve malzemenin siparişe uygunluğu kontrol edilir. Uygun bulunan hammaddeler belirlenen depolama alanlarına alınır; üretim planına göre stoklanır. Uygun bulunmayan malzeme üretime verilmez. Bu aşamada ambalaj kaynaklı plastik ve kâğıt atık oluşabilir.
+1. Hammadde girdi kontrol ve stoklama ünitesi
 
-2. Winder ünitesinde boru üretimi. Üretim sırasında reçine ve yardımcı malzemeler günlük tanklardan, cam elyaf raflardan winder ünitesine beslenir. Winder’da cam elyaf reçine ile emprenye edilir (ıslatılır) ve döner kalıp (mandrel) üzerine sarılır. Sarım hızı, reçine miktarı ve katman sayısı ayarlanarak boru istenen çap ve et kalınlığında şekillendirilir. Bu işlem filament winding / sarım yöntemidir. Şekillendirme sonrası boru, kesme öncesi kürlenmiş / üretim tamamlanmış halde kesme ünitesine alınır.
+Tesise cam elyaf, kum ve reçine sevk irsaliyesi ve kalite belgeleri ile birlikte gelir. Bu ünitede malzemenin siparişe uygunluğu, ambalaj bütünlüğü, etiket bilgisi ve teknik özellikleri kontrol edilir. Gerek duyulduğunda numune kimya laboratuvarına alınarak hammadde kalitesi doğrulanır. Uygun bulunan hammaddeler belirlenen depolama alanlarına alınır; reçine, cam elyaf ve kum birbirine karışmayacak ve üretim planına göre kolay çekilebilecek şekilde stoklanır. Uygun bulunmayan malzeme üretime verilmez. Stoklanan malzeme, günlük üretim ihtiyacına göre sonraki üniteye (winder) sevk edilir.
 
-3. Boru boy kesme. Üretimi biten boru, müşteri veya standart talebine göre boy kesme ünitesine alınır. Kesim özel makinelerle yapılır. Amaç, boru uçlarının düzgün, çapak kontrolü yapılmış ve standart boyda olmasıdır. Bu adımda CTP cürufu ve CTP tozu oluşabilir; bunlar geri dönüştürülebilir atık olarak yönetilir.
+2. Winder ünitesi (boru üretimi)
 
-4. ODD tamir ünitesi (ihtiyaç halinde). Kesme veya kalite kontrol sırasında yüzeysel hata (çizik, küçük yüzey bozukluğu vb.) tespit edilirse boru ODD tamir ünitesine alınır. Hatalı bölge uygun malzemeyle düzeltilir. Hata yoksa bu adım tamamen atlanır; hat üzerindeki zorunlu bir istasyon değildir.
+Bu ünite hattın asıl imalat noktasıdır. Reçine ve yardımcı malzemeler günlük tanklardan, cam elyaf raflardan winder makinesine beslenir. Winder’da cam elyaf reçine ile emprenye edilir (elyaf reçineye doyurulur) ve döner kalıp (mandrel) üzerine katman katman sarılır. Kum, boru yapısına reçine ile birlikte verilir. Sarım hızı, reçine miktarı ve katman sayısı ayarlanarak boru istenen çap ve et kalınlığında şekillendirilir. Üretimi tamamlanan boru kalıptan alınarak boy kesme ünitesine aktarılır.
 
-5. Boru ucu kalibrasyon. Boru uçları kalibrasyon makinelerinde işlenerek montaja uygun çap, form ve ölçüye getirilir. Böylece sahada boruların birbirine ve manşona uyumlu bağlanması sağlanır. Kalibrasyon sırasında metal atık oluşabilir.
+3. Boru boy kesme ünitesi
 
-6. Hidrotest. Kalibre edilen boru su ile doldurulur ve belirli bir basınç altında teste tabi tutulur. Amaç sızdırmazlık ve dayanımı doğrulamaktır. Test süresince basınç kaybı, sızıntı ve deformasyon izlenir. Testi geçmeyen ürün hasarlı/kusurlu imalat yoluna alınır.
+Winder’dan çıkan boru, müşteri siparişindeki veya ilgili standarttaki boya getirilmek üzere kesme ünitesine alınır. Kesim özel kesme makineleriyle yapılır. Bu ünitede amaç, borunun doğru boyda olması ve uçların düzgün, çapak kontrolü yapılmış halde bir sonraki işleme hazırlanmasıdır. Boy ve uç kontrolü uygunsa boru kalibrasyona; yüzeyde küçük hata varsa ODD tamir ünitesine yönlendirilir.
 
-7. Coupling kanal açma. Testi uygun bulunan borunun uçlarına, manşon (coupling) yerleştirmek için özel makinelerle kanal açılır. Kanal derinliği ve ölçüsü montaj standardına uygun olmalıdır. Bu işlem, boruların sızdırmaz ve güvenli bağlanmasının ilk mekanik adımıdır.
+4. ODD tamir ünitesi (ihtiyaç halinde)
 
-8. Stopper ve conta montajı. Açılan kanallara sızdırmazlık elemanları (stopper ve conta) doğru konumda yerleştirilir. Contanın ezilmeden, kaçık durmadan oturması kontrol edilir. Bu adım, sahadaki birleştirmelerin sızdırmaması için son montaj hazırlığıdır.
+Bu ünite sürekli çalışan bir istasyon değildir. Üretim veya kalite kontrol sırasında yüzeysel çizik, küçük yüzey bozukluğu gibi hatalar görülürse boru buraya alınır. Hatalı bölge uygun tamir malzemeleriyle düzeltilir. Tamir yalnızca gerekli görüldüğünde uygulanır. Yüzey uygunsa boru kalibrasyon ünitesine geçer.
 
-9. Stok sahasına sevk. Tüm işlemleri ve kontrolleri tamamlanan borular stok sahasına taşınır. Borular ezilmeyecek ve işaretleri okunacak şekilde istiflenir. Sevkiyat planına göre müşteriye / son kullanıcıya gönderilmek üzere hazır tutulur. Stok ve sevkiyatta tahta ve metal ambalaj atıkları oluşabilir.
+5. Boru ucu kalibrasyon ünitesi
 
-Hasarlı / kusurlu imalat. Yüzeysel çizik, çapak veya uç deformasyonu gibi küçük kusurlar kesme, kaynak veya benzeri uygulamalarla giderilerek ürün tekrar kullanılabilir hale getirilebilir; onarılan ürün uygun adımdan (genellikle boy kesme) hattına döner. Tesiste tekrar kullanılamayan hasarlı ürünler lisanslı geri dönüşüm tesislerine gönderilerek geri kazanılır.
+Boru uçları kalibrasyon makinelerinde işlenerek montaja uygun çap, form ve ölçüye getirilir. Amaç, sahada boruların birbirine ve manşona (coupling) boşluksuz ve standart biçimde bağlanabilmesidir. Uç ölçüleri kalite standardına uygun hale geldikten sonra boru hidrotest ünitesine alınır.
 
-Fitting hattı (aynı tesis, ayrı kısa proses). Ek parçalar cam elyaf ve reçine ile imal edilir (bu hatta kum yoktur). Fitting imalatını boyutsal kontrol, manşon takma, markalama ve sevkiyat izler.
+6. Hidrotest ünitesi
 
-Atık notu. Geri dönüştürülebilir: plastik/kâğıt ambalaj, CTP cürufu ve tozu, metal, tahta. Tehlikeli / özel yönetilen: reçine ve kontamine malzeme, kontamine ambalaj, hidrolik yağ. Bunlar lisanslı bertaraf veya geri kazanıma verilir.
+Kalibre edilen boru su ile doldurulur ve belirli bir basınç altında teste tabi tutulur. Bu ünitede sızdırmazlık ve mekanik dayanım kontrol edilir. Test süresince basınç kaybı, sızıntı ve deformasyon olup olmadığı izlenir. Testi geçen boru coupling kanal açma ünitesine alınır. Testi geçmeyen veya kusurlu görülen ürün, hasarlı/kusurlu imalat değerlendirmesine yönlendirilir. Gerekli görülen mekanik kontroller mekanik laboratuvarda da yapılabilir.
 
-Versiyon 3 — Resmi belge metni
+7. Coupling kanal açma ünitesi
 
-Üretim süreci kapsamında tesise temin edilen cam elyaf, kum ve reçine; sevk irsaliyesi ve kalite belgeleri eşliğinde girdi kontrolünden geçirilmekte, ambalaj bütünlüğü ile teknik özellikleri doğrulandıktan sonra uygun stok alanlarında depolanmaktadır. Hammadde kalitesi ihtiyaç halinde kimya laboratuvarında kontrol edilmektedir.
+Hidrotesti uygun bulunan borunun uçlarına, manşon yerleştirmek için özel makinelerle kanal açılır. Kanalın yeri, derinliği ve ölçüsü montaj standardına uygun olmalıdır. Bu işlem, boruların sızdırmaz ve güvenli bağlanmasının mekanik altyapısını hazırlar. Kanal kontrolü tamamlanan boru stopper ve conta montaj ünitesine geçer.
 
-Üretim aşamasında reçine ve yardımcı malzemeler günlük tanklardan, cam elyaf ise raf sistemlerinden winder ünitesine beslenmektedir. Winder ünitesinde cam elyaf reçine ile emprenye edilerek döner kalıp üzerine sarım yöntemiyle istenilen çap ve et kalınlığında boru haline getirilmektedir. Üretimi tamamlanan borular, talep edilen standart boylara getirilmek üzere kesme ünitesinde boy kesme işlemine tabi tutulmakta; uçların düzgün ve standart ölçüde olması sağlanmaktadır.
+8. Stopper ve conta montaj ünitesi
 
-Kalite kontrol sırasında yüzey hatası tespit edilmesi halinde borular ODD tamir ünitesine alınarak hatalı bölgeler uygun malzemelerle düzeltilmektedir. Tamir işlemi yalnızca ihtiyaç halinde uygulanmakta, hatasız ürünlerde bu adım atlanmaktadır. Ardından boru uçları kalibrasyon makinelerinde montaja uygun ölçü ve forma getirilmektedir. Kalibrasyonu tamamlanan borulara hidrotest uygulanmakta; borular su ile doldurularak belirli basınç altında sızdırmazlık, dayanım, basınç kaybı ve deformasyon açısından kontrol edilmektedir.
+Açılan coupling kanallarına sızdırmazlık elemanları (stopper ve conta) yerleştirilir. Contanın doğru yuvaya, ezilmeden ve kaçık durmadan oturması kontrol edilir. Bu ünite, sahadaki birleştirmelerin sızdırmaması için son montaj hazırlığıdır. Montajı tamamlanan boru stok sahasına alınır.
 
-Testi uygun bulunan boruların uçlarına manşon yerleştirmek üzere coupling kanalı açılmakta, ardından stopper ve conta montajı gerçekleştirilmektedir. Tüm işlemleri tamamlanan borular sevkiyat öncesinde stok sahasına alınarak uygun yöntemlerle istiflenmekte ve sevkiyat planına göre hazır hale getirilmektedir. Üretim faaliyetinde su, hava ve elektrik kullanılmaktadır. Üretilen boruların mekanik özellikleri mekanik laboratuvarda doğrulanabilmektedir.
+9. Stok sahası ve sevkiyat
 
-Yüzeysel çizik, çapak veya uç deformasyonu gibi küçük kusurlar kesme veya kaynak uygulamalarıyla giderilerek ürün tekrar kullanılabilir hale getirilebilmektedir. Tesiste değerlendirilemeyen hasarlı ürünler lisanslı geri dönüşüm tesislerine gönderilerek geri kazanımı sağlanmaktadır. Proses sırasında oluşan plastik, kâğıt, metal, tahta ile CTP cürufu ve tozu geri dönüştürülebilir atık olarak; reçine, kontamine malzeme/ambalaj ve hidrolik yağ atığı ise lisanslı tesislerde yönetilecek atık olarak ele alınmaktadır.
+Tüm üretim, test ve montaj işlemleri biten borular stok sahasına taşınır. Borular ezilmeyecek, yuvarlanmayacak ve işaretleri okunacak şekilde istiflenir. Sevkiyat planına göre müşteriye / son kullanıcıya gönderilmek üzere hazır tutulur.
 
-Aynı tesiste boru hattına paralel olarak fitting (ek parça) imalatı da yürütülmektedir. Fitting üretiminde cam elyaf ve reçine kullanılmakta; imalatı boyutsal kontrol, manşon takma, markalama ve sevkiyat adımları izlemektedir.
+10. Hasarlı / kusurlu imalat değerlendirmesi
 
-Versiyon 4 — Adım kartları (detaylı)
+Yüzeysel çizik, çapak veya uç deformasyonu gibi küçük kusurlar varsa kesme veya kaynak uygulamalarıyla ürün tekrar kullanılabilir hale getirilir. Onarılan boru uygun üniteden (genellikle boy kesme) hatta geri alınır. Tesiste tekrar kullanılamayan hasarlı ürünler lisanslı geri dönüşüm tesislerine gönderilir.
 
-1. Hammadde girdi kontrol ve stoklama. Tesise gelen cam elyaf, kum ve reçine sevk irsaliyesi ve kalite belgeleriyle karşılanır. Ambalaj bütünlüğü, etiket ve teknik özellikler siparişle karşılaştırılır. Uygun malzemeler belirlenen depolama alanlarına alınır ve üretim planına göre stoklanır. Uygunsuz malzeme üretime verilmez. Kimya laboratuvarı bu adımda girdi doğrulamasına destek olur.
+Fitting ünitesi (ayrı hat)
 
-2. Winder’a besleme ve boru üretimi. Reçine günlük tanklardan, cam elyaf raflardan winder ünitesine beslenir. Elyaf reçine ile emprenye edilip döner kalıp üzerine sarılır. Sarım ile boru istenen çap ve kalınlıkta şekillendirilir. Bu, hattın asıl imalat adımıdır.
+Aynı tesiste boruya paralel, daha kısa bir imalat hattı vardır. Fitting (ek parça) üretiminde cam elyaf ve reçine kullanılır; bu hatta kum yoktur. Fitting imalatını boyutsal kontrol, manşon takma, markalama ve sevkiyat izler.
 
-3. Boru boy kesme. Üretimi tamamlanan boru, talep edilen boya göre kesme ünitesine alınır. Kesim özel makinelerle yapılır. Uçların düzgün, çapak kontrolü yapılmış ve standart ölçüde olmasına dikkat edilir.
+---
 
-ODD tamir ünitesi (ihtiyaç halinde). Üretim veya kalite kontrolde görülen küçük yüzey hataları bu ünitede giderilir. Hatalı bölge uygun malzemeyle düzeltilir. Tamir yalnızca gerekli görüldüğünde uygulanır; hata yoksa atlanır.
+Resmi belge metni (ünite sırasıyla)
 
-4. Boru ucu kalibrasyon. Boru uçları kalibrasyon makinelerinde işlenir. Uç çapı ve formu montaj standardına getirilir. Amaç, boruların sahada birbirine ve coupling’e uyumlu bağlanmasıdır.
+Üretim süreci kapsamında tesise temin edilen cam elyaf, kum ve reçine; sevk irsaliyesi ve kalite belgeleri eşliğinde girdi kontrol ünitesinde kontrol edilmekte, ambalaj bütünlüğü ile teknik özellikleri doğrulandıktan sonra uygun stok alanlarında depolanmaktadır. Hammadde kalitesi ihtiyaç halinde kimya laboratuvarında doğrulanmaktadır.
 
-5. Hidrotest. Boru su ile doldurulup belirli basınç altında tutulur. Sızdırmazlık ve dayanım bu testle doğrulanır. Basınç kaybı, sızıntı veya deformasyon varsa ürün uygun sayılmaz.
+Üretim, winder ünitesinde gerçekleştirilmektedir. Reçine ve yardımcı malzemeler günlük tanklardan, cam elyaf raf sistemlerinden winder’a beslenmekte; cam elyaf reçine ile emprenye edilerek döner kalıp üzerine sarım yöntemiyle istenilen çap ve et kalınlığında boru haline getirilmektedir. Üretimi tamamlanan borular boy kesme ünitesinde talep edilen standart boylara getirilmekte, uçların düzgün ve standart ölçüde olması sağlanmaktadır.
 
-6. Coupling kanal açma. Testi geçen borunun uçlarına manşon yerleştirmek için kanal açılır. Kanal ölçüleri montaj standardına uygun olmalıdır. Bu adım sızdırmaz birleşmenin mekanik altyapısını hazırlar.
+Kalite kontrol sırasında yüzey hatası tespit edilmesi halinde borular ODD tamir ünitesine alınmakta; hatalı bölgeler uygun malzemelerle düzeltilmektedir. Tamir yalnızca ihtiyaç halinde uygulanmakta, hatasız ürünlerde bu ünite atlanmaktadır. Ardından boru uçları kalibrasyon ünitesinde montaja uygun ölçü ve forma getirilmektedir. Kalibrasyonu tamamlanan borular hidrotest ünitesinde su ile doldurularak belirli basınç altında sızdırmazlık ve dayanım açısından kontrol edilmektedir.
 
-7. Stopper ve conta montajı. Açılan kanallara stopper ve conta doğru şekilde yerleştirilir. Sızdırmazlık elemanlarının konum ve oturması kontrol edilir. Sahadaki bağlantının sızdırmaması bu montaja bağlıdır.
+Testi uygun bulunan borular coupling kanal açma ünitesinde manşon yuvası açılmakta, stopper ve conta montaj ünitesinde sızdırmazlık elemanları yerleştirilmektedir. Tüm işlemleri tamamlanan borular stok sahasına alınarak istiflenmekte ve sevkiyat planına göre hazır hale getirilmektedir. Üretim faaliyetinde su, hava ve elektrik kullanılmaktadır. Üretilen boruların mekanik özellikleri mekanik laboratuvarda doğrulanabilmektedir.
 
-8. Stok sahasına sevk. Montajı ve kalite kontrolü biten borular stok sahasına taşınır. Ezilmeyecek biçimde istiflenir. Sevkiyat planına göre müşteriye / son kullanıcıya gönderilmek üzere hazırlanır.
-
-Hasarlı / kusurlu imalat. Çizik, çapak veya uç deformasyonu varsa kesme veya kaynakla ürün tekrar kullanılabilir; onarılan boru uygun proses adımına döner. Tesiste kullanılamayan hasarlı ürünler lisanslı geri dönüşüm tesislerine gönderilir.
+Yüzeysel çizik, çapak veya uç deformasyonu gibi küçük kusurlar kesme veya kaynak uygulamalarıyla giderilerek ürün tekrar kullanılabilir hale getirilebilmektedir. Tesiste değerlendirilemeyen hasarlı ürünler lisanslı geri dönüşüm tesislerine gönderilmektedir. Aynı tesiste fitting imalatı cam elyaf ve reçine ile ayrı bir hatta yürütülmekte; imalatı boyutsal kontrol, manşon takma, markalama ve sevkiyat izlemektedir.
 
 ---
