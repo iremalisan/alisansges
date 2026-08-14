@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-113.57 0.00 353.04 272.24" width="1600" height="1234">
+  <title>B1 Blok Ana Üretim Tesisi — vaziyet planı dış hat</title>
+  <desc>Yalnızca parsel, bina ve tevsiiyat dış çizgileri. İç dolgu için boş bırakılmıştır.</desc>
+  <rect x="-113.57" y="0.00" width="353.04" height="272.24" fill="#ffffff"/>
+  <g id="cerceve" fill="none" stroke="#111111" stroke-width="0.6">
+    <path d="M -107.569,266.244 L 233.473,266.244 L 233.473,6.000 L -107.569,6.000 Z"/>
+  </g>
+  <g id="parsel" fill="none" stroke="#111111" stroke-width="1.15" stroke-dasharray="7 3.5" stroke-linejoin="miter">
+    <path d="M -85.569,131.947 L -31.947,84.823 L 34.638,52.153 L 94.832,32.412 L 138.473,28.000 L 167.865,54.909 L 189.401,100.210 L 211.473,154.440 L 165.512,194.832 L 101.890,224.636 L 43.928,244.244 L -6.713,236.531 L -50.765,204.229 L -74.497,167.124 Z"/>
+  </g>
+  <g id="tevsiyat" fill="none" stroke="#111111" stroke-width="0.95" stroke-dasharray="5 3" stroke-linejoin="miter">
+    <path d="M 69.282,144.158 L 97.282,192.655 L 179.554,145.155 L 151.554,96.658"/>
+  </g>
+  <g id="bina" fill="none" stroke="#111111" stroke-width="1.35" stroke-linejoin="miter">
+    <path d="M 0.000,184.158 L 151.554,96.658 L 125.554,51.624 L 45.014,98.124 L 48.014,103.321 L 37.622,109.321 L 30.622,97.196 L -10.947,121.196 L -16.947,110.804 L -27.340,116.804 L -21.340,127.196 L -30.000,132.196 L -9.000,168.569 L -15.928,172.569 L -11.928,179.497 L -5.000,175.497 L -4.000,177.229 L -10.928,181.229 L -6.928,188.158 Z"/>
+  </g>
+  <g id="girisler" fill="#111111" stroke="none">
+    <path d="M 87.051,78.935 L 86.566,74.134 L 83.137,76.114 Z"/>
+    <path d="M 134.744,76.341 L 139.544,75.856 L 137.564,72.426 Z"/>
+  </g>
+  <g id="yazi" fill="#111111" font-family="Arial, Helvetica, sans-serif">
+    <text x="63.21" y="117.64" font-size="12" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 63.21 117.64)">B1 BLOK ANA ÜRETİM TESİSİ</text>
+    <text x="123.99" y="144.91" font-size="11" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 123.99 144.91)">TEVSİYAT ALANI</text>
+    <text x="-58.32" y="123.14" font-size="10" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 -58.32 123.14)">STOK SAHASI</text>
+    <text x="-8.63" y="85.22" font-size="10" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 -8.63 85.22)">STOK SAHASI</text>
+    <text x="-25.14" y="108.61" font-size="7.5" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 -25.14 108.61)">ÜRÜN ÇIKIŞI</text>
+    <text x="-24.32" y="182.03" font-size="7.5" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 -24.32 182.03)">ÜRÜN ÇIKIŞI</text>
+    <text x="-18.82" y="191.56" font-size="7.5" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 -18.82 191.56)">ÜRÜN ÇIKIŞI</text>
+    <text x="6.95" y="240.19" font-size="10" text-anchor="middle" dominant-baseline="middle" transform="rotate(0.0 6.95 240.19)">208/5</text>
+    <text x="78.85" y="64.73" font-size="7.5" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 78.85 64.73)">DEPO GİRİŞİ</text>
+    <text x="148.95" y="68.14" font-size="7.5" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 148.95 68.14)">HAM MADDE</text>
+    <text x="148.95" y="76.77" font-size="7.5" text-anchor="middle" dominant-baseline="middle" transform="rotate(-30.0 148.95 76.77)">BİNASI GİRİŞİ</text>
+    <text x="221.47" y="250.24" font-size="7.5" text-anchor="end">VAZİYET PLANI — DIŞ HAT  ·  şematik  ·  içini doldurmak için boş</text>
+    <text x="-95.57" y="14.00" font-size="6.2" text-anchor="start">Fotoğraftan yaklaşık dış hat. Resmi pafta / kot / koordinat içermez.</text>
+  </g>
+  <g id="kuzey" fill="#111111" stroke="#111111" stroke-width="0.7">
+    <line x1="201.47" y1="46.00" x2="201.47" y2="22.00"/>
+    <path d="M 201.47,20.00 L 198.27,28.00 L 204.67,28.00 Z"/>
+    <text x="201.47" y="16.00" font-size="8" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">K</text>
+  </g>
+  <g id="olcek" fill="none" stroke="#111111" stroke-width="0.8">
+    <line x1="-91.57" y1="254.24" x2="-41.57" y2="254.24"/>
+    <line x1="-91.57" y1="252.24" x2="-91.57" y2="256.24"/>
+    <text x="-91.57" y="263.24" font-size="5.5" text-anchor="middle" fill="#111111" stroke="none" font-family="Arial, Helvetica, sans-serif">0</text>
+    <line x1="-66.57" y1="252.24" x2="-66.57" y2="256.24"/>
+    <text x="-66.57" y="263.24" font-size="5.5" text-anchor="middle" fill="#111111" stroke="none" font-family="Arial, Helvetica, sans-serif">25</text>
+    <line x1="-41.57" y1="252.24" x2="-41.57" y2="256.24"/>
+    <text x="-41.57" y="263.24" font-size="5.5" text-anchor="middle" fill="#111111" stroke="none" font-family="Arial, Helvetica, sans-serif">50 m</text>
+  </g>
+</svg>
