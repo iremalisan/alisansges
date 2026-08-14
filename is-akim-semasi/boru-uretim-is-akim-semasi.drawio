@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" agent="GES-Metraj-Pro" version="22.1.0">
+  <diagram id="boru-is-akimi" name="Boru Üretim İş Akım Şeması">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1180" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="proses" value="Proses" parent="0"/>
+        <mxCell id="bacalar" value="Bacalar" parent="0"/>
+        <mxCell id="yazi" value="Yazilar" parent="0"/>
+        <mxCell id="baslik" value="Boru Üretim Tesisi — Proses İş Akım Şeması" style="text;html=1;align=center;fontSize=20;fontStyle=1;fontFamily=Arial;fontColor=#1F4E79;" vertex="1" parent="yazi">
+          <mxGeometry x="40" y="18" width="820" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="altbaslik" value="Emisyon bacaları ilgili proses adımlarının yanında ok ile gösterilmiştir." style="text;html=1;align=center;fontSize=12;fontFamily=Arial;fontColor=#555555;" vertex="1" parent="yazi">
+          <mxGeometry x="40" y="50" width="820" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1" value="1. Hammadde girdi kontrol ve stoklama&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal;&quot;&gt;Cam elyaf, kum, reçine&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#1F4E79;strokeColor=#1F4E79;fontColor=#FFFFFF;fontStyle=1;fontSize=14;fontFamily=Arial;strokeWidth=1;" vertex="1" parent="proses">
+          <mxGeometry x="80" y="90" width="390" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2" value="2. Winder'da boru üretimi&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal;&quot;&gt;Günlük tank / raf — döner kalıba sarım&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#1F4E79;strokeColor=#1F4E79;fontColor=#FFFFFF;fontStyle=1;fontSize=14;fontFamily=Arial;strokeWidth=1;" vertex="1" parent="proses">
+          <mxGeometry x="80" y="196" width="390" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2-baca" value="Stiren Emiş Bacası 1" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFF3E0;strokeColor=#E65100;fontColor=#BF360C;fontStyle=1;fontSize=13;fontFamily=Arial;strokeWidth=2;" vertex="1" parent="bacalar">
+          <mxGeometry x="540" y="209.0" width="280" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2-ok" style="endArrow=block;endFill=1;html=1;strokeColor=#E65100;strokeWidth=2.2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="bacalar" source="s2" target="s2-baca">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3" value="3. Boru boy kesme" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#1F4E79;strokeColor=#1F4E79;fontColor=#FFFFFF;fontStyle=1;fontSize=14;fontFamily=Arial;strokeWidth=1;" vertex="1" parent="proses">
+          <mxGeometry x="80" y="302" width="390" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="sodd" value="ODD tamir ünitesi — ihtiyaç halinde&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal;&quot;&gt;Hata yoksa bu adım atlanır&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;dashed=1;dashPattern=8 6;fillColor=#ffffff;strokeColor=#E67E22;fontColor=#E67E22;fontStyle=1;fontSize=14;fontFamily=Arial;strokeWidth=2;" vertex="1" parent="proses">
+          <mxGeometry x="80" y="408" width="390" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="sodd-baca" value="ODD Tamir Proses Bacası" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFF3E0;strokeColor=#E65100;fontColor=#BF360C;fontStyle=1;fontSize=13;fontFamily=Arial;strokeWidth=2;" vertex="1" parent="bacalar">
+          <mxGeometry x="540" y="421.0" width="280" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="sodd-ok" style="endArrow=block;endFill=1;html=1;strokeColor=#E65100;strokeWidth=2.2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="bacalar" source="sodd" target="sodd-baca">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4" value="4. Boru ucu kalibrasyon" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#1F4E79;strokeColor=#1F4E79;fontColor=#FFFFFF;fontStyle=1;fontSize=14;fontFamily=Arial;strokeWidth=1;" vertex="1" parent="proses">
+          <mxGeometry x="80" y="514" width="390" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4-baca" value="Kalibrasyon Proses Bacası" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFF3E0;strokeColor=#E65100;fontColor=#BF360C;fontStyle=1;fontSize=13;fontFamily=Arial;strokeWidth=2;" vertex="1" parent="bacalar">
+          <mxGeometry x="540" y="527.0" width="280" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4-ok" style="endArrow=block;endFill=1;html=1;strokeColor=#E65100;strokeWidth=2.2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="bacalar" source="s4" target="s4-baca">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5" value="5. Hidrotest" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#1F4E79;strokeColor=#1F4E79;fontColor=#FFFFFF;fontStyle=1;fontSize=14;fontFamily=Arial;strokeWidth=1;" vertex="1" parent="proses">
+          <mxGeometry x="80" y="620" width="390" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="s6" value="6. Coupling kanal açma" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#1F4E79;strokeColor=#1F4E79;fontColor=#FFFFFF;fontStyle=1;fontSize=14;fontFamily=Arial;strokeWidth=1;" vertex="1" parent="proses">
+          <mxGeometry x="80" y="726" width="390" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="s6-baca" value="Kaplin Kanal Açma Proses Bacası" style="rounded=1;whiteSpace=wrap;html=1;arcSize=10;fillColor=#FFF3E0;strokeColor=#E65100;fontColor=#BF360C;fontStyle=1;fontSize=13;fontFamily=Arial;strokeWidth=2;" vertex="1" parent="bacalar">
+          <mxGeometry x="540" y="739.0" width="280" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="s6-ok" style="endArrow=block;endFill=1;html=1;strokeColor=#E65100;strokeWidth=2.2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="bacalar" source="s6" target="s6-baca">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s7" value="7. Stopper ve conta montajı" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#1F4E79;strokeColor=#1F4E79;fontColor=#FFFFFF;fontStyle=1;fontSize=14;fontFamily=Arial;strokeWidth=1;" vertex="1" parent="proses">
+          <mxGeometry x="80" y="832" width="390" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="s8" value="8. Stok sahasına sevk&lt;br&gt;&lt;font style=&quot;font-size:11px;font-weight:normal;&quot;&gt;İstifleme — sevkiyat — müşteri&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#1E7A46;strokeColor=#1E7A46;fontColor=#FFFFFF;fontStyle=1;fontSize=14;fontFamily=Arial;strokeWidth=1;" vertex="1" parent="proses">
+          <mxGeometry x="80" y="938" width="390" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-s1-s2" style="endArrow=block;endFill=1;html=1;strokeColor=#1F4E79;strokeWidth=2.2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="proses" source="s1" target="s2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-s2-s3" style="endArrow=block;endFill=1;html=1;strokeColor=#1F4E79;strokeWidth=2.2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="proses" source="s2" target="s3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-s3-sodd" style="endArrow=block;endFill=1;html=1;dashed=1;dashPattern=8 6;strokeColor=#E67E22;strokeWidth=2.2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="proses" source="s3" target="sodd">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-sodd-s4" style="endArrow=block;endFill=1;html=1;strokeColor=#1F4E79;strokeWidth=2.2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="proses" source="sodd" target="s4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-s4-s5" style="endArrow=block;endFill=1;html=1;strokeColor=#1F4E79;strokeWidth=2.2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="proses" source="s4" target="s5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-s5-s6" style="endArrow=block;endFill=1;html=1;strokeColor=#1F4E79;strokeWidth=2.2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="proses" source="s5" target="s6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-s6-s7" style="endArrow=block;endFill=1;html=1;strokeColor=#1F4E79;strokeWidth=2.2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="proses" source="s6" target="s7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-s7-s8" style="endArrow=block;endFill=1;html=1;strokeColor=#1F4E79;strokeWidth=2.2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="proses" source="s7" target="s8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="lejant" value="Lejant&lt;br&gt;■ Proses adımı&lt;br&gt;□ ODD tamir (opsiyonel)&lt;br&gt;■ Sevk&lt;br&gt;■ Emisyon bacası" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#f7f7f7;strokeColor=#cccccc;fontSize=11;fontFamily=Arial;spacing=8;" vertex="1" parent="yazi">
+          <mxGeometry x="80" y="1088" width="220" height="78" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
