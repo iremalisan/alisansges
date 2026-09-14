@@ -303,7 +303,7 @@ def build_drawio() -> str:
         )
 
     body = "\n".join(cells)
-    return f"""<mxfile host="app.diagrams.net" agent="Cursor" version="24.7.17" type="device">
+    return f"""<mxfile host="Electron" agent="draw.io" version="24.7.17" type="device">
   <diagram id="tesis-yerlesim" name="Tesis Yerleşim Planı">
     <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="{PAGE_W}" pageHeight="{PAGE_H}" math="0" shadow="0">
       <root>
