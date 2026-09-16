@@ -1,27 +1,12 @@
 # Tesis Yerleşim Planı
 
-Orijinal tarama görselinden vektörel olarak yeniden çizilmiş tesis yerleşim planı.
+## Draw.io masaüstü uygulamasında açma
 
-## Masaüstü Draw.io ile açma
+Sohbetteki veya GitHub’daki mavi `.drawio` linki tarayıcıda XML açar; uygulamayı başlatmaz.
 
-Web sitesini (app.diagrams.net) kullanmayın. Klasörü indirip yerel dosyayı açın.
+1. Zip’i indirip açın
+2. **`Draw-io-uygulamasinda-ac.bat`** dosyasına çift tıklayın
 
-### Windows
-
-1. `tesis-yerlesim-plani` klasörünü bilgisayara indirin
-2. `Drawio-ile-ac.bat` dosyasına çift tıklayın
-
-Draw.io kuruluysa plan doğrudan masaüstü uygulamada açılır. Alternatif: `tesis-yerlesim-plani.drawio` dosyasına çift tıklayın.
-
-### macOS
-
-`Drawio-ile-ac.command` dosyasına çift tıklayın veya `tesis-yerlesim-plani.drawio` dosyasını Draw.io ile açın.
-
-## Dosyalar
-
-- `tesis-yerlesim-plani.drawio` — Draw.io masaüstü dosyası
-- `tesis-yerlesim-plani.pdf` — PDF çıktısı
-- `Drawio-ile-ac.bat` — Windows başlatıcı
-- `Drawio-ile-ac.command` — macOS başlatıcı
+Kutuya çift tıklayarak yazıları değiştirin. **Dosya → Kaydet** ile kaydedin.
 
 Lejant: mavi nokta Atıksu, sarı nokta Emisyon.

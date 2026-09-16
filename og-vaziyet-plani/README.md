@@ -1,25 +1,16 @@
 # Yeni Fabrika Binası — OG Vaziyet Planı
 
-AutoCAD OG vaziyet planından, önceki tesis taslağıyla aynı üslupta sadeleştirilmiş Draw.io yerleşimi.
+## Draw.io masaüstü uygulamasında açma
 
-CAD’deki her kablo ve makine detayı kopyalanmaz; hol, makine grupları, ofisler, yol ve OG/AG güzergahı blok olarak çizilir.
+Sohbetteki veya GitHub’daki mavi `.drawio` linki tarayıcıda XML açar; uygulamayı başlatmaz.
 
-## Masaüstü Draw.io ile açma
+1. `og-vaziyet-plani-drawio.zip` dosyasını indirin ve zip’i açın
+2. **`Draw-io-uygulamasinda-ac.bat`** dosyasına çift tıklayın
 
-Web sitesini kullanmayın.
-
-### Windows
-
-1. Klasörü veya zip’i indirin
-2. `Drawio-ile-ac.bat` dosyasına çift tıklayın
-
-### macOS
-
-`Drawio-ile-ac.command` veya `og-vaziyet-plani.drawio` dosyasını Draw.io ile açın.
+Plan Draw.io masaüstünde açılır. Kutuya **çift tıklayınca** yazıyı değiştirebilir, kutuları taşıyabilirsiniz. Kaydetmek için **Dosya → Kaydet**.
 
 ## Dosyalar
 
-- `og-vaziyet-plani.drawio`
+- `og-vaziyet-plani.drawio` — düzenlenebilir Draw.io dosyası
 - `og-vaziyet-plani.pdf`
-- `Drawio-ile-ac.bat`
-- `Drawio-ile-ac.command`
+- `Draw-io-uygulamasinda-ac.bat` — Windows’ta uygulamayı açar

@@ -469,17 +469,17 @@ LEGEND = [
 
 
 def xml_text(value: str) -> str:
-    return html.escape(value, quote=True)
+    parts = value.split("<br>")
+    return "&#xa;".join(html.escape(part, quote=True) for part in parts)
 
 
 def box_style(vertical: bool, font_size: int, fill: str) -> str:
     fill_css = "none" if fill == "none" else fill
     stroke = "none" if fill == "none" and not vertical else STROKE
-    # title has no stroke
     base = (
         f"rounded=0;whiteSpace=wrap;html=1;fillColor={fill_css};strokeColor={stroke};"
         f"strokeWidth=1.4;fontFamily={FONT};fontSize={font_size};fontColor=#000000;"
-        "align=center;verticalAlign=middle;"
+        "align=center;verticalAlign=middle;editable=1;locked=0;"
     )
     if vertical:
         base += "horizontal=0;"
@@ -496,7 +496,7 @@ def build_drawio() -> str:
         if box_id == "title":
             style = (
                 f"text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;"
-                f"fontFamily={FONT};fontSize={font_size};fontStyle=1;"
+                f"fontFamily={FONT};fontSize={font_size};fontStyle=1;editable=1;locked=0;"
             )
         elif box_id in {"site", "yeni"}:
             style = (
@@ -506,7 +506,7 @@ def build_drawio() -> str:
         elif box_id in {"hol1", "hol2", "yenietiket", "kabloog"}:
             style = (
                 f"text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;"
-                f"fontFamily={FONT};fontSize={font_size};fontStyle=1;"
+                f"fontFamily={FONT};fontSize={font_size};fontStyle=1;editable=1;locked=0;"
             )
             if vertical:
                 style += "horizontal=0;"

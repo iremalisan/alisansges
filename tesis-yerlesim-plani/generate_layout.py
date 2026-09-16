@@ -185,15 +185,16 @@ LEGEND = [
 ]
 
 
-def xml_text(value: str, is_html: bool) -> str:
-    return html.escape(value, quote=True)
+def xml_text(value: str, is_html: bool = False) -> str:
+    parts = value.split("<br>")
+    return "&#xa;".join(html.escape(part, quote=True) for part in parts)
 
 
 def box_style(vertical: bool, font_size: int) -> str:
     base = (
         f"rounded=0;whiteSpace=wrap;html=1;fillColor={FILL};strokeColor={STROKE};"
         f"strokeWidth=1.5;fontFamily={FONT};fontSize={font_size};fontColor=#000000;"
-        "align=center;verticalAlign=middle;fontStyle=0;"
+        "align=center;verticalAlign=middle;fontStyle=0;editable=1;locked=0;"
     )
     if vertical:
         base += "horizontal=0;"
