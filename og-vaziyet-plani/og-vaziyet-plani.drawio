@@ -1,0 +1,286 @@
+<mxfile host="Electron" agent="draw.io" version="24.7.17" type="device">
+  <diagram id="og-vaziyet" name="OG Vaziyet Planı">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2100" pageHeight="1480" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="site" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="36" y="56" width="2028" height="1336" as="geometry"/>
+        </mxCell>
+        <mxCell id="title" value="YENİ FABRİKA BİNASI — OG Vaziyet Planı" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="36" y="12" width="900" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="hammadde" value="Hammadde ve&lt;br&gt;Stok Ambarı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=13;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="56" y="72" width="260" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="yardimci" value="Yardımcı Eleman&lt;br&gt;ve Stok Alanı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="316" y="72" width="200" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="tekulpa" value="Tek Kulp Dikim Atölyesi-1&lt;br&gt;(1600 adet/gün)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="516" y="72" width="280" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="tekulpb" value="Tek Kulp Dikim Atölyesi-1&lt;br&gt;(1600 adet/gün)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="796" y="72" width="280" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="hazirlik" value="Bigbag Hazırlık&lt;br&gt;Makineleri" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1076" y="72" width="190" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="upanel" value="U-Panel Dikim Atölyesi-2&lt;br&gt;(750 adet/gün)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1266" y="72" width="230" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="dikim" value="Bigbag Dikim Atölyesi&lt;br&gt;HOL 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1496" y="72" width="200" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="hol2e" value="HOL 2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=13;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1696" y="72" width="140" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="hol3e" value="HOL 3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=13;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1836" y="72" width="140" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="konveyor" value="Konveyör" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E6E6E6;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1266" y="232" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="baglanti" value="İki Tesis Bağlantı Kapısı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1496" y="328" width="200" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="yeni" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="56" y="380" width="1520" height="640" as="geometry"/>
+        </mxCell>
+        <mxCell id="hol2" value="HOL 2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="640" width="80" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="extruder" value="Extruder Makinesi" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=14;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="72" y="396" width="980" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="uretim1" value="Üretim Alanı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="200" y="484" width="220" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="uretim2" value="Üretim Alanı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="440" y="484" width="220" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="uretim3" value="Üretim Alanı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F0F0F0;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="680" y="484" width="220" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="lohia" value="Lohia Dokuma Makinesi" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=13;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="920" y="484" width="280" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="bigbagdokuma" value="Bigbag Dokuma Makinesi" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=14;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1216" y="396" width="340" height="238" as="geometry"/>
+        </mxCell>
+        <mxCell id="forklift1" value="Forklift Geçiş Kapısı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="72" y="644" width="200" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="forklift2" value="Forklift Geçiş Kapısı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1216" y="644" width="200" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="hol1" value="HOL 1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="770" width="80" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ffs" value="FFS Makinesi" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=13;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="72" y="700" width="280" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="balon1" value="Balon-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="72" y="854" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="balon2" value="Balon-2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="212" y="854" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="baski" value="Baskı Makinesi&lt;br&gt;3000 × 10500" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=13;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="368" y="700" width="260" height="204" as="geometry"/>
+        </mxCell>
+        <mxCell id="ic1" value="İç Geçirme" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="644" y="700" width="130" height="204" as="geometry"/>
+        </mxCell>
+        <mxCell id="ic2" value="İç Geçirme" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="774" y="700" width="130" height="204" as="geometry"/>
+        </mxCell>
+        <mxCell id="ic3" value="İç Geçirme" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="904" y="700" width="130" height="204" as="geometry"/>
+        </mxCell>
+        <mxCell id="ic4" value="İç Geçirme" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="1034" y="700" width="130" height="204" as="geometry"/>
+        </mxCell>
+        <mxCell id="hol1acik" value="HOL 1 üretim alanı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="700" width="376" height="204" as="geometry"/>
+        </mxCell>
+        <mxCell id="komp" value="Kompresör Odası" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="72" y="920" width="160" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="yedek" value="Yedek Parça Ambarı" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="232" y="920" width="170" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="ofisler" value="Ofis / WC" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="402" y="920" width="280" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="boya" value="Boya Deposu" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="682" y="920" width="140" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="sorumlu" value="Sorumlu Odası" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="822" y="920" width="140" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="lab" value="Laboratuvar" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="962" y="920" width="140" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="sevkiyatodasi" value="Sevkiyat / Mühendis&lt;br&gt;Sorumlu Odası" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1102" y="920" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="rampa" value="Araç Sevkiyat Rampası" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1302" y="920" width="254" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="yenietiket" value="YENİ FABRİKA BİNASI" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="56" y="1008" width="280" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="arac1" value="Araç Girişi" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="700" width="76" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="arac2" value="Araç Girişi" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="810" width="76" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="guvenlik" value="Güvenlik" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="1636" y="920" width="90" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="oghucre" value="OG Hücre Odası" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=12;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1734" y="860" width="260" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="trafo1" value="31.5/0.4 kV&lt;br&gt;2000 kVA Trafo" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1734" y="930" width="128" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="trafo2" value="31.5/0.4 kV&lt;br&gt;2000 kVA Trafo" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1866" y="930" width="128" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="yesil1" value="Yeşil Alan" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="56" y="1100" width="1520" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="duvar" value="Duvar" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E6E6E6;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="56" y="1136" width="1520" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="kaldirim" value="Kaldırım" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="56" y="1158" width="1520" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="yol" value="Asfalt Yol" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D0D0D0;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=14;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="56" y="1186" width="1520" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="yesil2" value="Yeşil Alan" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=11;fontColor=#000000;align=center;verticalAlign=middle;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="1576" y="1100" width="200" height="156" as="geometry"/>
+        </mxCell>
+        <mxCell id="kabloog" value="OG  3×(1×95/16) mm²" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=10;fontStyle=1;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="1788" y="1100" width="36" height="156" as="geometry"/>
+        </mxCell>
+        <mxCell id="me1" value="ME" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="56" y="340" width="40" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="me2" value="ME" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="316" y="340" width="40" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="me3" value="ME" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1836" y="340" width="40" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="me4" value="ME" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1640" y="860" width="40" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="me5" value="ME" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1640" y="1100" width="40" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="me6" value="ME" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#000000;strokeWidth=1.4;fontFamily=Arial;fontSize=10;fontColor=#000000;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1990" y="1100" width="40" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="line-1" value="" style="endArrow=none;html=1;strokeWidth=4;strokeColor=#D79B00;fontSize=10;fontColor=#D79B00;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="72" y="388" as="sourcePoint"/>
+            <mxPoint x="1556" y="388" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-2" value="" style="endArrow=none;html=1;strokeWidth=4;strokeColor=#D79B00;fontSize=10;fontColor=#D79B00;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="72" y="688" as="sourcePoint"/>
+            <mxPoint x="1556" y="688" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-3" value="" style="endArrow=none;html=1;strokeWidth=4;strokeColor=#D79B00;fontSize=10;fontColor=#D79B00;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="72" y="916" as="sourcePoint"/>
+            <mxPoint x="1556" y="916" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-4" value="" style="endArrow=none;html=1;strokeWidth=3;strokeColor=#C2185B;fontSize=10;fontColor=#C2185B;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1568" y="396" as="sourcePoint"/>
+            <mxPoint x="1568" y="916" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-5" value="" style="endArrow=none;html=1;strokeWidth=3;strokeColor=#C2185B;fontSize=10;fontColor=#C2185B;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1568" y="700" as="sourcePoint"/>
+            <mxPoint x="1648" y="860" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-6" value="AG" style="endArrow=none;html=1;strokeWidth=4;strokeColor=#82B366;fontSize=10;fontColor=#82B366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1734" y="930" as="sourcePoint"/>
+            <mxPoint x="1568" y="700" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-7" value="AG" style="endArrow=none;html=1;strokeWidth=3;strokeColor=#82B366;fontSize=10;fontColor=#82B366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1734" y="860" as="sourcePoint"/>
+            <mxPoint x="1648" y="396" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-8" value="" style="endArrow=none;html=1;strokeWidth=2;strokeColor=#82B366;fontSize=10;fontColor=#82B366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="76" y="354" as="sourcePoint"/>
+            <mxPoint x="1870" y="354" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="line-9" value="OG" style="endArrow=none;html=1;strokeWidth=2;strokeColor=#82B366;fontSize=10;fontColor=#82B366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1856" y="354" as="sourcePoint"/>
+            <mxPoint x="1998" y="1114" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="giris" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1456.0" y="1190" width="48" height="62" as="geometry"/>
+        </mxCell>
+        <mxCell id="giris-head" value="" style="shape=triangle;direction=south;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;" vertex="1" parent="giris">
+          <mxGeometry x="0" y="40" width="48" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="giris-shaft" value="" style="rounded=0;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.4;" vertex="1" parent="giris">
+          <mxGeometry x="13.0" y="0" width="22" height="41" as="geometry"/>
+        </mxCell>
+        <mxCell id="giris-label" value="GİRİŞ" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1512.0" y="1190" width="70" height="62" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-swatch-1" value="" style="rounded=0;fillColor=#D79B00;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1408" width="18" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-label-1" value="Kablo tavası / busbar" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="64" y="1404" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-swatch-2" value="" style="rounded=0;fillColor=#82B366;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="1408" width="18" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-label-2" value="OG / AG enerji hattı" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="304" y="1404" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-swatch-3" value="" style="rounded=0;fillColor=#C2185B;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="1408" width="18" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-label-3" value="Özel kablo güzergahı" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="544" y="1404" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-swatch-4" value="" style="rounded=0;fillColor=#00ACC1;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1408" width="18" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-label-4" value="ME  Enerji menholü" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="784" y="1404" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-swatch-5" value="" style="rounded=0;fillColor=#FFF2CC;strokeColor=#000000;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1408" width="18" height="14" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg-label-5" value="OG hücre / trafo" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1024" y="1404" width="220" height="22" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
