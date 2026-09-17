@@ -3,12 +3,13 @@
 
 from __future__ import annotations
 
+from io import BytesIO
 from pathlib import Path
+from zipfile import ZIP_DEFLATED, ZipFile
 
 from openpyxl import Workbook
-from openpyxl.comments import Comment
 from openpyxl.formatting.rule import CellIsRule
-from openpyxl.styles import Alignment, Border, Font, PatternFill, Protection, Side
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
@@ -201,13 +202,12 @@ def fill(hex_color: str) -> PatternFill:
     return PatternFill("solid", fgColor=hex_color)
 
 
-def apply_common(cell, *, font=None, fill_color=None, align=None, border=thin, wrap=True, locked=True):
+def apply_common(cell, *, font=None, fill_color=None, align=None, border=thin, wrap=True):
     cell.font = font or Font(name="Calibri", size=11, color="1F2933")
     if fill_color:
         cell.fill = fill(fill_color)
     cell.alignment = align or Alignment(vertical="center", wrap_text=wrap)
     cell.border = border
-    cell.protection = Protection(locked=locked)
 
 
 def digits_formula(cell_ref: str) -> str:
@@ -310,16 +310,12 @@ def build_nace_sheet(wb: Workbook) -> None:
     ws.page_setup.fitToWidth = 1
     ws.page_setup.fitToHeight = 0
     ws.print_title_rows = "1:1"
-    ws.protection.sheet = True
-    ws.protection.autoFilter = False
-    ws.protection.enable()
 
 
 def build_help_sheet(wb: Workbook) -> None:
     ws = wb.create_sheet("Nasıl Kullanılır")
     ws.sheet_properties.tabColor = GOLD
     ws.column_dimensions["A"].width = 118
-    ws.merge_cells("A1:A1")
 
     title = ws["A1"]
     title.value = "Su Verimliliği Yönetmeliği — Kapsam Kontrol Tablosu Kullanım Kılavuzu"
@@ -363,8 +359,6 @@ def build_help_sheet(wb: Workbook) -> None:
         row += 2
 
     ws.sheet_view.showGridLines = False
-    ws.protection.sheet = True
-    ws.protection.enable()
 
 
 def build_control_sheet(wb: Workbook) -> None:
@@ -494,7 +488,6 @@ def build_control_sheet(wb: Workbook) -> None:
         fill_color=WHITE,
         align=Alignment(horizontal="center", vertical="center"),
         border=None,
-        locked=True,
     )
     apply_common(
         ws["D7"],
@@ -502,7 +495,6 @@ def build_control_sheet(wb: Workbook) -> None:
         fill_color=SOFT_RED,
         align=Alignment(horizontal="center", vertical="center"),
         border=None,
-        locked=True,
     )
     apply_common(
         ws["G7"],
@@ -510,7 +502,6 @@ def build_control_sheet(wb: Workbook) -> None:
         fill_color=SOFT_GREEN,
         align=Alignment(horizontal="center", vertical="center"),
         border=None,
-        locked=True,
     )
     for col in range(1, 4):
         ws.cell(7, col).fill = fill(WHITE)
@@ -548,19 +539,12 @@ def build_control_sheet(wb: Workbook) -> None:
         )
         ws.column_dimensions[get_column_letter(col)].width = width
     ws.row_dimensions[9].height = 32
-    ws["I9"].comment = Comment(
-        "Bu sütun girilen NACE kodunu 4 haneye çevirir (10.11.01 → 10.11). Silmeyin.",
-        "Kapsam Tablosu",
-    )
 
     examples = [
         ("Örnek Gıda A.Ş.", "10.11", 120),
         ("Örnek Market Ltd.", "47.11", 200),
         ("Örnek Küçük Tesis", "10.11", 30),
     ]
-
-    unlocked = Protection(locked=False)
-    locked = Protection(locked=True)
 
     for row in range(FIRST_DATA_ROW, LAST_DATA_ROW + 1):
         example_idx = row - FIRST_DATA_ROW
@@ -601,7 +585,6 @@ def build_control_sheet(wb: Workbook) -> None:
                     wrap_text=True,
                 ),
             )
-            cell.protection = unlocked if is_input else locked
             if col == 2:
                 cell.number_format = "@"
             if col == 3:
@@ -677,15 +660,6 @@ def build_control_sheet(wb: Workbook) -> None:
     ws.print_title_rows = "1:9"
     ws.oddHeader.left.text = "Su Verimliliği Yönetmeliği — Firma Kapsam Kontrolü"
     ws.oddFooter.right.text = "Ek-2 NACE listesi  |  Sayfa &P / &N"
-
-    ws.protection.sheet = True
-    ws.protection.password = ""
-    ws.protection.enable()
-    ws.protection.autoFilter = False
-    ws.protection.sort = False
-    ws.protection.insertRows = False
-    ws.protection.formatCells = False
-
     ws.sheet_view.zoomScale = 110
 
 
@@ -712,7 +686,34 @@ def create_workbook(path: Path = OUTPUT_PATH) -> Path:
 
     path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(path)
+    _make_excel_compatible(path)
     return path
+
+
+def _make_excel_compatible(path: Path) -> None:
+    """Excel'in dosyayı onarım istemeden açması için koruma etiketlerini temizler."""
+    with ZipFile(path, "r") as src:
+        parts = {name: src.read(name) for name in src.namelist()}
+
+    workbook = parts["xl/workbook.xml"].decode("utf-8")
+    workbook = workbook.replace("<workbookProtection />", "")
+    workbook = workbook.replace("<workbookProtection/>", "")
+    parts["xl/workbook.xml"] = workbook.encode("utf-8")
+
+    for name, data in list(parts.items()):
+        if name.startswith("xl/worksheets/sheet") and name.endswith(".xml"):
+            text = data.decode("utf-8")
+            if "<sheetProtection" in text:
+                start = text.index("<sheetProtection")
+                end = text.index("/>", start) + 2
+                text = text[:start] + text[end:]
+                parts[name] = text.encode("utf-8")
+
+    buffer = BytesIO()
+    with ZipFile(buffer, "w", ZIP_DEFLATED) as dest:
+        for name, data in parts.items():
+            dest.writestr(name, data)
+    path.write_bytes(buffer.getvalue())
 
 
 if __name__ == "__main__":

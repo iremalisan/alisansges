@@ -93,6 +93,20 @@ class WorkbookTests(unittest.TestCase):
         self.assertEqual(ws["B149"].value, "42.12")
         self.assertIsNone(ws["B150"].value)
 
+    def test_file_is_unlocked_excel_workbook(self) -> None:
+        import zipfile
+
+        z = zipfile.ZipFile(self.path)
+        xml = z.read("xl/workbook.xml").decode("utf-8")
+        self.assertNotIn("workbookProtection", xml)
+        for name in z.namelist():
+            if name.startswith("xl/worksheets/sheet") and name.endswith(".xml"):
+                sheet = z.read(name).decode("utf-8")
+                self.assertNotIn("sheetProtection", sheet)
+        self.assertFalse(any(n.startswith("xl/comments") for n in z.namelist()))
+        for ws in self.wb.worksheets:
+            self.assertFalse(ws.protection.sheet)
+
 
 if __name__ == "__main__":
     unittest.main()
