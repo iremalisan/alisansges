@@ -169,8 +169,77 @@ EK2_NACE: list[tuple[str, str, str, str]] = [
     ("42.12", "Demir yolları ve metroların inşaatı", "42", "Bina dışı yapıların inşaatı"),
 ]
 
+FIRMS: list[str] = [
+    "Başhan Agro Gıda Sanayi ve Ticaret Anonim Şirketi",
+    "Başhan Agro Gıda Sanayi ve Ticaret A. Ş. Entegre Mersin Şubesi",
+    "Organivo Via Gübre İmalat İth. İhr. San. ve Tic. Ltd. Şti.",
+    "DEMKOÇ Metal İmalat San. ve Tic. Ltd. Şti.",
+    "Şah Oil Madeni Yağ Geri Kaz. Nak. İnş. San. ve Tic. A.Ş.",
+    "YILPACK Ambalaj San. ve Tic. A.Ş. Adana Şubesi",
+    "Sabuncular Soğuk Hava Deposu Kömürcülük Gıda Tarım Ürünleri Nak. İnş. Taahhüt Ambalaj Sanayi ve Ticaret Ltd. Şti.",
+    "Uyarlar İnş. Mak. Çelik. Konst. Tes. İml. Mont. Turz. San. Tic. Ltd. Şti.",
+    "ÖZ-KA Tarım Ürünleri İth. İhr. ve Tic. Ltd. Şti. Adana Sanayi Şubesi",
+    "Tıtan2 Ic İçtaş İnşaat Anonim Şirketi",
+    "Emrenes Orman Ürünleri Sanayi ve Ticaret Ltd. Şti. (Toplama Ayırma)",
+    "Armada Duvar Kâğıtları Anonim Şirketi",
+    "Kılıçoğlu Hurdacılık -OKAN KILIÇ (Toplama Ayırma)",
+    "AMİBLU Turkey Boru Sanayi ve Ticaret A.Ş.",
+    "CVD MADENCİLİK LTD. ŞTİ.",
+    "Kemaş Kimya Endüstri Merkezi Sanayi ve Ticaret A.Ş.",
+    "İlkesilis Madencilik Sanayi ve Ticaret Limited Şirketi",
+    "ATS Altuntaş Geri Kazanım Atık Depolama San. ve Tic. Ltd. Şti. (Toplama Ayırma)",
+    "OZCAN Mühendislik Çelik İmalat İnşaat San. ve Tic. Ltd. Şti. Silifke Şubesi",
+    "Marde Hotel-Uçan Turizm Seyahat İnş. Tic. ve San. Ltd. Şti.",
+    "Soyerler Gıda Tarım Ürünleri Maden Suları İnşaat İthalat İhracat Sanayi Ve Ticaret Limited Şirketi",
+    "MGD Gıda Dış Ticaret Ltd. Şti.",
+    "Çukurova Çelik Hasır Demir Metal İnş. Alüminyum İth. İhr. San. ve Tic. A.Ş.",
+    "TEKNOPARS Makine İmalat San. Tic. A.Ş.",
+    "MESKİM Gıda İth. İhr. San. ve Tic. Ltd. Şti.",
+    "Kervan İnşaat-Barbarossa Oteli",
+    "Salt Cam San. ve Tic. Ltd. Şti.",
+    "Salt Cam San. ve Tic. Ltd. Şti. Nacarlı Osb Temper 2 Şubesi",
+    "Berrak Doğal Kaynak Suları ve Tic. A.Ş. Tarsus Berrak Su",
+    "NSS Mühendislik Danışmanlık San. ve Tic. Ltd. Şti.",
+    "CANPACK Tarım Turz. İnş. San. ve Tic. Ltd. Şti.",
+    "Başaranlar Plastik İml. San. ve Tic. Ltd. Şti.",
+    "ÖNER Tarım Gıda İth. İhr. A.Ş.",
+    "ÖNER Seperatör Sanayi Tic. Ltd. Şti.",
+    "Abdulkadir ÖZTÜRK-ASLAN TEL",
+    "Akdeniz Prekast Beton Yapı İnşaat Taahhüt Limited Şirketi",
+    "Merlas Oto Lastik Endüstri San. ve Tic. Ltd. Şti.",
+    "Merkap Oto Lastik Endüstri San. ve Tic. Ltd. Şti.",
+    "TATŞEN Pazarlama Gıda Sanayi ve Ticaret Limited Şirketi",
+    "ORGÜB Organik Gübre Kükürt Tarım Ürünleri Makina Maden San. ve Tic. Ltd. Şti.",
+    "GOLDENNUTS Gıda İthalat İhracat Sanayi ve Ticaret Ltd. Şti.",
+    "Karanlar Petrol Ürünleri İnş. Nak. Tar. Tur. San. ve Tic. Ltd. Şti.",
+    "Kılıç Tarım Gıda Harf. Pet. Tur. San. ve Tic. Ltd. Şti.",
+    "Kılıçhedef Tarımsal Ürt. Paz. Tur. Tic. ve San. Ltd. Şti.",
+    "SCA Metal İnşaat Taahhüt Yalıtım İzolasyon San. ve Tic. A.Ş.",
+    "SB Lotus Turizm İnş. Ltd. Şti.",
+    "Coşkun Otomotiv San. ve Tic. Ltd. Şti.",
+    "Lion Plastik Nakliye Gıda Orman Ürünleri San. ve Tic. Ltd. Şti.",
+    "ERAY PARILTI - ERPA PLASTİK",
+    "İnci Bulgur Sanayi ve Ticaret A.Ş. Mersin Kazanlı Şubesi",
+    "Kuzgun İmalat Otomotiv İth. İhr. San. ve Tic. Ltd. Şti.",
+    "ES ŞİMŞEK Plastik Hurdacılık San. ve Tic. Ltd. Şti.",
+    "Cengiz UÇAR-UÇAR Otomotiv",
+    "Trento Lojistik ve Kiralama Operasyonları A.Ş. Mersin Şubesi",
+    "CMA Makina İmalat İth. İhr. San. ve Tic. Ltd. Şti. Sarıçam Şubesi",
+    "Master Packing Tarım Ürünleri Paketleme İhracat Ltd. Şti.",
+    "Efecan Badem Aromatik Bitkiler Yağlar Gıda Orman Ür. San. ve Tic. A.Ş.",
+    "Efecan Badem Aromatik Bitkiler Yağlar Gıda Orman Ürünleri San. ve Tic. A.Ş. Tarsus OSB Şubesi",
+    "Aktoğ Uluslararası Nakliyat Otomotiv ve Petrol Ürünleri Sanayi Ticaret Limitd Şirketi",
+    "Ünal PIÇAKÇI",
+    "Arif KOÇYİĞİT",
+    "Özden ÇOĞUL",
+    "Osman ÇOĞUL-İkizler Metal Hurda",
+    "Hakan KILIÇ",
+    "Arı Hurdacılık Demir Çelik İnş. M. Nak. San. ve Tic. Ltd. Şti.",
+    "Gündüz Mey-Pak Gıda İnş. Taş. Oto. Pet. Ürün. Tur. Tic. Ltd. Şti. Akdeniz Şubesi",
+]
+
 FIRST_DATA_ROW = 10
-LAST_DATA_ROW = 59
+LAST_DATA_ROW = FIRST_DATA_ROW + len(FIRMS) + 9
 NACE_FIRST = 2
 NACE_LAST = 1 + len(EK2_NACE)
 IN_SCOPE = "kapsamda"
@@ -519,9 +588,9 @@ def build_control_sheet(wb: Workbook) -> None:
     ws.merge_cells("A5:I5")
     note = ws["A5"]
     note.value = (
-        "İlk üç satır örnektir; silebilir veya üzerine yazabilirsiniz. "
-        "NACE kodunu 10.11, 10,11 veya 10.11.01 biçiminde yazabilirsiniz. "
-        "6 haneli kod girilirse ilk dört hane (10.11) kontrol edilir."
+        f"Firma adları listedeki {len(FIRMS)} firma sırasıyla yazılmıştır. "
+        "Her satıra NACE kodunu ve çalışan sayısını sarı hücrelere yazın; "
+        "Kapsam Durumu otomatik dolar. 6 haneli NACE girilirse ilk dört hane kontrol edilir."
     )
     apply_common(
         note,
@@ -565,7 +634,7 @@ def build_control_sheet(wb: Workbook) -> None:
     ws.merge_cells("A7:C7")
     ws.merge_cells("D7:F7")
     ws.merge_cells("G7:I7")
-    ws["A7"].value = f"Ek-2 listesindeki NACE kodu adedi: {len(EK2_NACE)}"
+    ws["A7"].value = f"Listelenen firma: {len(FIRMS)}  |  Ek-2 NACE kodu: {len(EK2_NACE)}"
     ws["D7"].value = f'=COUNTIF(F{FIRST_DATA_ROW}:F{LAST_DATA_ROW},"{IN_SCOPE}")'
     ws["G7"].value = f'=COUNTIF(F{FIRST_DATA_ROW}:F{LAST_DATA_ROW},"{OUT_SCOPE}")'
     apply_common(
@@ -613,7 +682,7 @@ def build_control_sheet(wb: Workbook) -> None:
         "Ek-2 Faaliyet Açıklaması",
         "Normalize NACE",
     ]
-    widths = [34, 16, 16, 18, 18, 18, 52, 62, 16]
+    widths = [62, 16, 16, 18, 18, 18, 52, 62, 16]
     for col, (header, width) in enumerate(zip(headers, widths), start=1):
         cell = ws.cell(9, col, header)
         apply_common(
@@ -626,16 +695,10 @@ def build_control_sheet(wb: Workbook) -> None:
         ws.column_dimensions[get_column_letter(col)].width = width
     ws.row_dimensions[9].height = 32
 
-    examples = [
-        ("Örnek Gıda A.Ş.", "10.11", 120),
-        ("Örnek Market Ltd.", "47.11", 200),
-        ("Örnek Küçük Tesis", "10.11", 30),
-    ]
-
     for row in range(FIRST_DATA_ROW, LAST_DATA_ROW + 1):
-        example_idx = row - FIRST_DATA_ROW
-        if example_idx < len(examples):
-            name, nace, employees = examples[example_idx]
+        firm_idx = row - FIRST_DATA_ROW
+        if firm_idx < len(FIRMS):
+            name, nace, employees = FIRMS[firm_idx], "", ""
         else:
             name, nace, employees = "", "", ""
 
@@ -683,7 +746,7 @@ def build_control_sheet(wb: Workbook) -> None:
         elif result["scope"] == OUT_SCOPE:
             scope_cell.fill = fill(GREEN)
             scope_cell.font = Font(name="Calibri", size=11, bold=True, color=WHITE)
-        ws.row_dimensions[row].height = 26
+        ws.row_dimensions[row].height = 36 if name else 26
 
     red_font = Font(name="Calibri", size=11, bold=True, color=WHITE)
     green_font = Font(name="Calibri", size=11, bold=True, color=WHITE)
@@ -827,27 +890,8 @@ def _make_excel_compatible(path: Path) -> None:
 
 
 def _inject_control_sheet_cache(xml: str) -> str:
-    examples = [
-        (10, "10.11", 120),
-        (11, "47.11", 200),
-        (12, "10.11", 30),
-    ]
-    in_scope_count = 0
-    out_scope_count = 0
-    for row, nace, employees in examples:
-        result = evaluate_row(nace, employees)
-        xml = _set_formula_cache(xml, f"I{row}", result["norm"], as_str=True)
-        xml = _set_formula_cache(xml, f"D{row}", result["listed"], as_str=True)
-        xml = _set_formula_cache(xml, f"E{row}", result["enough"], as_str=True)
-        xml = _set_formula_cache(xml, f"F{row}", result["scope"], as_str=True)
-        xml = _set_formula_cache(xml, f"G{row}", result["reason"], as_str=True)
-        xml = _set_formula_cache(xml, f"H{row}", result["activity"], as_str=True)
-        if result["scope"] == IN_SCOPE:
-            in_scope_count += 1
-        elif result["scope"] == OUT_SCOPE:
-            out_scope_count += 1
-    xml = _set_formula_cache(xml, "D7", str(in_scope_count), as_str=False)
-    xml = _set_formula_cache(xml, "G7", str(out_scope_count), as_str=False)
+    xml = _set_formula_cache(xml, "D7", "0", as_str=False)
+    xml = _set_formula_cache(xml, "G7", "0", as_str=False)
     return xml
 
 

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
-from create_su_verimliligi_kapsam_tablosu import EK2_NACE, OUT_SCOPE, IN_SCOPE, create_workbook
+from create_su_verimliligi_kapsam_tablosu import EK2_NACE, FIRMS, OUT_SCOPE, IN_SCOPE, create_workbook
 
 
 def normalize_nace(value: object) -> str:
@@ -72,12 +72,15 @@ class WorkbookTests(unittest.TestCase):
 
     def test_example_rows_and_formulas(self) -> None:
         ws = self.wb["Firma Kontrolü"]
-        self.assertEqual(ws["A10"].value, "Örnek Gıda A.Ş.")
-        self.assertEqual(ws["B10"].value, "10.11")
-        self.assertEqual(ws["C10"].value, 120)
+        self.assertEqual(len(FIRMS), 66)
+        self.assertEqual(ws["A10"].value, FIRMS[0])
+        self.assertEqual(ws["A75"].value, FIRMS[-1])
+        for idx, name in enumerate(FIRMS):
+            self.assertEqual(ws.cell(10 + idx, 1).value, name)
+        self.assertIn(ws["B10"].value, ("", None))
+        self.assertIsNone(ws["C10"].value)
         self.assertIn(IN_SCOPE, ws["F10"].value)
         self.assertIn(OUT_SCOPE, ws["F11"].value)
-        self.assertEqual(ws["C12"].value, 30)
 
     def test_conditional_formatting_covers_scope_column(self) -> None:
         ws = self.wb["Firma Kontrolü"]
@@ -97,8 +100,8 @@ class WorkbookTests(unittest.TestCase):
         import zipfile
 
         xml = zipfile.ZipFile(self.path).read("xl/worksheets/sheet1.xml").decode("utf-8")
-        self.assertIn("<v>kapsamda</v>", xml)
-        self.assertIn("<v>kapsam dışı</v>", xml)
+        self.assertIn(IN_SCOPE, xml)
+        self.assertIn(OUT_SCOPE, xml)
         self.assertIn("$AA$2:$AA$149", xml)
         self.assertNotIn("<v />", xml)
 
