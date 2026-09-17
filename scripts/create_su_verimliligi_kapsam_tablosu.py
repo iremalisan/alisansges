@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+import html
+import re
 from io import BytesIO
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
@@ -171,6 +173,11 @@ FIRST_DATA_ROW = 10
 LAST_DATA_ROW = 59
 NACE_FIRST = 2
 NACE_LAST = 1 + len(EK2_NACE)
+IN_SCOPE = "kapsamda"
+OUT_SCOPE = "kapsam dışı"
+NACE_LOOKUP_COL = 27  # AA
+NACE_LOOKUP_FIRST = 2
+NACE_LOOKUP_LAST = NACE_LAST
 
 NAVY = "1B365D"
 NAVY_DARK = "0F2340"
@@ -228,21 +235,25 @@ def normalized_nace_formula(row: int) -> str:
 def nace_match_formula(row: int) -> str:
     return (
         f'IF(OR(B{row}="",I{row}="",I{row}="GEÇERSİZ"),"",'
-        f'IF(COUNTIF(\'Ek-2 NACE Listesi\'!$B${NACE_FIRST}:$B${NACE_LAST},I{row})>0,"Evet","Hayır"))'
+        f'IF(COUNTIF($AA${NACE_LOOKUP_FIRST}:$AA${NACE_LOOKUP_LAST},I{row})>0,"Evet","Hayır"))'
     )
 
 
 def employee_formula(row: int) -> str:
     return (
         f'IF(C{row}="","",'
-        f'IF(AND(ISNUMBER(C{row}),C{row}>=50),"Evet","Hayır"))'
+        f'IF(IFERROR(VALUE(C{row}),0)>=50,"Evet","Hayır"))'
     )
 
 
 def scope_formula(row: int) -> str:
     return (
-        f'IF(OR(B{row}="",C{row}=""),"",'
-        f'IF(AND(D{row}="Evet",E{row}="Evet"),"KAPSAMDA","KAPSAM DIŞI"))'
+        f'IF(AND(B{row}="",C{row}=""),"",'
+        f'IF(B{row}="","NACE kodunu girin",'
+        f'IF(C{row}="","Çalışan sayısını girin",'
+        f'IF(I{row}="GEÇERSİZ","NACE kodunu 4 haneli yazın (ör. 10.11)",'
+        f'IF(AND(COUNTIF($AA${NACE_LOOKUP_FIRST}:$AA${NACE_LOOKUP_LAST},I{row})>0,'
+        f'IFERROR(VALUE(C{row}),0)>=50),"{IN_SCOPE}","{OUT_SCOPE}")))))'
     )
 
 
@@ -257,10 +268,85 @@ def reason_formula(row: int) -> str:
     )
 
 
+def normalize_nace(value: object) -> str:
+    digits = re.sub(r"\D", "", str(value or ""))
+    if len(digits) < 4:
+        return "GEÇERSİZ"
+    return f"{digits[:2]}.{digits[2:4]}"
+
+
+def evaluate_row(nace: object, employees: object) -> dict[str, object]:
+    codes = {code: desc for code, desc, *_ in EK2_NACE}
+    if nace in (None, "") and employees in (None, ""):
+        return {
+            "norm": "",
+            "listed": "",
+            "enough": "",
+            "scope": "",
+            "reason": "",
+            "activity": "",
+        }
+    if nace in (None, ""):
+        return {
+            "norm": "",
+            "listed": "",
+            "enough": "Evet" if _employee_ok(employees) else ("Hayır" if employees not in (None, "") else ""),
+            "scope": "NACE kodunu girin",
+            "reason": "",
+            "activity": "",
+        }
+    if employees in (None, ""):
+        norm = normalize_nace(nace)
+        return {
+            "norm": "" if norm == "GEÇERSİZ" else norm,
+            "listed": "Evet" if norm in codes else ("Hayır" if norm != "GEÇERSİZ" else ""),
+            "enough": "",
+            "scope": "Çalışan sayısını girin",
+            "reason": "",
+            "activity": "",
+        }
+    norm = normalize_nace(nace)
+    if norm == "GEÇERSİZ":
+        return {
+            "norm": "GEÇERSİZ",
+            "listed": "",
+            "enough": "Evet" if _employee_ok(employees) else "Hayır",
+            "scope": "NACE kodunu 4 haneli yazın (ör. 10.11)",
+            "reason": "NACE kodunu 4 haneli yazın (ör. 10.11)",
+            "activity": "",
+        }
+    listed = norm in codes
+    enough = _employee_ok(employees)
+    in_scope = listed and enough
+    if in_scope:
+        reason = "NACE kodu Ek-2 listesinde ve çalışan sayısı 50 ve üzeri"
+    elif listed:
+        reason = "NACE kodu listede ancak çalışan sayısı 50'den az"
+    elif enough:
+        reason = "Çalışan sayısı yeterli ancak NACE kodu Ek-2 listesinde yok"
+    else:
+        reason = "NACE kodu Ek-2 listesinde yok ve çalışan sayısı 50'den az"
+    return {
+        "norm": norm,
+        "listed": "Evet" if listed else "Hayır",
+        "enough": "Evet" if enough else "Hayır",
+        "scope": IN_SCOPE if in_scope else OUT_SCOPE,
+        "reason": reason,
+        "activity": codes.get(norm, "Listede bulunamadı"),
+    }
+
+
+def _employee_ok(employees: object) -> bool:
+    try:
+        return float(str(employees).replace(",", ".")) >= 50
+    except (TypeError, ValueError):
+        return False
+
+
 def activity_formula(row: int) -> str:
     return (
         f'IF(OR(B{row}="",I{row}="",I{row}="GEÇERSİZ"),"",'
-        f'IFERROR(VLOOKUP(I{row},\'Ek-2 NACE Listesi\'!$B${NACE_FIRST}:$C${NACE_LAST},2,FALSE),"Listede bulunamadı"))'
+        f'IFERROR(VLOOKUP(I{row},$AA${NACE_LOOKUP_FIRST}:$AB${NACE_LOOKUP_LAST},2,FALSE),"Listede bulunamadı"))'
     )
 
 
@@ -329,9 +415,9 @@ def build_help_sheet(wb: Workbook) -> None:
     ws.row_dimensions[1].height = 36
 
     blocks = [
-        ("Kural", "Firma KAPSAMDA sayılır ancak şu iki şart birlikte sağlanır:\n1) NACE kodu, 27.12.2024 tarihli Su Verimliliği Yönetmeliği Ek-2 listesinde yer alır.\n2) Çalışan sayısı 50 ve üzeridir (yönetmelikteki “50 ve üzeri çalışan” ifadesi).\nAksi halde sonuç KAPSAM DIŞI olur."),
+        ("Kural", "Firma kapsamda sayılır ancak şu iki şart birlikte sağlanır:\n1) NACE kodu, 27.12.2024 tarihli Su Verimliliği Yönetmeliği Ek-2 listesinde yer alır.\n2) Çalışan sayısı 50 ve üzeridir (yönetmelikteki “50 ve üzeri çalışan” ifadesi).\nAksi halde sonuç kapsam dışı olur."),
         ("Nasıl doldurulur?", "Sadece “Firma Kontrolü” sayfasındaki sarı hücrelere yazın:\n• Firma Adı\n• NACE Kodu (ör. 10.11 veya 10.11.01 — tablo ilk dört haneyi kullanır)\n• Çalışan Sayısı\nKapsam Durumu, gerekçe ve faaliyet açıklaması otomatik dolar. Formül hücrelerini değiştirmeyin."),
-        ("Renkler", "Kırmızı / KAPSAMDA = NACE listede + çalışan sayısı ≥ 50.\nYeşil / KAPSAM DIŞI = NACE listede değil veya çalışan sayısı 50’nin altında."),
+        ("Renkler", "Kırmızı / kapsamda = NACE listede + çalışan sayısı ≥ 50.\nYeşil / kapsam dışı = NACE listede değil veya çalışan sayısı 50’nin altında."),
         ("Kaynak", "Resmî Gazete: 27 Aralık 2024, Sayı 32765 — Su Verimliliği Yönetmeliği, Ek-2 NACE Kodu Listesi (148 kod).\nEndüstriyel tesisler için sistem kurulum süresi yönetmelik yayımından itibaren 18 aydır."),
         ("Not", "Organize sanayi bölgeleri, serbest bölgeler ve endüstri bölgeleri NACE/çalışan sayısından bağımsız olarak ayrıca yükümlüdür. Bu tablo münferit endüstriyel işletmeler içindir.\n13 Mart 2025 tarihli kılavuz güncellemesinde bazı Ek-2 kodları gönüllü statüsüne alınmıştır. Bu dosya yönetmeliğin Ek-2 listesine ve sizin belirttiğiniz iki şarta göre çalışır."),
     ]
@@ -387,7 +473,7 @@ def build_control_sheet(wb: Workbook) -> None:
 
     ws.merge_cells("A3:I3")
     subtitle = ws["A3"]
-    subtitle.value = "Kaynak: 27.12.2024 tarihli Su Verimliliği Yönetmeliği Ek-2 NACE listesi  |  Kural: NACE kodu listede + çalışan sayısı 50 ve üzeri  →  KAPSAMDA"
+    subtitle.value = "Kaynak: 27.12.2024 tarihli Su Verimliliği Yönetmeliği Ek-2 NACE listesi  |  Kural: NACE kodu listede + çalışan sayısı 50 ve üzeri  →  kapsamda"
     apply_common(
         subtitle,
         font=Font(name="Calibri", size=10, italic=True, color=NAVY),
@@ -405,8 +491,8 @@ def build_control_sheet(wb: Workbook) -> None:
     ws.merge_cells("G4:I4")
     legend = [
         (4, 1, "Sarı hücrelere yazın: firma adı, NACE, çalışan sayısı", YELLOW, NAVY),
-        (4, 4, "KAPSAMDA  =  kırmızı", RED, WHITE),
-        (4, 7, "KAPSAM DIŞI  =  yeşil", GREEN, WHITE),
+        (4, 4, "kapsamda  =  kırmızı", RED, WHITE),
+        (4, 7, "kapsam dışı  =  yeşil", GREEN, WHITE),
     ]
     for row, col, text, bg, fg in legend:
         cell = ws.cell(row, col, text)
@@ -453,8 +539,8 @@ def build_control_sheet(wb: Workbook) -> None:
     ws.merge_cells("D6:F6")
     summary_labels = [
         (6, 1, "Özet", NAVY, WHITE, True),
-        (6, 4, "KAPSAMDA firma sayısı", RED, WHITE, True),
-        (6, 7, "KAPSAM DIŞI firma sayısı", GREEN, WHITE, True),
+        (6, 4, "kapsamda firma sayısı", RED, WHITE, True),
+        (6, 7, "kapsam dışı firma sayısı", GREEN, WHITE, True),
     ]
     for row, col, text, bg, fg, bold in summary_labels:
         cell = ws.cell(row, col, text)
@@ -480,8 +566,8 @@ def build_control_sheet(wb: Workbook) -> None:
     ws.merge_cells("D7:F7")
     ws.merge_cells("G7:I7")
     ws["A7"].value = f"Ek-2 listesindeki NACE kodu adedi: {len(EK2_NACE)}"
-    ws["D7"].value = f'=COUNTIF(F{FIRST_DATA_ROW}:F{LAST_DATA_ROW},"KAPSAMDA")'
-    ws["G7"].value = f'=COUNTIF(F{FIRST_DATA_ROW}:F{LAST_DATA_ROW},"KAPSAM DIŞI")'
+    ws["D7"].value = f'=COUNTIF(F{FIRST_DATA_ROW}:F{LAST_DATA_ROW},"{IN_SCOPE}")'
+    ws["G7"].value = f'=COUNTIF(F{FIRST_DATA_ROW}:F{LAST_DATA_ROW},"{OUT_SCOPE}")'
     apply_common(
         ws["A7"],
         font=Font(name="Calibri", size=12, bold=True, color=NAVY),
@@ -589,19 +675,25 @@ def build_control_sheet(wb: Workbook) -> None:
                 cell.number_format = "@"
             if col == 3:
                 cell.number_format = "0"
-            if col == 9:
-                cell.number_format = "@"
+        result = evaluate_row(nace, employees if employees != "" else None)
+        scope_cell = ws.cell(row, 6)
+        if result["scope"] == IN_SCOPE:
+            scope_cell.fill = fill(RED)
+            scope_cell.font = Font(name="Calibri", size=11, bold=True, color=WHITE)
+        elif result["scope"] == OUT_SCOPE:
+            scope_cell.fill = fill(GREEN)
+            scope_cell.font = Font(name="Calibri", size=11, bold=True, color=WHITE)
         ws.row_dimensions[row].height = 26
 
     red_font = Font(name="Calibri", size=11, bold=True, color=WHITE)
     green_font = Font(name="Calibri", size=11, bold=True, color=WHITE)
     ws.conditional_formatting.add(
         f"F{FIRST_DATA_ROW}:F{LAST_DATA_ROW}",
-        CellIsRule(operator="equal", formula=['"KAPSAMDA"'], fill=fill(RED), font=red_font),
+        CellIsRule(operator="equal", formula=[f'"{IN_SCOPE}"'], fill=fill(RED), font=red_font),
     )
     ws.conditional_formatting.add(
         f"F{FIRST_DATA_ROW}:F{LAST_DATA_ROW}",
-        CellIsRule(operator="equal", formula=['"KAPSAM DIŞI"'], fill=fill(GREEN), font=green_font),
+        CellIsRule(operator="equal", formula=[f'"{OUT_SCOPE}"'], fill=fill(GREEN), font=green_font),
     )
     ws.conditional_formatting.add(
         f"D{FIRST_DATA_ROW}:E{LAST_DATA_ROW}",
@@ -662,6 +754,15 @@ def build_control_sheet(wb: Workbook) -> None:
     ws.oddFooter.right.text = "Ek-2 NACE listesi  |  Sayfa &P / &N"
     ws.sheet_view.zoomScale = 110
 
+    ws.cell(1, NACE_LOOKUP_COL, "NACE_KODU")
+    ws.cell(1, NACE_LOOKUP_COL + 1, "NACE_ACIKLAMA")
+    for idx, (code, desc, *_rest) in enumerate(EK2_NACE, start=NACE_LOOKUP_FIRST):
+        code_cell = ws.cell(idx, NACE_LOOKUP_COL, code)
+        code_cell.number_format = "@"
+        ws.cell(idx, NACE_LOOKUP_COL + 1, desc)
+    ws.column_dimensions["AA"].hidden = True
+    ws.column_dimensions["AB"].hidden = True
+
 
 def create_workbook(path: Path = OUTPUT_PATH) -> Path:
     if len(EK2_NACE) != 148:
@@ -691,29 +792,79 @@ def create_workbook(path: Path = OUTPUT_PATH) -> Path:
 
 
 def _make_excel_compatible(path: Path) -> None:
-    """Excel'in dosyayı onarım istemeden açması için koruma etiketlerini temizler."""
+    """Excel'in formül sonuçlarını göstermesi ve onarım istememesi için dosyayı düzeltir."""
     with ZipFile(path, "r") as src:
         parts = {name: src.read(name) for name in src.namelist()}
 
     workbook = parts["xl/workbook.xml"].decode("utf-8")
     workbook = workbook.replace("<workbookProtection />", "")
     workbook = workbook.replace("<workbookProtection/>", "")
+    workbook = re.sub(
+        r"<calcPr[^/]*/>",
+        '<calcPr calcMode="auto" calcId="0" fullCalcOnLoad="1"/>',
+        workbook,
+    )
     parts["xl/workbook.xml"] = workbook.encode("utf-8")
 
     for name, data in list(parts.items()):
-        if name.startswith("xl/worksheets/sheet") and name.endswith(".xml"):
-            text = data.decode("utf-8")
-            if "<sheetProtection" in text:
-                start = text.index("<sheetProtection")
-                end = text.index("/>", start) + 2
-                text = text[:start] + text[end:]
-                parts[name] = text.encode("utf-8")
+        if not (name.startswith("xl/worksheets/sheet") and name.endswith(".xml")):
+            continue
+        text = data.decode("utf-8")
+        if "<sheetProtection" in text:
+            start = text.index("<sheetProtection")
+            end = text.index("/>", start) + 2
+            text = text[:start] + text[end:]
+        text = text.replace("<v />", "").replace("<v/>", "")
+        if name.endswith("sheet1.xml"):
+            text = _inject_control_sheet_cache(text)
+        parts[name] = text.encode("utf-8")
 
     buffer = BytesIO()
     with ZipFile(buffer, "w", ZIP_DEFLATED) as dest:
         for name, data in parts.items():
             dest.writestr(name, data)
     path.write_bytes(buffer.getvalue())
+
+
+def _inject_control_sheet_cache(xml: str) -> str:
+    examples = [
+        (10, "10.11", 120),
+        (11, "47.11", 200),
+        (12, "10.11", 30),
+    ]
+    in_scope_count = 0
+    out_scope_count = 0
+    for row, nace, employees in examples:
+        result = evaluate_row(nace, employees)
+        xml = _set_formula_cache(xml, f"I{row}", result["norm"], as_str=True)
+        xml = _set_formula_cache(xml, f"D{row}", result["listed"], as_str=True)
+        xml = _set_formula_cache(xml, f"E{row}", result["enough"], as_str=True)
+        xml = _set_formula_cache(xml, f"F{row}", result["scope"], as_str=True)
+        xml = _set_formula_cache(xml, f"G{row}", result["reason"], as_str=True)
+        xml = _set_formula_cache(xml, f"H{row}", result["activity"], as_str=True)
+        if result["scope"] == IN_SCOPE:
+            in_scope_count += 1
+        elif result["scope"] == OUT_SCOPE:
+            out_scope_count += 1
+    xml = _set_formula_cache(xml, "D7", str(in_scope_count), as_str=False)
+    xml = _set_formula_cache(xml, "G7", str(out_scope_count), as_str=False)
+    return xml
+
+
+def _set_formula_cache(xml: str, ref: str, value: object, *, as_str: bool) -> str:
+    pattern = re.compile(rf'<c r="{ref}"[^>]*>.*?</c>')
+    match = pattern.search(xml)
+    if not match or value in (None, ""):
+        return xml
+    formula = re.search(r"<f>.*?</f>", match.group(0))
+    if not formula:
+        return xml
+    style = re.search(r' s="(\d+)"', match.group(0))
+    style_attr = f' s="{style.group(1)}"' if style else ""
+    type_attr = ' t="str"' if as_str else ""
+    cached = html.escape(str(value), quote=False)
+    new_cell = f'<c r="{ref}"{style_attr}{type_attr}>{formula.group(0)}<v>{cached}</v></c>'
+    return xml[: match.start()] + new_cell + xml[match.end() :]
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
-from create_su_verimliligi_kapsam_tablosu import EK2_NACE, create_workbook
+from create_su_verimliligi_kapsam_tablosu import EK2_NACE, OUT_SCOPE, IN_SCOPE, create_workbook
 
 
 def normalize_nace(value: object) -> str:
@@ -21,8 +21,8 @@ def scope_status(nace: object, employees: object) -> str:
     in_list = normalized in {code for code, *_ in EK2_NACE}
     enough_staff = isinstance(employees, (int, float)) and employees >= 50
     if in_list and enough_staff:
-        return "KAPSAMDA"
-    return "KAPSAM DIŞI"
+        return IN_SCOPE
+    return OUT_SCOPE
 
 
 class Ek2ListTests(unittest.TestCase):
@@ -38,18 +38,18 @@ class Ek2ListTests(unittest.TestCase):
 
 class ScopeLogicTests(unittest.TestCase):
     def test_listed_nace_with_50_or_more_is_in_scope(self) -> None:
-        self.assertEqual(scope_status("10.11", 50), "KAPSAMDA")
-        self.assertEqual(scope_status("10.11.01", 120), "KAPSAMDA")
-        self.assertEqual(scope_status("10,11", 51), "KAPSAMDA")
-        self.assertEqual(scope_status("1011", 80), "KAPSAMDA")
+        self.assertEqual(scope_status("10.11", 50), IN_SCOPE)
+        self.assertEqual(scope_status("10.11.01", 120), IN_SCOPE)
+        self.assertEqual(scope_status("10,11", 51), IN_SCOPE)
+        self.assertEqual(scope_status("1011", 80), IN_SCOPE)
 
     def test_listed_nace_under_50_is_out_of_scope(self) -> None:
-        self.assertEqual(scope_status("10.11", 49), "KAPSAM DIŞI")
-        self.assertEqual(scope_status("10.11", 30), "KAPSAM DIŞI")
+        self.assertEqual(scope_status("10.11", 49), OUT_SCOPE)
+        self.assertEqual(scope_status("10.11", 30), OUT_SCOPE)
 
     def test_unlisted_nace_is_out_of_scope_even_with_many_employees(self) -> None:
-        self.assertEqual(scope_status("47.11", 200), "KAPSAM DIŞI")
-        self.assertEqual(scope_status("85.20", 500), "KAPSAM DIŞI")
+        self.assertEqual(scope_status("47.11", 200), OUT_SCOPE)
+        self.assertEqual(scope_status("85.20", 500), OUT_SCOPE)
 
     def test_known_ek2_codes_from_regulation(self) -> None:
         codes = {item[0] for item in EK2_NACE}
@@ -75,8 +75,8 @@ class WorkbookTests(unittest.TestCase):
         self.assertEqual(ws["A10"].value, "Örnek Gıda A.Ş.")
         self.assertEqual(ws["B10"].value, "10.11")
         self.assertEqual(ws["C10"].value, 120)
-        self.assertIn("KAPSAMDA", ws["F10"].value)
-        self.assertIn("KAPSAM DIŞI", ws["F11"].value)
+        self.assertIn(IN_SCOPE, ws["F10"].value)
+        self.assertIn(OUT_SCOPE, ws["F11"].value)
         self.assertEqual(ws["C12"].value, 30)
 
     def test_conditional_formatting_covers_scope_column(self) -> None:
@@ -84,14 +84,23 @@ class WorkbookTests(unittest.TestCase):
         rules = list(ws.conditional_formatting._cf_rules.values())
         flat = [rule for group in rules for rule in group]
         formulas = [getattr(rule, "formula", None) for rule in flat]
-        self.assertTrue(any(f == ['"KAPSAMDA"'] for f in formulas))
-        self.assertTrue(any(f == ['"KAPSAM DIŞI"'] for f in formulas))
+        self.assertTrue(any(f == [f'"{IN_SCOPE}"'] for f in formulas))
+        self.assertTrue(any(f == [f'"{OUT_SCOPE}"'] for f in formulas))
 
     def test_nace_sheet_row_count(self) -> None:
         ws = self.wb["Ek-2 NACE Listesi"]
         self.assertEqual(ws["B2"].value, "01.41")
         self.assertEqual(ws["B149"].value, "42.12")
         self.assertIsNone(ws["B150"].value)
+
+    def test_scope_column_has_cached_results(self) -> None:
+        import zipfile
+
+        xml = zipfile.ZipFile(self.path).read("xl/worksheets/sheet1.xml").decode("utf-8")
+        self.assertIn("<v>kapsamda</v>", xml)
+        self.assertIn("<v>kapsam dışı</v>", xml)
+        self.assertIn("$AA$2:$AA$149", xml)
+        self.assertNotIn("<v />", xml)
 
     def test_file_is_unlocked_excel_workbook(self) -> None:
         import zipfile
