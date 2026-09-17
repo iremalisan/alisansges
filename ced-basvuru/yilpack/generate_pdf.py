@@ -330,6 +330,19 @@ def add_page_number(canvas, doc):
     canvas.restoreState()
 
 
+def flowchart_story(styles):
+    return [
+        Paragraph("YILPACK", styles["center_title"]),
+        Paragraph(
+            "POLİETİLEN POŞET, RAFYA İPLİK, DOKUMA VE TORBA ÜRETİM TESİSİ",
+            styles["center_title"],
+        ),
+        Paragraph("İŞ AKIM ŞEMASI", styles["center_sub"]),
+        Spacer(1, 4),
+        FlowChart(170 * mm, 188 * mm),
+    ]
+
+
 def build(path):
     styles = make_styles()
     doc = SimpleDocTemplate(
@@ -418,19 +431,30 @@ def build(path):
     ))
 
     s.append(PageBreak())
-    s.append(Paragraph("YILPACK", styles["center_title"]))
-    s.append(Paragraph(
-        "POLİETİLEN POŞET, RAFYA İPLİK, DOKUMA VE TORBA ÜRETİM TESİSİ",
-        styles["center_title"],
-    ))
-    s.append(Paragraph("İŞ AKIM ŞEMASI", styles["center_sub"]))
-    s.append(Spacer(1, 4))
-    s.append(FlowChart(170 * mm, 188 * mm))
+    s.extend(flowchart_story(styles))
 
     doc.build(s, onFirstPage=add_page_number, onLaterPages=add_page_number)
 
 
+def build_flowchart(path):
+    styles = make_styles()
+    doc = SimpleDocTemplate(
+        path,
+        pagesize=A4,
+        leftMargin=20 * mm,
+        rightMargin=20 * mm,
+        topMargin=16 * mm,
+        bottomMargin=16 * mm,
+        title="YILPACK — İş Akım Şeması",
+        author="YILPACK",
+    )
+    doc.build(flowchart_story(styles))
+
+
 if __name__ == "__main__":
     out = "/workspace/ced-basvuru/yilpack/YILPACK_Proje_Ozeti_ve_Is_Akim_Semasi.pdf"
+    flow = "/workspace/ced-basvuru/yilpack/YILPACK_Is_Akim_Semasi.pdf"
     build(out)
+    build_flowchart(flow)
     print("Wrote", out)
+    print("Wrote", flow)
