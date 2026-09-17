@@ -244,10 +244,11 @@ def blank(prs, bg=CREAM):
     return slide
 
 def build():
-    cover = crop_cover(IMG / "cover-simple-water.jpg", CACHE / "cover.jpg")
-    flush = crop_fit(IMG / "dual-flush-buttons.jpg", CACHE / "flush.jpg", (1100, 900))
-    sensor = crop_fit(IMG / "sensor-faucet.jpg", CACHE / "sensor.jpg", (900, 720))
-    aero = crop_fit(IMG / "aerator-tap.jpg", CACHE / "aero.jpg", (900, 720))
+    cover = crop_cover(IMG / "cover-real-restroom.jpg", CACHE / "cover.jpg")
+    flush_room = crop_fit(IMG / "factory-restroom-wallflush.jpg", CACHE / "flushroom.jpg", (1100, 720))
+    flush_plate = crop_fit(IMG / "wall-flush-closeup.jpg", CACHE / "flushplate.jpg", (1100, 720))
+    sensor = crop_fit(IMG / "sensor-tap-real.jpg", CACHE / "sensor.jpg", (900, 720))
+    aero = crop_fit(IMG / "aerator-real.jpg", CACHE / "aero.jpg", (900, 720))
     oldnew = crop_fit(IMG / "old-vs-new-tap.jpg", CACHE / "oldnew.jpg", (1100, 720))
     hose_bad = crop_fit(IMG / "open-hose-waste.jpg", CACHE / "hosebad.jpg", (900, 720))
     hose_good = crop_fit(IMG / "spray-gun-hose.jpg", CACHE / "hosegood.jpg", (900, 720))
@@ -327,22 +328,23 @@ def build():
 
     # 4 SİFON — asıl istenen örnek
     s = blank(prs, CREAM)
-    header_bar(s, "Örnek 1  •  Tuvalet", "Sifon kapağında 2 düğme olsun",
-               "Mavi belgenin 6. maddesi bunu ister: bireysel kullanımda suyu az harcayan armatür.")
-    picture(s, flush, 0.4, 1.5, 6.15, 5.35)
-    card(s, 6.75, 1.5, 6.15, 2.45, WHITE)
-    oval(s, 6.95, 1.72, 0.7, 0.7, CORAL)
-    tb(s, 6.95, 1.88, 0.7, 0.42, "8 L", 16, True, WHITE, PP_ALIGN.CENTER)
-    tb(s, 7.8, 1.72, 4.85, 0.4, "Büyük düğme  =  tam sifon", 18, True, NAVY)
-    tb(s, 7.8, 2.2, 4.85, 1.45,
-       "Katı atık için. Eski tek düğmeli rezervuar her seferinde 8–9 litre boşaltır. Bunu yalnızca gerektiğinde kullanın.",
+    header_bar(s, "Örnek 1  •  Tuvalet", "Düğmeler duvardadır: gömme rezervuar paneli",
+               "Kapakta düğme aramayın. Çoğu işyeri tuvaletinde çift basış, klozetin üstündeki duvar panelindedir.")
+    picture(s, flush_room, 0.4, 1.48, 6.15, 2.55)
+    picture(s, flush_plate, 0.4, 4.15, 6.15, 2.7)
+    card(s, 6.75, 1.48, 6.15, 2.5, WHITE)
+    oval(s, 6.95, 1.7, 0.7, 0.7, CORAL)
+    tb(s, 6.95, 1.86, 0.7, 0.42, "8 L", 16, True, WHITE, PP_ALIGN.CENTER)
+    tb(s, 7.8, 1.7, 4.85, 0.4, "Büyük basış  =  tam sifon", 18, True, NAVY)
+    tb(s, 7.8, 2.18, 4.85, 1.55,
+       "Duvar panelindeki büyük düğme. Katı atık için. Eski tek basışlı rezervuar her seferinde 8–9 litre boşaltır; bunu yalnızca gerektiğinde kullanın.",
        14, False, INK)
     card(s, 6.75, 4.15, 6.15, 2.7, WHITE)
     oval(s, 6.95, 4.4, 0.7, 0.7, TEAL)
     tb(s, 6.95, 4.56, 0.7, 0.42, "2 L", 16, True, WHITE, PP_ALIGN.CENTER)
-    tb(s, 7.8, 4.4, 4.85, 0.4, "Küçük düğme  =  yarım sifon", 18, True, NAVY)
+    tb(s, 7.8, 4.4, 4.85, 0.4, "Küçük basış  =  yarım sifon", 18, True, NAVY)
     tb(s, 7.8, 4.9, 4.85, 1.7,
-       "Sıvı atık için. 2–3 litre yeter. 40 çalışan günde 4 kez basarsa: eski sistem ~1.280 L, yeni sistem ~480 L. Fark günde 800 litre.",
+       "Paneldeki küçük düğme. Sıvı atık için 2–3 litre yeter. 40 çalışan günde 4 kez basarsa: eski sistem ~1.280 L, yeni sistem ~480 L. Fark günde 800 litre.",
        14, False, INK)
     footer(s, 4)
 
@@ -354,7 +356,7 @@ def build():
     picture(s, aero, 4.6, 1.48, 4.15, 3.35)
     picture(s, oldnew, 8.85, 1.48, 4.1, 3.35)
     cards = [
-        (0.35, TEAL, "Fotoselli (fotocell) musluk", "Sensör eli görünce açılır, el gidince kapanır. ‘Açık unutulan musluk’ biter. Lavabo başında 10–12 L/dk yerine 5–6 L/dk."),
+        (0.35, TEAL, "Fotoselli veya zaman ayarlı musluk", "Eli çekince / süre dolunca su kesilir. ‘Açık unutulan musluk’ biter. Lavabo başında 10–12 L/dk yerine 5–6 L/dk."),
         (4.6, GOLD, "Perlatör (musluk ucu süzgeci)", "Uca vidalanır, suyu havayla karıştırır. Pahalı bir yatırım değil. Mevcut musluğa 5 dakikada takılır. Debi yarıya iner, yıkama aynı durur."),
         (8.85, SKY, "Eski musluk → yeni musluk", "Solda damlayan, sürekli açık musluk. Sağda fotosel + perlatör. Belgeye: satın alma faturası + takılı fotoğraf yeter."),
     ]
@@ -390,7 +392,7 @@ def build():
     picture(s, train, 4.6, 1.48, 4.15, 3.15)
     picture(s, rain, 8.85, 1.48, 4.1, 3.15)
     cards = [
-        (0.35, GOLD, "Tuvalet kapısına afiş", "‘Küçük düğme 2 L — büyük düğme 8 L’. Yemekhane ekranında aynı mesaj. Fotoğrafını çekin, sisteme yükleyin."),
+        (0.35, GOLD, "Tuvalet duvarına afiş", "‘Küçük basış 2 L — büyük basış 8 L’ (duvardaki panel). Fotoğrafını çekin, sisteme yükleyin."),
         (4.6, TEAL, "Kısa eğitim", "Başvurudan önce 1 bireysel + 1 işyeri eğitimi. Video: suverimliligi.gov.tr. İmza listesi 5 yıl saklanır."),
         (8.85, SKY, "Yağmur deposu", "Çatı oluğu → filtre → depo → bahçe / zemin yıkama. Şebeke suyunu çiçeğe vermeyin."),
     ]
@@ -417,7 +419,7 @@ def build():
     card(s, 8.9, 1.5, 4.05, 5.25, WHITE)
     tb(s, 9.1, 1.68, 3.7, 0.4, "Hedef örneği", 18, True, GOLD)
     tb(s, 9.1, 2.2, 3.7, 4.2,
-       "Bu yıl: tüm tuvaletlere 2 kademeli sifon.\n\nBu yıl: 20 lavaboya perlatör + 8’ine fotosel.\n\nBu yıl: hortum tabancası.\n\n3 yılda: yağmur deposu.\n\nSayı: 11.500 → 9.800 m³/yıl.",
+       "Bu yıl: gömme rezervuar panellerini 2 kademeli yapın.\n\nBu yıl: 20 lavaboya perlatör + 8’ine fotosel.\n\nBu yıl: hortum tabancası.\n\n3 yılda: yağmur deposu.\n\nSayı: 11.500 → 9.800 m³/yıl.",
        15, False, INK)
     footer(s, 8)
 
@@ -465,11 +467,11 @@ def build():
     header_bar(s, "Yarın sabah", "Bu 8 işi bu ay bitirirseniz belgenin yarısı biter",
                "Pahalı yatırım şart değil. Çoğu hırdavatçıdan çıkar.")
     actions = [
-        (TEAL, "1", "Tuvaletleri sayın. Tek düğmeliyse 2 kademeli rezervuar sipariş edin. Kapakta ‘8 L / 2 L’ yazsın."),
+        (TEAL, "1", "Tuvaletleri gezin. Düğme kapakta değil duvardadır. Tek basışlı paneli 2 kademeli (8 L / 2 L) yapın."),
         (SKY, "2", "Her lavaboya perlatör takın. Yemekhane ve misafir tuvaletlerine fotoselli musluk koyun."),
         (GOLD, "3", "Açık hortumları toplayın. Her hortumun ucuna tetikli tabanca."),
         (CORAL, "4", "Damlayan vanayı bu hafta değiştirin. Gece su sayacını okuyun: üretim yokken dönüyorsa kaçak var."),
-        (PURPLE, "5", "Tuvalet kapısına A4 asın: küçük düğme 2 L, büyük düğme 8 L, musluğu kapat."),
+        (PURPLE, "5", "Klozet üstündeki duvar paneline A4 asın: küçük basış 2 L, büyük basış 8 L."),
         (GREEN, "6", "3 kişilik ekibi yazıyla atayın. Su faturasını Excel’e dökün."),
         (TEAL, "7", "suverimliligi.gov.tr videosunu tüm personele izletin, imza alın."),
         (GOLD, "8", "csys.tarimorman.gov.tr hesabını açın, yetki başvurusunu başlatın."),
@@ -489,7 +491,7 @@ def build():
     header_bar(s, "Kapıdan çıkmadan", "Fotoğrafı çekilmiş mi?",
                "Mavi belge müfettişi tesisde dolaşır gibi düşünün. Gözle görünen şeyler puan kazandırır.")
     checks = [
-        ("Tuvalette 2 düğmeli sifon var, üzerinde 8 L / 2 L yazıyor.", TEAL),
+        ("Duvarda gömme rezervuar paneli var: büyük basış 8 L, küçük 2 L.", TEAL),
         ("Lavabolarda perlatör var; yoğun yerde fotosel var.", SKY),
         ("Hortumların ucunda tabanca var, açık akan hortum yok.", GOLD),
         ("Kaçak yok / tamir kaydı var.", CORAL),
