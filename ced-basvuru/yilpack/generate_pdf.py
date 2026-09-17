@@ -16,6 +16,7 @@ from reportlab.platypus import (
     TableStyle,
     PageBreak,
     Flowable,
+    KeepTogether,
 )
 
 pdfmetrics.registerFont(TTFont("Serif", "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"))
@@ -236,33 +237,33 @@ def make_styles():
             "h",
             fontName="Serif-Bold",
             fontSize=11,
-            leading=15,
+            leading=14,
             alignment=TA_LEFT,
-            spaceBefore=8,
-            spaceAfter=4,
+            spaceBefore=5,
+            spaceAfter=2,
         ),
         "body": ParagraphStyle(
             "body",
             fontName="Serif",
-            fontSize=10.5,
-            leading=15,
+            fontSize=10,
+            leading=13.5,
             alignment=TA_JUSTIFY,
             firstLineIndent=12,
         ),
         "body0": ParagraphStyle(
             "body0",
             fontName="Serif",
-            fontSize=10.5,
-            leading=15,
+            fontSize=10,
+            leading=13.5,
             alignment=TA_JUSTIFY,
         ),
         "sub": ParagraphStyle(
             "sub",
             fontName="Serif-Bold",
-            fontSize=10.5,
-            leading=15,
+            fontSize=10,
+            leading=13.5,
             alignment=TA_LEFT,
-            spaceBefore=6,
+            spaceBefore=4,
             spaceAfter=2,
         ),
         "center_title": ParagraphStyle(
@@ -292,34 +293,41 @@ def make_styles():
 
 def waste_table():
     data = [
-        [Paragraph("<b>ATIK<br/>KODU</b>", ParagraphStyle("th", fontName="Serif-Bold", fontSize=9, leading=11, alignment=TA_CENTER)),
-         Paragraph("<b>ATIK KODU TANIMI</b>", ParagraphStyle("th2", fontName="Serif-Bold", fontSize=9, leading=11, alignment=TA_CENTER))],
-        ["15 01 10*", "Tehlikeli maddelerin kalıntılarını içeren ya da tehlikeli maddelerle kontamine olmuş ambalajlar"],
-        ["15 02 02*", "Tehlikeli maddelerle kirlenmiş emiciler, filtre malzemeleri (başka şekilde tanımlanmamış ise yağ filtreleri), temizleme bezleri, koruyucu giysiler"],
-        ["20 01 21*", "Fluoresan lambalar ve diğer cıva içeren atıklar"],
-        ["20 01 08", "Biyolojik olarak bozunabilir mutfak ve kantin atıkları"],
+        ("15 02 02*", "Tehlikeli maddelerle kirlenmiş emiciler, filtre malzemeleri (başka şekilde tanımlanmamış ise yağ filtreleri), temizleme bezleri, koruyucu giysiler"),
+        ("15 01 10*", "Tehlikeli maddelerin kalıntılarını içeren ya da tehlikeli maddelerle kontamine olmuş ambalajlar"),
+        ("12 01 09*", "Halojen içermeyen işleme emülsiyon ve solüsyonları"),
+        ("15 01 01", "Kağıt ve karton ambalaj"),
+        ("20 01 33*", "16 06 01, 16 06 02 veya 16 06 03’un altında geçen pil ve akümülatörler ve bu pilleri içeren sınıflandırılmamış karışık pil ve akümülatörler"),
+        ("20 01 21*", "Flüoresan lambalar ve diğer cıva içeren atıklar"),
+        ("08 01 11*", "Organik çözücüler ya da diğer tehlikeli maddeler içeren atık boya ve vernikler"),
+        ("04 02 16*", "Tehlikeli maddeler içeren boya maddeleri ve pigmentler"),
     ]
-    cell = ParagraphStyle("cell", fontName="Serif", fontSize=9, leading=12, alignment=TA_LEFT)
-    rows = [data[0]]
-    for kod, tanim in data[1:]:
+    cell = ParagraphStyle("cell", fontName="Serif", fontSize=8.5, leading=11, alignment=TA_LEFT)
+    rows = [[
+        Paragraph("<b>ATIK<br/>KODU</b>", ParagraphStyle("th", fontName="Serif-Bold", fontSize=8.5, leading=10, alignment=TA_CENTER)),
+        Paragraph("<b>ATIK KODU TANIMI</b>", ParagraphStyle("th2", fontName="Serif-Bold", fontSize=8.5, leading=10, alignment=TA_CENTER)),
+    ]]
+    for kod, tanim in data:
         rows.append([
-            Paragraph(kod, ParagraphStyle("kod", fontName="Serif-Bold", fontSize=9, leading=12, alignment=TA_CENTER)),
+            Paragraph(kod, ParagraphStyle("kod", fontName="Serif-Bold", fontSize=8.5, leading=11, alignment=TA_CENTER)),
             Paragraph(tanim, cell),
         ])
     t = Table(rows, colWidths=[28 * mm, 142 * mm])
-    t.setStyle(TableStyle([
+    style_cmds = [
         ("BACKGROUND", (0, 0), (-1, 0), HEADER_BG),
-        ("BACKGROUND", (0, 1), (-1, 1), white),
-        ("BACKGROUND", (0, 2), (-1, 2), ROW_ALT),
-        ("BACKGROUND", (0, 3), (-1, 3), white),
-        ("BACKGROUND", (0, 4), (-1, 4), ROW_ALT),
         ("GRID", (0, 0), (-1, -1), 0.5, HexColor("#7F7F7F")),
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-        ("LEFTPADDING", (0, 0), (-1, -1), 5),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 5),
-        ("TOPPADDING", (0, 0), (-1, -1), 4),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
-    ]))
+        ("LEFTPADDING", (0, 0), (-1, -1), 4),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 4),
+        ("TOPPADDING", (0, 0), (-1, -1), 3),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+    ]
+    for i in range(1, len(rows)):
+        if i % 2 == 0:
+            style_cmds.append(("BACKGROUND", (0, i), (-1, i), ROW_ALT))
+        else:
+            style_cmds.append(("BACKGROUND", (0, i), (-1, i), white))
+    t.setStyle(TableStyle(style_cmds))
     return t
 
 
@@ -332,9 +340,9 @@ def add_page_number(canvas, doc):
 
 def flowchart_story(styles):
     return [
-        Paragraph("YILPACK", styles["center_title"]),
+        Paragraph("YILPACK AMBALAJ SAN. TİC. A.Ş. ADANA ŞB.", styles["center_title"]),
         Paragraph(
-            "POLİETİLEN POŞET, RAFYA İPLİK, DOKUMA VE TORBA ÜRETİM TESİSİ",
+            "TEKSTİLDEN ÇUVAL, P.P. DEN MAMÜL ÇUVAL, LAMİNELİ ÇUVAL, PE POŞET ÜRETİMİ",
             styles["center_title"],
         ),
         Paragraph("İŞ AKIM ŞEMASI", styles["center_sub"]),
@@ -352,58 +360,60 @@ def build(path):
         rightMargin=20 * mm,
         topMargin=16 * mm,
         bottomMargin=16 * mm,
-        title="YILPACK — Proje Özeti ve İş Akım Şeması",
-        author="YILPACK",
+        title="YILPACK AMBALAJ — Proje Özeti ve İş Akım Şeması",
+        author="YILPACK AMBALAJ SAN. TİC. A.Ş. ADANA ŞB.",
     )
     s = []
     s.append(Paragraph("PROJE ÖZETİ", styles["title"]))
 
     s.append(Paragraph("1. TESİSİN YERİ", styles["h"]))
     s.append(Paragraph(
-        "................................................ adresinde, “Polietilen Poşet, "
-        "Rafya İplik, Dokuma, Laminasyon (Kömür Torbası) ve Gübre Torbası Üretimi” "
+        "Adana İli, Sarıçam İlçesi, Acıdere OSB Mh. İnönü Blv. No:15 adresinde, "
+        "“Tekstilden Çuval, P.P. den Mamül Çuval, Lamineli Çuval, PE Poşet Üretimi” "
         "faaliyetleri yapılması planlanmaktadır.",
         styles["body"],
     ))
 
     s.append(Paragraph("2. PROJENİN TÜRÜ", styles["h"]))
     s.append(Paragraph(
-        "Polietilen poşet, rafya iplik, dokuma, laminasyon (kömür torbaları) ve gübre "
-        "torbası üretim faaliyetleri yapılması planlanmaktadır. Aşağıda proses özeti belirtilmiştir.",
+        "Tekstilden Çuval, P.P. den Mamül Çuval, Lamineli Çuval, PE Poşet Üretimi "
+        "faaliyetleri yapılması planlanmaktadır. Aşağıda proses özeti belirtilmiştir.",
         styles["body"],
     ))
 
-    s.append(Paragraph("Polietilen Poşet, Rafya İplik, Dokuma ve Torba Üretimi;", styles["sub"]))
+    s.append(Paragraph("Tekstilden Çuval, P.P. den Mamül Çuval, Lamineli Çuval, PE Poşet Üretimi;", styles["sub"]))
     s.append(Paragraph(
-        "Firmanın işyerinde polietilen poşet, rafya iplik, dokuma kumaş, kömür torbası "
-        "ve gübre torbası üretimi yapılmaktadır. Tesise gelen hammaddeler ilk olarak "
-        "kantardan geçmekte olup tartım işlemi yapılmaktadır. Tartım işleminden sonra "
-        "hammaddeler extruder hattında rafya iplik üretimine alınmaktadır. Üretilen iplikler "
-        "dokuma ünitesinde kumaş haline getirilmektedir.",
+        "Firmanın işyerinde tekstilden çuval, P.P. den mamül çuval, lamineli çuval ve PE poşet "
+        "üretimi yapılmaktadır. Üretimde kullanılacak hammaddeler (PP, PE, Kalsit vb.) hammadde "
+        "deposuna stoklanır. PP hammadde ve katkı maddeleri dozajlama ünitesinde karıştırılıp "
+        "extruder makinesinde istenilen ebat ve kalınlıkta iplik haline getirilir. Üretilen PP ipler "
+        "yuvarlak dokuma makinelerinde hortum kumaş olarak dokunur. Dokunan kumaşlar rulo halinde "
+        "yarı mamül stok alanına alınır.",
         styles["body"],
     ))
     s.append(Paragraph(
-        "Dokuma sonrası ürünler polietilen poşet üretimi, laminasyon (kömür torbaları) "
-        "ve baskısız kumaş olarak konfeksiyon hatlarına yönlendirilmektedir. Laminasyon "
-        "sonrası ürünler baskılı veya baskısız olarak konfeksiyon işlemine alınmaktadır. "
-        "Konfeksiyon sonrası paketleme / ambalaj işlemi yapılmakta; gübre torbası için "
-        "iç geçirme işlemi uygulanan ürünler ile birlikte sevkiyat gerçekleştirilmektedir.",
+        "Dokumadan çıkan kumaşlar müşteri talebine göre laminasyon ve baskı işlemine alınır. "
+        "Baskı ve lamine işleminden geçen kumaşlar talep edilen boylarda kesilerek çuval haline "
+        "getirilir. Çuvallar preslenerek balyalar halinde paketlenir, paletler üzerinde stoklanır ve "
+        "sevkiyatı gerçekleştirilir.",
         styles["body"],
     ))
 
     s.append(Paragraph("3. TESİSTE KAYNAKLANACAK SIVI ATIKLAR", styles["h"]))
     s.append(Paragraph(
-        "Tesiste çalışan personelden dolayı oluşacak atıksular, Belediyeye ait kanalizasyon "
-        "sistemine verilmektedir. Tesiste endüstriyel nitelikli herhangi bir atıksu oluşmayacaktır.",
+        "Tesiste personelden kaynaklı evsel nitelikli atıksu oluşmakta olup endüstriyel nitelikli "
+        "atıksu oluşmamaktadır. Oluşan evsel nitelikli atıksular, OSB kanalizasyon sistemine verilmektedir.",
         styles["body"],
     ))
 
     s.append(Paragraph("4. TESİSTE KAYNAKLANACAK EMİSYONLAR", styles["h"]))
     s.append(Paragraph(
-        "Tesiste ısınma ve sanayi amaçlı olarak elektrik enerjisi kullanılacaktır. Tesiste herhangi bir "
-        "emisyon kaynağı olduğu taktirde SKHKKY hükümleri çerçevesinde gerekli ölçümler yaptırılıp söz "
-        "konusu yönetmelikte belirtilen sınır değerleri sağlanacak, Çevre ve Şehircilik İl Müdürlüğü’ne bilgi "
-        "verilecektir.",
+        "Tesiste baskı makinesinde boya kullanılmakta olup lamine çuvalların üstüne kaplama işlemi "
+        "yapılmaktadır. Baskı ve lamina makinelerinden kaynaklı bacalar tesis içerisinde birleşerek "
+        "bir adet emisyon çıkış bacası olarak dışarıya verilmektedir. Bahse konu makinelerde yakıt "
+        "olarak elektrik enerjisi kullanılmaktadır. Tesiste herhangi bir emisyon kaynağı olduğu taktirde "
+        "SKHKKY hükümleri çerçevesinde gerekli ölçümler yaptırılıp söz konusu yönetmelikte belirtilen "
+        "sınır değerleri sağlanacak, Çevre ve Şehircilik İl Müdürlüğü’ne bilgi verilecektir.",
         styles["body"],
     ))
 
@@ -419,16 +429,14 @@ def build(path):
         "bertarafı sağlanacaktır.",
         styles["body"],
     ))
-    s.append(Paragraph(
-        "Tesiste oluşacak evsel atıkların bertarafı, Belediye tarafından sağlanacaktır.",
-        styles["body"],
-    ))
 
-    s.append(Paragraph("6. TESİSTE KAYNAKLANACAK GÜRÜLTÜ", styles["h"]))
-    s.append(Paragraph(
-        "Tesiste herhangi bir gürültü kaynağı mevcut değildir.",
-        styles["body"],
-    ))
+    s.append(KeepTogether([
+        Paragraph("6. TESİSTE KAYNAKLANACAK GÜRÜLTÜ", styles["h"]),
+        Paragraph(
+            "Tesiste herhangi bir gürültü kaynağı mevcut değildir.",
+            styles["body"],
+        ),
+    ]))
 
     s.append(PageBreak())
     s.extend(flowchart_story(styles))
@@ -445,8 +453,8 @@ def build_flowchart(path):
         rightMargin=20 * mm,
         topMargin=16 * mm,
         bottomMargin=16 * mm,
-        title="YILPACK — İş Akım Şeması",
-        author="YILPACK",
+        title="YILPACK AMBALAJ — İş Akım Şeması",
+        author="YILPACK AMBALAJ SAN. TİC. A.Ş. ADANA ŞB.",
     )
     doc.build(flowchart_story(styles))
 

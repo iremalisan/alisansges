@@ -6,10 +6,10 @@ from pathlib import Path
 import pymupdf
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING, WD_COLOR_INDEX
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import Cm, Mm, Pt, RGBColor
+from docx.shared import Cm, Mm, Pt
 
 PDF_PATH = Path("/workspace/ced-basvuru/yilpack/YILPACK_Proje_Ozeti_ve_Is_Akim_Semasi.pdf")
 DOCX_PATH = Path("/workspace/ced-basvuru/yilpack/YILPACK_Proje_Ozeti_ve_Is_Akim_Semasi.docx")
@@ -133,55 +133,53 @@ def build():
     add_title(doc, "PROJE ÖZETİ")
 
     add_heading_text(doc, "1. TESİSİN YERİ")
-    p = doc.add_paragraph()
-    set_paragraph_format(p, first_line=0.5, space_after=6, line=16)
-    run = p.add_run("TESİS ADRESİNİ YAZINIZ")
-    set_run_font(run, size=11, bold=True, color=RGBColor(0xC0, 0x00, 0x00))
-    run.font.highlight_color = WD_COLOR_INDEX.YELLOW
-    run = p.add_run(
-        " adresinde, “Polietilen Poşet, Rafya İplik, Dokuma, Laminasyon "
-        "(Kömür Torbası) ve Gübre Torbası Üretimi” faaliyetleri yapılması planlanmaktadır."
+    add_body(
+        doc,
+        "Adana İli, Sarıçam İlçesi, Acıdere OSB Mh. İnönü Blv. No:15 adresinde, "
+        "“Tekstilden Çuval, P.P. den Mamül Çuval, Lamineli Çuval, PE Poşet Üretimi” "
+        "faaliyetleri yapılması planlanmaktadır.",
     )
-    set_run_font(run, size=11)
 
     add_heading_text(doc, "2. PROJENİN TÜRÜ")
     add_body(
         doc,
-        "Polietilen poşet, rafya iplik, dokuma, laminasyon (kömür torbaları) ve gübre "
-        "torbası üretim faaliyetleri yapılması planlanmaktadır. Aşağıda proses özeti belirtilmiştir.",
+        "Tekstilden Çuval, P.P. den Mamül Çuval, Lamineli Çuval, PE Poşet Üretimi "
+        "faaliyetleri yapılması planlanmaktadır. Aşağıda proses özeti belirtilmiştir.",
     )
-    add_subheading(doc, "Polietilen Poşet, Rafya İplik, Dokuma ve Torba Üretimi;")
+    add_subheading(doc, "Tekstilden Çuval, P.P. den Mamül Çuval, Lamineli Çuval, PE Poşet Üretimi;")
     add_body(
         doc,
-        "Firmanın işyerinde polietilen poşet, rafya iplik, dokuma kumaş, kömür torbası "
-        "ve gübre torbası üretimi yapılmaktadır. Tesise gelen hammaddeler ilk olarak "
-        "kantardan geçmekte olup tartım işlemi yapılmaktadır. Tartım işleminden sonra "
-        "hammaddeler extruder hattında rafya iplik üretimine alınmaktadır. Üretilen iplikler "
-        "dokuma ünitesinde kumaş haline getirilmektedir.",
+        "Firmanın işyerinde tekstilden çuval, P.P. den mamül çuval, lamineli çuval ve PE poşet "
+        "üretimi yapılmaktadır. Üretimde kullanılacak hammaddeler (PP, PE, Kalsit vb.) hammadde "
+        "deposuna stoklanır. PP hammadde ve katkı maddeleri dozajlama ünitesinde karıştırılıp "
+        "extruder makinesinde istenilen ebat ve kalınlıkta iplik haline getirilir. Üretilen PP ipler "
+        "yuvarlak dokuma makinelerinde hortum kumaş olarak dokunur. Dokunan kumaşlar rulo halinde "
+        "yarı mamül stok alanına alınır.",
     )
     add_body(
         doc,
-        "Dokuma sonrası ürünler polietilen poşet üretimi, laminasyon (kömür torbaları) "
-        "ve baskısız kumaş olarak konfeksiyon hatlarına yönlendirilmektedir. Laminasyon "
-        "sonrası ürünler baskılı veya baskısız olarak konfeksiyon işlemine alınmaktadır. "
-        "Konfeksiyon sonrası paketleme / ambalaj işlemi yapılmakta; gübre torbası için "
-        "iç geçirme işlemi uygulanan ürünler ile birlikte sevkiyat gerçekleştirilmektedir.",
+        "Dokumadan çıkan kumaşlar müşteri talebine göre laminasyon ve baskı işlemine alınır. "
+        "Baskı ve lamine işleminden geçen kumaşlar talep edilen boylarda kesilerek çuval haline "
+        "getirilir. Çuvallar preslenerek balyalar halinde paketlenir, paletler üzerinde stoklanır ve "
+        "sevkiyatı gerçekleştirilir.",
     )
 
     add_heading_text(doc, "3. TESİSTE KAYNAKLANACAK SIVI ATIKLAR")
     add_body(
         doc,
-        "Tesiste çalışan personelden dolayı oluşacak atıksular, Belediyeye ait kanalizasyon "
-        "sistemine verilmektedir. Tesiste endüstriyel nitelikli herhangi bir atıksu oluşmayacaktır.",
+        "Tesiste personelden kaynaklı evsel nitelikli atıksu oluşmakta olup endüstriyel nitelikli "
+        "atıksu oluşmamaktadır. Oluşan evsel nitelikli atıksular, OSB kanalizasyon sistemine verilmektedir.",
     )
 
     add_heading_text(doc, "4. TESİSTE KAYNAKLANACAK EMİSYONLAR")
     add_body(
         doc,
-        "Tesiste ısınma ve sanayi amaçlı olarak elektrik enerjisi kullanılacaktır. Tesiste herhangi bir "
-        "emisyon kaynağı olduğu taktirde SKHKKY hükümleri çerçevesinde gerekli ölçümler yaptırılıp söz "
-        "konusu yönetmelikte belirtilen sınır değerleri sağlanacak, Çevre ve Şehircilik İl Müdürlüğü’ne bilgi "
-        "verilecektir.",
+        "Tesiste baskı makinesinde boya kullanılmakta olup lamine çuvalların üstüne kaplama işlemi "
+        "yapılmaktadır. Baskı ve lamina makinelerinden kaynaklı bacalar tesis içerisinde birleşerek "
+        "bir adet emisyon çıkış bacası olarak dışarıya verilmektedir. Bahse konu makinelerde yakıt "
+        "olarak elektrik enerjisi kullanılmaktadır. Tesiste herhangi bir emisyon kaynağı olduğu taktirde "
+        "SKHKKY hükümleri çerçevesinde gerekli ölçümler yaptırılıp söz konusu yönetmelikte belirtilen "
+        "sınır değerleri sağlanacak, Çevre ve Şehircilik İl Müdürlüğü’ne bilgi verilecektir.",
     )
 
     add_heading_text(doc, "5. TESİSTE KAYNAKLANACAK ATIKLAR")
@@ -189,10 +187,14 @@ def build():
 
     rows = [
         ("ATIK KODU", "ATIK KODU TANIMI"),
-        ("15 01 10*", "Tehlikeli maddelerin kalıntılarını içeren ya da tehlikeli maddelerle kontamine olmuş ambalajlar"),
         ("15 02 02*", "Tehlikeli maddelerle kirlenmiş emiciler, filtre malzemeleri (başka şekilde tanımlanmamış ise yağ filtreleri), temizleme bezleri, koruyucu giysiler"),
-        ("20 01 21*", "Fluoresan lambalar ve diğer cıva içeren atıklar"),
-        ("20 01 08", "Biyolojik olarak bozunabilir mutfak ve kantin atıkları"),
+        ("15 01 10*", "Tehlikeli maddelerin kalıntılarını içeren ya da tehlikeli maddelerle kontamine olmuş ambalajlar"),
+        ("12 01 09*", "Halojen içermeyen işleme emülsiyon ve solüsyonları"),
+        ("15 01 01", "Kağıt ve karton ambalaj"),
+        ("20 01 33*", "16 06 01, 16 06 02 veya 16 06 03’un altında geçen pil ve akümülatörler ve bu pilleri içeren sınıflandırılmamış karışık pil ve akümülatörler"),
+        ("20 01 21*", "Flüoresan lambalar ve diğer cıva içeren atıklar"),
+        ("08 01 11*", "Organik çözücüler ya da diğer tehlikeli maddeler içeren atık boya ve vernikler"),
+        ("04 02 16*", "Tehlikeli maddeler içeren boya maddeleri ve pigmentler"),
     ]
     table = doc.add_table(rows=len(rows), cols=2)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -225,19 +227,14 @@ def build():
     )
     set_run_font(run, size=11)
 
-    add_body(
-        doc,
-        "Tesiste oluşacak evsel atıkların bertarafı, Belediye tarafından sağlanacaktır.",
-    )
-
     add_heading_text(doc, "6. TESİSTE KAYNAKLANACAK GÜRÜLTÜ")
     add_body(doc, "Tesiste herhangi bir gürültü kaynağı mevcut değildir.")
 
     doc.add_page_break()
 
     for text, size in (
-        ("YILPACK", 12),
-        ("POLİETİLEN POŞET, RAFYA İPLİK, DOKUMA VE TORBA ÜRETİM TESİSİ", 12),
+        ("YILPACK AMBALAJ SAN. TİC. A.Ş. ADANA ŞB.", 12),
+        ("TEKSTİLDEN ÇUVAL, P.P. DEN MAMÜL ÇUVAL, LAMİNELİ ÇUVAL, PE POŞET ÜRETİMİ", 11),
         ("İŞ AKIM ŞEMASI", 12),
     ):
         p = doc.add_paragraph()
