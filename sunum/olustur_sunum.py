@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bira firmaları için Mavi Su Verimliliği Belgesi sunumu üreticisi."""
+"""Endüstriyel tesisler için Mavi Su Verimliliği Belgesi sunumu üreticisi."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from lxml import etree
 
 ROOT = Path(__file__).resolve().parent
 IMG = ROOT / "gorseller"
-OUT = ROOT / "Bira_Firmalari_Mavi_Su_Belgesi.pptx"
+OUT = ROOT / "Endustriyel_Tesisler_Mavi_Su_Belgesi.pptx"
 CACHE = ROOT / "_cache"
 CACHE.mkdir(exist_ok=True)
 
@@ -205,7 +205,7 @@ def crop_fit(src: Path, dest: Path, size, boost=1.08):
 def footer(slide, n, total=13, dark=False):
     color = RGBColor(180, 198, 214) if dark else MUTED
     tb(slide, 0.4, 7.18, 9.5, 0.25,
-       "Bira Firmaları için Mavi Su Verimliliği Belgesi  •  Tarım ve Orman Bakanlığı mevzuatı esas alınmıştır",
+       "Endüstriyel Tesisler için Mavi Su Verimliliği Belgesi  •  Tarım ve Orman Bakanlığı mevzuatı esas alınmıştır",
        10, False, color)
     tb(slide, 12.2, 7.18, 0.8, 0.25, f"{n}/{total}", 10, True, color, PP_ALIGN.RIGHT)
 
@@ -243,74 +243,69 @@ def blank(prs, bg=CREAM):
     spTree.insert(2, sp)
     return slide
 
-
 def build():
-    # Pre-crop images
-    cover = crop_cover(IMG / "cover-brewery-water.jpg", CACHE / "cover.jpg")
-    cert = crop_fit(IMG / "blue-certificate.jpg", CACHE / "cert.jpg", (900, 680))
+    cover = crop_cover(IMG / "cover-industry-water.jpg", CACHE / "cover.jpg")
+    cert = crop_fit(IMG / "blue-certificate-generic.jpg", CACHE / "cert.jpg", (900, 680))
     team = crop_fit(IMG / "water-team.jpg", CACHE / "team.jpg", (900, 700))
-    flow = crop_fit(IMG / "brewery-water-flow.jpg", CACHE / "flow.jpg", (1400, 700))
-    cip = crop_fit(IMG / "cip-skid.jpg", CACHE / "cip.jpg", (800, 620))
-    wort = crop_fit(IMG / "wort-cooler.jpg", CACHE / "wort.jpg", (800, 620))
-    pack = crop_fit(IMG / "packaging-line.jpg", CACHE / "pack.jpg", (800, 620))
+    flow = crop_fit(IMG / "industry-water-flow.jpg", CACHE / "flow.jpg", (1400, 700))
+    textile = crop_fit(IMG / "textile-plant.jpg", CACHE / "textile.jpg", (800, 620))
+    food = crop_fit(IMG / "food-plant.jpg", CACHE / "food.jpg", (800, 620))
+    metal = crop_fit(IMG / "metal-cooling.jpg", CACHE / "metal.jpg", (800, 620))
     rain = crop_fit(IMG / "rainwater.jpg", CACHE / "rain.jpg", (800, 620))
-    craft = crop_fit(IMG / "craft-brewery.jpg", CACHE / "craft.jpg", (900, 700))
+    small = crop_fit(IMG / "small-factory.jpg", CACHE / "small.jpg", (900, 700))
+    plant = crop_fit(IMG / "cip-skid.jpg", CACHE / "plant.jpg", (900, 700))
     fixtures = crop_fit(IMG / "efficient-fixtures.jpg", CACHE / "fix.jpg", (800, 620))
     train = crop_fit(IMG / "training-session.jpg", CACHE / "train.jpg", (800, 620))
     posters = crop_fit(IMG / "awareness-posters.jpg", CACHE / "posters.jpg", (800, 620))
-    steps = crop_fit(IMG / "seven-steps.jpg", CACHE / "steps.jpg", (1100, 620), boost=1.0)
 
     prs = Presentation()
     prs.slide_width = W
     prs.slide_height = H
 
-    # ───────── 1 KAPAK ─────────
+    # 1 KAPAK
     s = blank(prs, NAVY)
     picture(s, cover, 0, 0, 13.333, 7.5)
     rect(s, 0, 0, 13.333, 0.14, GOLD, rounded=False)
-    pill(s, 0.55, 1.35, 4.55, 0.38, GOLD)
-    tb(s, 0.55, 1.40, 4.55, 0.30, "SU VERİMLİLİĞİ  •  BİRA SEKTÖRÜ", 12, True, NAVY, PP_ALIGN.CENTER)
-    tb(s, 0.55, 1.95, 7.6, 1.7, "Bira Firmaları için\nMavi Su Belgesi", 36, True, WHITE)
-    tb(s, 0.55, 3.75, 7.4, 1.1,
-       "NACE 11.05 bira imalatında su verimliliği sistemini kurmak,\n7 kriteri sağlamak ve belgeye başvurmak — yükümlü veya gönüllü.",
+    pill(s, 0.55, 1.35, 5.35, 0.38, GOLD)
+    tb(s, 0.55, 1.40, 5.35, 0.30, "SU VERİMLİLİĞİ  •  ENDÜSTRİYEL TESİSLER", 12, True, NAVY, PP_ALIGN.CENTER)
+    tb(s, 0.55, 1.95, 8.2, 1.7, "Her tesis için\nMavi Su Belgesi", 36, True, WHITE)
+    tb(s, 0.55, 3.75, 7.6, 1.1,
+       "Tekstil, gıda, metal, kimya… NACE’niz ne olursa olsun:\nsu verimliliği sistemini kurmak, 7 kriteri sağlamak, belgeye başvurmak.",
        16, False, RGBColor(210, 228, 238))
-    # three chips
     for i, (lab, col) in enumerate([("7 adım", TEAL), ("Örnekli anlatım", SKY), ("Zorunlu + gönüllü", GREEN)]):
         pill(s, 0.55 + i * 2.15, 5.15, 2.0, 0.38, col)
         tb(s, 0.55 + i * 2.15, 5.20, 2.0, 0.30, lab, 12, True, WHITE, PP_ALIGN.CENTER)
-    tb(s, 0.55, 6.85, 8.0, 0.28, "Tarım ve Orman Bakanlığı  •  Su Verimliliği Yönetmeliği (RG 27.12.2024 / 32765)", 12, False, RGBColor(176, 200, 216))
+    tb(s, 0.55, 6.85, 8.2, 0.28, "Tarım ve Orman Bakanlığı  •  Su Verimliliği Yönetmeliği (RG 27.12.2024 / 32765)", 12, False, RGBColor(176, 200, 216))
     tb(s, 11.4, 6.85, 1.5, 0.28, "1 / 13", 12, True, RGBColor(176, 200, 216), PP_ALIGN.RIGHT)
 
-    # ───────── 2 NEDEN ─────────
+    # 2 NEDEN
     s = blank(prs, CREAM)
-    header_bar(s, "Bağlam", "Neden su verimliliği, neden bira?",
-               "Bira suyunun kendisidir; belge ise bu suyu ölçülebilir ve izlenebilir hale getirir.")
-    picture(s, pack, 8.55, 1.55, 4.35, 3.35)
+    header_bar(s, "Bağlam", "Neden su verimliliği belgesi?",
+               "Sanayi Türkiye su kullanımının ~%11’i. Belge, suyu ölçülebilir ve izlenebilir hale getirir.")
+    picture(s, plant, 8.55, 1.55, 4.35, 3.35)
     rect(s, 8.55, 4.9, 4.35, 1.85, NAVY, radius=0.06)
-    tb(s, 8.75, 5.05, 4.0, 0.35, "Sektör gerçeği", 13, True, GOLD)
+    tb(s, 8.75, 5.05, 4.0, 0.35, "Ulusal hedef", 13, True, GOLD)
     tb(s, 8.75, 5.40, 4.0, 1.2,
-       "1 litre bira için tesislerde genelde 4–8 litre su harcanır. Temizliğin (CIP) payı %40’a yaklaşabilir.",
+       "Endüstride mevcut en iyi tekniklerle %50’ye varan su kazanımı hedefleniyor. 152 NACE için rehber var.",
        13, False, WHITE)
-
     stats = [
-        ("2,5–10 L/kg", "Bakanlık rehberi referans\nspesifik su aralığı", TEAL),
-        ("%23–40", "Uygulanabilir tekniklerle\nbeklenen su kazanımı", GOLD),
-        ("~1.300 m³", "Türkiye’de kişi başı\nyıllık kullanılabilir su", SKY),
+        ("%11", "Türkiye’de toplam suyun\nsanayideki payı", TEAL),
+        ("%50’ye varan", "Sanayide ulusal su\nkazanımı hedefi", GOLD),
+        ("~1.300 m³", "Kişi başı yıllık\nkullanılabilir su", SKY),
     ]
     for i, (num, desc, col) in enumerate(stats):
         card(s, 0.4 + i * 2.65, 1.55, 2.5, 2.35, WHITE)
         oval(s, 0.55 + i * 2.65, 1.72, 0.42, 0.42, col)
-        tb(s, 0.55 + i * 2.65, 2.25, 2.2, 0.7, num, 20, True, NAVY)
+        tb(s, 0.55 + i * 2.65, 2.25, 2.2, 0.7, num, 18, True, NAVY)
         tb(s, 0.55 + i * 2.65, 2.95, 2.2, 0.75, desc, 12, False, MUTED)
-
     card(s, 0.4, 4.1, 7.9, 2.65, WHITE)
-    tb(s, 0.6, 4.25, 7.5, 0.35, "Bira tesisinde suyun gittiği yer (örnek dağılım)", 15, True, NAVY)
+    tb(s, 0.6, 4.25, 7.5, 0.35, "Tipik bir fabrikada suyun gittiği yer (örnek dağılım)", 15, True, NAVY)
     bars = [
-        ("CIP / tank-hat temizliği", 0.38, TEAL, "%38"),
-        ("Şişe-kutu-kasa yıkama", 0.18, SKY, "%18"),
-        ("Mayşeleme + ürün suyu", 0.16, GOLD, "%16"),
-        ("Soğutma / buhar", 0.14, PURPLE, "%14"),
-        ("Pastörizasyon + diğer", 0.14, CORAL, "%14"),
+        ("Proses / yıkama", 0.32, TEAL, "%32"),
+        ("Soğutma", 0.24, SKY, "%24"),
+        ("Temizlik / CIP", 0.18, GOLD, "%18"),
+        ("Buhar / kazan", 0.16, PURPLE, "%16"),
+        ("Sosyal + peyzaj", 0.10, CORAL, "%10"),
     ]
     for i, (name, frac, col, lab) in enumerate(bars):
         y = 4.7 + i * 0.38
@@ -319,16 +314,16 @@ def build():
         tb(s, 7.45, y, 0.6, 0.32, lab, 12, True, col)
     footer(s, 2)
 
-    # ───────── 3 BELGE SİSTEMİ ─────────
+    # 3 SEVİYELER
     s = blank(prs, CREAM)
     header_bar(s, "Belge mimarisi", "Üç seviye: Mavi, Yeşil, Turkuaz",
-               "Mavi belge = sistemi kurdunuz. Yeşil ve turkuaz = ölçülebilir kazanım.")
+               "Mavi = sistemi kurdunuz. Yeşil ve turkuaz = ölçülebilir kazanım. Tüm endüstriyel NACE’ler için aynı merdiven.")
     levels = [
         ("MAVİ", TEAL, "Sistem belgesi",
          "7 kriterle su verimliliği sistemini kurun.\nYükümlüler için ilk zorunlu basamak.\nGönüllüler de aynı 7 adımı izler.",
          "Geçerlilik: 5 yıl"),
         ("YEŞİL", GREEN, "Performans belgesi",
-         "NACE 11.05 rehber tekniklerini uygulayın.\nSuyun en az %10’u alternatif kaynaktan.\nISO 46001 ilk başvuruda aranmaz.",
+         "Kendi NACE rehberinizdeki teknikleri uygulayın.\nSuyun en az %10’u alternatif kaynaktan.\nISO 46001 ilk başvuruda aranmaz.",
          "Yükümlü: en fazla 5 yıl"),
         ("TURKUAZ", SKY, "İleri seviye (gönüllü)",
          "Atıksuyun en az %20’sini geri kazanın.\nRehber teknikleri + ISO 46001.\nISO 14046 su ayak izi belgesi.",
@@ -345,43 +340,42 @@ def build():
         tb(s, x + 0.55, 5.91, 2.95, 0.32, note, 12, True, WHITE, PP_ALIGN.CENTER)
     footer(s, 3)
 
-    # ───────── 4 YÜKÜMLÜ / GÖNÜLLÜ ─────────
+    # 4 YÜKÜMLÜ / GÖNÜLLÜ
     s = blank(prs, CREAM)
-    header_bar(s, "Kapsam", "Sizin firmanız yükümlü mü, gönüllü mü?",
-               "NACE 11.05 (Bira imalatı) kılavuzda YÜKÜMLÜ listededir. Asıl eşik çalışan sayısıdır.")
+    header_bar(s, "Kapsam", "Tesisiniz yükümlü mü, gönüllü mü?",
+               "Kural tüm sektörler için aynı: kılavuz Ek-1’deki NACE + çalışan sayısı. Liste: suverimliligi.gov.tr")
     card(s, 0.4, 1.55, 6.2, 5.2, WHITE)
     rect(s, 0.4, 1.55, 6.2, 0.7, CORAL, radius=0.08)
     tb(s, 0.4, 1.68, 6.2, 0.45, "YÜKÜMLÜ  •  50 ve üzeri çalışan", 18, True, WHITE, PP_ALIGN.CENTER)
     tb_multi(s, 0.65, 2.45, 5.75, 4.0, [
         ("Kim?", 13, True, CORAL, 0),
-        ("Sanayi sicil / oda belgesinde NACE 11.05 görünen ve SGK’da 49’dan fazla çalışanı olan bira fabrikaları.", 13, False, INK, 4),
+        ("Ek-1’de YÜKÜMLÜ yazan NACE’de faaliyet gösteren ve SGK’da 49’dan fazla çalışanı olan her endüstriyel tesis (tekstil, gıda, metal, kimya…).", 13, False, INK, 4),
         ("Ne yapılmalı?", 13, True, CORAL, 10),
-        ("Yönetmelik yayımı itibarıyla 18 ay içinde su verimliliği sistemini kurup Mavi Belge’ye başvurmak.", 13, False, INK, 4),
+        ("Yönetmelik yayımı itibarıyla 18 ay içinde sistemi kurup Mavi Belge’ye başvurmak.", 13, False, INK, 4),
         ("Sonra?", 13, True, CORAL, 10),
-        ("En fazla 5 yıl içinde Yeşil Belge (Bakanlık onayıyla 7 yıla uzayabilir). İş termin planı Mavi başvurusunda sunulur.", 13, False, INK, 4),
-        ("Örnek: 180 kişilik Anadolu fabrikası → zorunlu.", 13, True, NAVY, 12),
+        ("En fazla 5 yıl içinde Yeşil Belge (Bakanlık onayıyla 7 yıla uzayabilir). İş termin planı Mavi dosyasında sunulur.", 13, False, INK, 4),
+        ("Örnek: 180 kişilik boyahane veya dökümhane → zorunlu.", 13, True, NAVY, 12),
     ])
-
     card(s, 6.85, 1.55, 6.05, 5.2, WHITE)
     rect(s, 6.85, 1.55, 6.05, 0.7, GREEN, radius=0.08)
     tb(s, 6.85, 1.68, 6.05, 0.45, "GÖNÜLLÜ  •  50’nin altı veya istek", 18, True, WHITE, PP_ALIGN.CENTER)
     tb_multi(s, 7.1, 2.45, 5.55, 4.0, [
         ("Kim?", 13, True, GREEN, 0),
-        ("Aynı NACE’de olup 50’den az çalışanı bulunan mikro / craft biraevleri. Çalışan şartı aranmaz.", 13, False, INK, 4),
+        ("Aynı NACE’de 50’den az çalışanı olan KOBİ’ler; Ek-1’de GÖNÜLLÜ yazan faaliyetler. Çalışan şartı aranmaz.", 13, False, INK, 4),
         ("Ne yapılmalı?", 13, True, GREEN, 10),
         ("Aynı 7 kriterle sistemi kurup csys.tarimorman.gov.tr üzerinden başvurabilirsiniz. Sıra bekleme yok.", 13, False, INK, 4),
         ("Avantaj", 13, True, GREEN, 10),
-        ("Gönüllüler Yeşil veya Turkuaz’a doğrudan gidebilir (sıralı basamak şartı yok). Perakende ve ihracat için itibar sağlar.", 13, False, INK, 4),
-        ("Örnek: 22 kişilik Tadım Craft → gönüllü, aynı dosya.", 13, True, NAVY, 12),
+        ("Gönüllüler Yeşil veya Turkuaz’a doğrudan gidebilir. Müşteri, ihracat ve ihale dosyasında artı puandır.", 13, False, INK, 4),
+        ("Örnek: 22 kişilik atölye → gönüllü, aynı CSYS formu.", 13, True, NAVY, 12),
     ])
     footer(s, 4)
 
-    # ───────── 5 YEDI ADIM ─────────
+    # 5 YEDI ADIM
     s = blank(prs, CREAM)
     header_bar(s, "Yol haritası", "Mavi Belge’nin 7 adımı",
-               "Ek-3 kriterleri. Hepsi kanıtlanabilir olmalı: atama yazısı, tablo, plan, imza listesi, fotoğraf.")
+               "Ek-3 kriterleri her NACE için aynıdır. Kanıt: atama yazısı, tablo, plan, imza listesi, fotoğraf.")
     steps_data = [
-        ("1", "Ekip", "Lider + eğitim sorumlusu + teknik destek", TEAL),
+        ("1", "Ekip", "Lider + eğitim sorumlusu + teknik yardımcı", TEAL),
         ("2", "Mevcut durum", "Su-atıksu haritası, spesifik tüketim", SKY),
         ("3", "Hedefler", "5 yıllık, ölçülebilir, yeşile götüren", GOLD),
         ("4", "Plan", "İş termin planı, maliyet, yıl yıl eylem", AMBER),
@@ -399,19 +393,18 @@ def build():
     picture(s, team, 8.95, 1.55, 3.95, 5.15)
     footer(s, 5)
 
-    # ───────── 6 ADIM 1-2 ─────────
+    # 6 ADIM 1-2
     s = blank(prs, CREAM)
     header_bar(s, "Adım 1 ve 2", "Ekibi kurun, suyu görünür kılın",
-               "Ölçülmeyen su yönetilemez. Bira tesisinde sayaçlar proses bazında konuşmalıdır.")
+               "Ölçülmeyen su yönetilemez. Sayaçlar proses, yardımcı ünite ve sosyal alanı ayrı konuşmalıdır.")
     card(s, 0.4, 1.5, 6.35, 2.55, WHITE)
     tb(s, 0.6, 1.62, 6.0, 0.32, "Adım 1  •  Su verimliliği ekibi", 16, True, TEAL)
     tb(s, 0.6, 2.0, 6.0, 1.85,
-       "Kılavuz kuralı: 1 ekip lideri + en az 1 eğitim sorumlusu + en az 1 yardımcı.\n"
+       "Kılavuz: 1 ekip lideri + en az 1 eğitim sorumlusu + en az 1 yardımcı.\n"
        "Bir kişi en fazla 2 rol alabilir. Lider dışındakiler yalnızca görüntüleyebilir.\n"
-       "Örnek — Ege Malt Bira: lider = üretim müdürü; eğitim = İK;\n"
-       "yardımcı = bakım + AAT. Sistem e-posta ile aktivasyon linki yollar.",
+       "Örnek — Anadolu Tekstil: lider = işletme müdürü; eğitim = İK;\n"
+       "yardımcı = bakım + AAT. Sistem e-posta ile aktivasyon yollar.",
        13, False, INK)
-
     card(s, 6.95, 1.5, 5.95, 2.55, WHITE)
     tb(s, 7.15, 1.62, 5.55, 0.32, "Adım 2  •  Mevcut durum", 16, True, SKY)
     tb(s, 7.15, 2.0, 5.55, 1.85,
@@ -420,16 +413,14 @@ def build():
        "Örnek kaynak: kuyu 420.000 + şebeke 280.000 m³.\n"
        "Kütle denkliği: çekilen ≈ kullanılan + kayıp + ürün.",
        13, False, INK)
-
-    # example table as cards
-    tb(s, 0.45, 4.2, 12.4, 0.3, "Örnek mevcut durum tablosu — Ege Malt Bira, referans yıl", 14, True, NAVY)
+    tb(s, 0.45, 4.2, 12.4, 0.3, "Örnek mevcut durum — 180 kişilik boyahane, referans yıl", 14, True, NAVY)
     rows = [
-        ("Mayşeleme / ürün", "92.000 m³", "1,15 hl/hl", GOLD),
-        ("CIP hattı", "304.000 m³", "3,80 hl/hl", TEAL),
-        ("Dolum-yıkama", "144.000 m³", "1,80 hl/hl", SKY),
-        ("Soğutma-buhar", "112.000 m³", "1,40 hl/hl", PURPLE),
-        ("Sosyal + diğer", "48.000 m³", "0,60 hl/hl", CORAL),
-        ("TOPLAM", "700.000 m³", "8,75 hl/hl", NAVY),
+        ("Proses / yıkama", "224.000 m³", "%32", GOLD),
+        ("Soğutma", "168.000 m³", "%24", TEAL),
+        ("Temizlik / CIP", "126.000 m³", "%18", SKY),
+        ("Buhar / kazan", "112.000 m³", "%16", PURPLE),
+        ("Sosyal + diğer", "70.000 m³", "%10", CORAL),
+        ("TOPLAM", "700.000 m³", "100%", NAVY),
     ]
     for i, (a, b, c, col) in enumerate(rows):
         x = 0.4 + i * 2.15
@@ -439,16 +430,16 @@ def build():
         tb(s, x + 0.08, 5.8, 1.9, 0.55, c, 12, False, RGBColor(200, 214, 226) if i == 5 else MUTED, PP_ALIGN.CENTER)
     footer(s, 6)
 
-    # ───────── 7 ADIM 3-4 ─────────
+    # 7 ADIM 3-4
     s = blank(prs, CREAM)
     header_bar(s, "Adım 3 ve 4", "Hedefi sayıya, planı takvime bağlayın",
-               "CSYS’de Hedef Sepeti’nden seçin veya “Diğer” yazın. Her hedefe en az 1 eylem; termin en fazla +5 yıl.")
+               "CSYS Hedef Sepeti’nden seçin veya “Diğer” yazın. Her hedefe en az 1 eylem; termin en fazla +5 yıl.")
     card(s, 0.4, 1.5, 6.35, 5.25, WHITE)
-    tb(s, 0.6, 1.65, 6.0, 0.32, "Örnek — Ege Malt Bira hedef kaydı", 15, True, GOLD)
+    tb(s, 0.6, 1.65, 6.0, 0.32, "Örnek — boyahane hedef kaydı", 15, True, GOLD)
     goals = [
-        ("MET ile toplam suyu azalt", "8,75 → 6,50 hl/hl", "Sepet hedefi; gösterge m³/yıl veya hl/hl"),
+        ("MET ile toplam suyu azalt", "700.000 → 520.000 m³", "Sepet hedefi; gösterge m³/yıl"),
         ("Yağmur suyu oranını artır", "%0 → %4", "Termin: başvuru + 3 yıl"),
-        ("Atıksu geri kazanımını artır", "%0 → %6", "AAT çıkışı kasa yıkamada"),
+        ("Atıksu geri kazanımını artır", "%0 → %6", "AAT çıkışı kasa / zemin yıkamada"),
         ("Su kaybını düşür", "%9 → %5", "Kılavuz örneği: çekim − kullanım"),
     ]
     for i, (k, v, n) in enumerate(goals):
@@ -457,14 +448,13 @@ def build():
         tb(s, 1.0, y, 5.5, 0.28, k, 13, True, NAVY)
         tb(s, 1.0, y + 0.28, 5.5, 0.28, v, 16, True, TEAL)
         tb(s, 1.0, y + 0.56, 5.5, 0.28, n, 12, False, MUTED)
-
     card(s, 6.95, 1.5, 5.95, 5.25, WHITE)
     tb(s, 7.15, 1.65, 5.55, 0.32, "Her hedefe bağlı eylem (zorunlu)", 15, True, SKY)
     plan = [
-        ("Yıl 1", "CIP darbe durulama SOP + sayaç ağı", "Maliyet: 1,2 M TL"),
-        ("Yıl 2", "Şıra soğutma sıcak su tankı 40 m³", "Maliyet: 2,4 M TL"),
+        ("Yıl 1", "Sayaç ağı + kaçak turu + eğitimler", "Maliyet: 0,9 M TL"),
+        ("Yıl 2", "Kapalı çevrim soğutma dönüşümü", "Maliyet: 3,2 M TL"),
         ("Yıl 3", "Çatı yağmur hasadı 250 m³ depo", "Maliyet: 1,8 M TL"),
-        ("Yıl 4", "AAT çıkışını kasa yıkamaya bağla", "Maliyet: 3,1 M TL"),
+        ("Yıl 4", "AAT çıkışını uygun proseslere bağla", "Maliyet: 2,6 M TL"),
         ("Yıl 5", "Yeşil belge dosyası + ISO 46001", "Maliyet: 0,4 M TL"),
     ]
     for i, (yr, act, save) in enumerate(plan):
@@ -475,24 +465,24 @@ def build():
         tb(s, 8.3, y + 0.42, 3.35, 0.28, save, 11, True, MUTED)
     footer(s, 7)
 
-    # ───────── 8 ADIM 5-7 ─────────
+    # 8 ADIM 5-7
     s = blank(prs, CREAM)
     header_bar(s, "Adım 5, 6 ve 7", "İnsan, armatür ve görünür hatırlatıcılar",
-               "Mavi belge “sadece makine” değildir. Eğitim, musluk ve afiş de dosyanın parçasıdır.")
+               "Mavi belge “sadece makine” değildir. Eğitim, musluk ve afiş her sektörde dosyanın parçasıdır.")
     blocks = [
         (train, TEAL, "5  Eğitim",
          "Başvurudan önce en az 1 bireysel + 1 sektörel eğitim.\n"
-         "Bireysel: suverimliligi.gov.tr videosu; tüm personel 5 yılda tamamlanır.\n"
-         "Sektörel: NACE 11.05 rehberi, lisans + 3 yıl deneyimli eğitmen.\n"
+         "Bireysel: suverimliligi.gov.tr videosu; tüm personel 5 yılda.\n"
+         "Sektörel: kendi NACE rehberiniz; lisans + 3 yıl deneyimli eğitmen.\n"
          "Kanıt: imza listesi, tutanak, foto — 5 yıl saklanır."),
         (fixtures, GREEN, "6  Su verimli ekipman",
          "Kapsam bireysel kullanım: musluk, duş, rezervuar, perlatör, sensör.\n"
          "Örnek: 42 lavaboya 6 L/dk perlatör, 18 tuvalete 6/3 L rezervuar.\n"
          "Sosyal su ~%30 düşer. Değişim 5 yıllık planda yazılır."),
         (posters, GOLD, "7  Yazılı-görsel materyal",
-         "Afiş, broşür, infobox, kantin ekranı, CIP odası talimatı.\n"
-         "Örnek: “Hortumu açık bırakma — 1 dk = 15 L”, “Son durulama tanka döner”.\n"
-         "Kanıt: basılı örnek + saha fotoğrafı. Plan dönemine yeni materyal de eklenir."),
+         "Afiş, broşür, kantin ekranı, yıkama odası talimatı.\n"
+         "Örnek: “Hortumu açık bırakma — 1 dk = 15 L”.\n"
+         "Kanıt: basılı örnek + saha fotoğrafı."),
     ]
     for i, (img, col, title, body) in enumerate(blocks):
         x = 0.35 + i * 4.3
@@ -502,54 +492,51 @@ def build():
         tb(s, x + 0.2, 4.0, 3.75, 2.5, body, 12, False, INK)
     footer(s, 8)
 
-    # ───────── 9 BIRA TEKNIKLERI ─────────
+    # 9 SAHA TEKNİKLERİ
     s = blank(prs, CREAM)
-    header_bar(s, "Saha", "Bira tesisinde suyu nerede kurtarırsınız?",
-               "Bakanlık NACE 11.05 rehberi: sektöre özgü, iyi yönetim ve genel MET’ler. Kazanım potansiyeli %23–40.")
+    header_bar(s, "Saha", "Her fabrikada suyu nerede kurtarırsınız?",
+               "Önce kendi NACE rehberiniz (suverimliligi.gov.tr). Aşağıdakiler çoğu tesiste ortak MET’lerdir.")
     picture(s, flow, 0.4, 1.5, 6.4, 3.2)
     techniques = [
-        ("Şıra soğutma", "Isınan suyu yalıtımlı tankta tutup mayşeleme / CIP ön ısıtmada kullanın."),
-        ("Lautering", "Süzme çıkış sularını bir sonraki mayşede değerlendirebilirsiniz."),
-        ("Pastörizatör", "Taşan ve drene olan suyu toplayıp tekrar pastörizatöre verin."),
-        ("CIP", "Darbe durulama, son durulamanın ilk durulama olması, iletkenlik kontrollü kesim."),
-        ("Kapalı soğutma", "Açık kule yerine kapalı çevrim; blowdown’u kasa yıkamada kullanın."),
+        ("Sayaç ve kaçak", "Proses / soğutma / buhar / sosyal ayrı sayılsın. Aylık sızıntı turu."),
+        ("Kapalı soğutma", "Açık kule yerine kapalı çevrim; blowdown’u uygun yerde kullanın."),
+        ("Yıkama / CIP", "Darbe durulama, iletkenlik kesimi, son durulama = sonraki ilk durulama."),
+        ("Buhar kazanı", "Kondens dönüşü, blöf optimizasyonu, kaçak buhar avı."),
+        ("Isı eşanjörü", "Isınan soğutma suyunu proses ön ısıtmasında depolayın."),
         ("Yağmur / AAT", "Çatı hasadı + arıtılmış su: zemin, kasa, yeşil alan, soğutma makyajı."),
     ]
     for i, (t, d) in enumerate(techniques):
-        col = i % 2
-        row = i // 2
-        x = 6.95 + col * 3.1
+        coln, row = i % 2, i // 2
+        x = 6.95 + coln * 3.1
         y = 1.5 + row * 1.75
         card(s, x, y, 2.95, 1.62, WHITE)
         tb(s, x + 0.15, y + 0.12, 2.65, 0.4, t, 14, True, TEAL)
         tb(s, x + 0.15, y + 0.52, 2.65, 0.95, d, 12, False, INK)
-    tb(s, 0.45, 4.85, 6.3, 0.3, "Su, malt’tan doluma kadar her kadehte görünür olmalı", 13, True, NAVY)
+    tb(s, 0.45, 4.85, 6.3, 0.3, "Temiz suyu kirli hatta karıştırmayın", 13, True, NAVY)
     tb(s, 0.45, 5.2, 6.3, 1.4,
-       "Örnek kural: içme suyu kalitesindeki şebeke suyunu yer yıkamada kullanmayın. "
-       "Temiz durulama suyu ile kirli CIP kostikini asla aynı hatta karıştırmayın. "
-       "Her geri kullanımın gıda güvenliği onayı kalite biriminden geçsin.",
+       "İçme suyu kalitesindeki şebekeyi yer yıkamada kullanmayın. Geri kullanımın proses uygunluğunu kalite / gıda / ISO sorumlusu onaylasın. NACE rehberindeki öncelikli teknikler iş termin planına yazılır.",
        13, False, MUTED)
     footer(s, 9)
 
-    # ───────── 10 ÜÇ VAKA ─────────
+    # 10 ÜÇ VAKA
     s = blank(prs, CREAM)
-    header_bar(s, "Üç canlı örnek", "Aynı belgede üç farklı kazanç hikâyesi",
-               "Rakamlar öğretici senaryolardır; kendi sayaç verinizle yeniden hesaplayın.")
+    header_bar(s, "Üç sektör, aynı mantık", "Tekstil, gıda, metal — üç kazanç hikâyesi",
+               "Rakamlar öğretici senaryodur; kendi sayaç verinizle yeniden hesaplayın.")
     cases = [
-        (cip, TEAL, "CIP’i kısaltmak",
-         "Durum: 80 dakikalık sürekli durulama, iletkenlik yok.\n"
-         "İş: 4x20 sn darbe + iletkenlik kesimi; son durulama bir sonraki pre-rinse.\n"
-         "Sonuç: durulama suyu ~%50, tesis toplamı ~%7 düşer.\n"
+        (textile, TEAL, "Tekstil boyahane",
+         "Durum: sürekli durulama, iletkenlik yok.\n"
+         "İş: darbe durulama + son durulama tankı.\n"
+         "Sonuç: durulama suyu ~%40, tesis toplamı ~%10.\n"
          "Belgeye: SOP, önce-sonra sayaç, eğitim tutanağı."),
-        (wort, GOLD, "Şıra soğutma ısısı",
-         "Durum: plakalı eşanjörden 80 °C su gideri.\n"
-         "İş: 40 m³ yalıtımlı tank + mayşeleme beslemesi.\n"
-         "Sonuç: örnek tesiste ~122.000 m³/yıl taze su ve enerji tasarrufu sınıfı kazanç.\n"
-         "Belgeye: P&ID, tank fotoğrafı, aylık m³."),
-        (rain, SKY, "Yağmur + AAT",
-         "Durum: 12.000 m² çatı, yazın bahçe + kasa yıkama şebeke suyu.\n"
-         "İş: 250 m³ depo, kaba filtre; AAT çıkışı kasa hattına.\n"
-         "Sonuç: 3. yıl sonunda alternatif su ~%10 — yeşil eşiğe hazırlık.\n"
+        (food, GOLD, "Gıda işleme",
+         "Durum: pastörizatör / yıkama suyu gideri.\n"
+         "İş: taşma suyu geri dönüş + hortum tabancası.\n"
+         "Sonuç: hat bazında %15–25 taze su düşer.\n"
+         "Belgeye: P&ID, fotoğraf, aylık m³."),
+        (metal, SKY, "Metal / soğutma",
+         "Durum: açık kule, yüksek blöf.\n"
+         "İş: kapalı çevrim + blöfün zemin yıkamada kullanımı.\n"
+         "Sonuç: makyaj suyu ciddi azalır; yağmur ile GOSK payı artar.\n"
          "Belgeye: debi, analiz, kullanım noktası listesi."),
     ]
     for i, (img, col, title, body) in enumerate(cases):
@@ -561,37 +548,33 @@ def build():
         tb(s, x + 0.2, 3.92, 3.75, 2.55, body, 12, False, INK)
     footer(s, 10)
 
-    # ───────── 11 IKI SENARYO ─────────
+    # 11 İKİ SENARYO
     s = blank(prs, CREAM)
-    header_bar(s, "İki firma, aynı 7 adım", "Büyük fabrika ve craft biraevi nasıl ilerler?",
+    header_bar(s, "İki tesis, aynı 7 adım", "Büyük fabrika ve küçük atölye nasıl ilerler?",
                "Ölçek değişir, kriter değişmez. Dosya tesis bazındadır: ayrı lokasyon = ayrı başvuru.")
-    picture(s, pack, 0.4, 1.5, 4.15, 2.45)
-    picture(s, craft, 0.4, 4.15, 4.15, 2.55)
-
+    picture(s, textile, 0.4, 1.5, 4.15, 2.45)
+    picture(s, small, 0.4, 4.15, 4.15, 2.55)
     card(s, 4.75, 1.5, 8.15, 2.45, WHITE)
-    tb(s, 4.95, 1.62, 7.8, 0.32, "Ege Malt Bira A.Ş.  •  180 çalışan  •  YÜKÜMLÜ", 15, True, CORAL)
+    tb(s, 4.95, 1.62, 7.8, 0.32, "Anadolu Tekstil A.Ş.  •  180 çalışan  •  YÜKÜMLÜ", 15, True, CORAL)
     tb(s, 4.95, 2.05, 7.8, 1.7,
        "18 ay içinde sistemi kurup önce yetki, sonra Mavi belge başvurusu yapar. "
-       "CSYS’ye 4’lü NACE 11.05 + 6’lı kod, ürün (hl), 6 zorunlu evrak ve 5 yıllık hedef-eylem girer. "
+       "CSYS’ye 4’lü/6’lı NACE, ürün, 6 zorunlu evrak ve 5 yıllık hedef-eylem girer. "
        "OSB içinde olsa bile kendi belgesini alır. İki fabrika varsa iki yetki, iki belge.",
        13, False, INK)
-
     card(s, 4.75, 4.15, 8.15, 2.55, WHITE)
-    tb(s, 4.95, 4.27, 7.8, 0.32, "Tadım Craft  •  22 çalışan  •  GÖNÜLLÜ", 15, True, GREEN)
+    tb(s, 4.95, 4.27, 7.8, 0.32, "Mavi Metal Atölye  •  22 çalışan  •  GÖNÜLLÜ", 15, True, GREEN)
     tb(s, 4.95, 4.7, 7.8, 1.8,
-       "Zorunluluk yok; aynı CSYS formu. 3 kişilik ekip (lider+eğitim+yardımcı), 1 proses sayacı + fatura, "
-       "hedef sepetinden “MET ile suyu azalt: 10 → 7 hl/hl”, hortum tabancası ve perlatör fotoğrafı. "
+       "Zorunluluk yok; aynı CSYS formu. 3 kişilik ekip, 1 proses sayacı + fatura, "
+       "hedef sepetinden “MET ile suyu azalt”, hortum tabancası ve perlatör fotoğrafı. "
        "Yetki onayı yine şart. Yeşile atlamak isterse sıralı beklemez.",
        13, False, INK)
     footer(s, 11)
 
-    # ───────── 12 BASVURU ─────────
+    # 12 BAŞVURU
     s = blank(prs, CREAM)
     header_bar(s, "Dijital süreç", "Önce yetki, sonra belge — yalnızca CSYS",
                "Kılavuz 3.1.1.1  •  csys.tarimorman.gov.tr  •  e-Devlet vatandaş girişi  •  kargo/e-posta kabul edilmez")
     picture(s, cert, 9.2, 1.48, 3.7, 2.55)
-
-    # two-phase banner
     card(s, 0.4, 1.48, 8.55, 2.55, WHITE)
     pill(s, 0.6, 1.62, 1.55, 0.32, GOLD)
     tb(s, 0.6, 1.66, 1.55, 0.26, "A. YETKİ", 12, True, NAVY, PP_ALIGN.CENTER)
@@ -601,13 +584,12 @@ def build():
     pill(s, 0.6, 2.45, 1.55, 0.32, TEAL)
     tb(s, 0.6, 2.49, 1.55, 0.26, "B. BELGE", 12, True, WHITE, PP_ALIGN.CENTER)
     tb(s, 2.25, 2.42, 6.5, 1.4,
-       "5 bölüm sırayla yeşile döner: 1) başvuru sahibi (genel + 4’lü/6’lı NACE üretim + evrak)  2) ekip  3) mevcut durum  4) hedefler-eylemler  5) PDF kabul + Başvuruyu Gönder. Kaydet deyip çıkabilirsiniz; kaldığınız yerden devam edilir.",
+       "5 bölüm sırayla yeşile döner: 1) başvuru sahibi (genel + 4’lü/6’lı NACE üretim + evrak)  2) ekip  3) mevcut durum  4) hedefler-eylemler  5) PDF kabul + Başvuruyu Gönder. Kaydet deyip çıkabilirsiniz.",
        13, False, INK)
-
     docs = [
         ("1", "SGK çalışan sayısı", "Başvuru yılı tahakkuk / barkodlu nüsha"),
         ("2", "Oda faaliyet belgesi", "Son 1 yıl, unvan-adres-üretim"),
-        ("3", "Kapasite raporu", "Geçerli; NACE 11.05 yazmalı"),
+        ("3", "Kapasite raporu", "Geçerli; beyan edilen NACE yazmalı"),
         ("4", "Sanayi sicil belgesi", "Güncel; unvan-adres-faaliyet"),
         ("5", "Ticaret sicil gazetesi", "Şube ise şube bilgisi şart"),
         ("6", "Çevre izin / muafiyet", "Güncel izin veya resmi muafiyet yazısı"),
@@ -623,13 +605,13 @@ def build():
         tb(s, x + 0.68, y + 0.58, 3.25, 0.5, d, 12, False, MUTED)
     footer(s, 12)
 
-    # ───────── 13 KONTROL LISTESI ─────────
+    # 13 KONTROL
     s = blank(prs, CREAM)
     header_bar(s, "Kapanış", "Başvuru öncesi 12 maddelik kontrol listesi",
                "Hepsi “evet” ise CSYS dosyanız olgun demektir. Dosya ≤15 MB; pdf / jpg / png / tiff.")
     checks = [
-        ("NACE 11.05 (ve 6’lı kod + ürün hl) fiili üretimle uyumlu.", TEAL),
-        ("SGK: başvuru yılı. 49’dan fazla çalışan = yükümlü.", SKY),
+        ("NACE (4’lü + 6’lı) fiili üretim ve kapasite raporuyla uyumlu.", TEAL),
+        ("SGK: başvuru yılı. 49’dan fazla çalışan + YÜKÜMLÜ NACE = zorunlu.", SKY),
         ("Yetki onayı alınmış: tüzel kişi + tesis + yetkili eşleşiyor.", GOLD),
         ("Ekip: 1 lider + ≥1 eğitim + ≥1 yardımcı; kişi başı en fazla 2 rol.", PURPLE),
         ("Mevcut durum 7 sekmesi ve su kütle denkliği dolu.", GREEN),
@@ -649,9 +631,8 @@ def build():
         oval(s, x + 0.15, y + 0.18, 0.38, 0.38, col)
         tb(s, x + 0.15, y + 0.24, 0.38, 0.28, "✓", 14, True, WHITE, PP_ALIGN.CENTER)
         tb(s, x + 0.65, y + 0.12, 5.4, 0.52, txt, 13, False, INK, anchor=MSO_ANCHOR.MIDDLE)
-
     tb(s, 0.4, 7.16, 11.2, 0.28,
-       "Kaynak: Mavi Belge Başvuru Kılavuzu 3.1.1.1  •  Su Verimliliği Yönetmeliği (RG 27.12.2024/32765)  •  NACE 11.05 Rehberi  •  csys.tarimorman.gov.tr",
+       "Kaynak: Mavi Belge Başvuru Kılavuzu 3.1.1.1  •  Su Verimliliği Yönetmeliği (RG 27.12.2024/32765)  •  suverimliligi.gov.tr  •  csys.tarimorman.gov.tr",
        10, False, MUTED)
     tb(s, 12.2, 7.16, 0.8, 0.25, "13/13", 10, True, MUTED, PP_ALIGN.RIGHT)
     prs.save(OUT)
