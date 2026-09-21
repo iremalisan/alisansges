@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="is-akim-semasi" name="İş Akım Şeması">
+    <mxGraphModel dx="1000" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="n1" value="HAMMADDE KABUL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Helvetica;fontSize=14;arcSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="163" y="40" width="500" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n2" value="HAMMADDE DEPOLAMA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Helvetica;fontSize=14;arcSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="163" y="136" width="500" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n3" value="DOKUMA İŞLEMİ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Helvetica;fontSize=14;arcSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="163" y="232" width="500" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n4" value="KALİTE KONTROL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Helvetica;fontSize=14;arcSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="163" y="328" width="500" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n5" value="LATEKS (SIRT KAPLAMA) İŞLEMİ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Helvetica;fontSize=14;arcSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="163" y="424" width="500" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n6" value="KALİTE KONTROL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Helvetica;fontSize=14;arcSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="163" y="520" width="500" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n7" value="SARIM VE PAKETLEME" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Helvetica;fontSize=14;arcSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="163" y="616" width="500" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n8" value="DEPOLAMA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Helvetica;fontSize=14;arcSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="163" y="712" width="500" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n9" value="SEVKİYAT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Helvetica;fontSize=14;arcSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="163" y="808" width="500" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" style="endArrow=block;endFill=1;html=1;strokeColor=#000000;fillColor=#000000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="n1" target="n2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" style="endArrow=block;endFill=1;html=1;strokeColor=#000000;fillColor=#000000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="n2" target="n3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" style="endArrow=block;endFill=1;html=1;strokeColor=#000000;fillColor=#000000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="n3" target="n4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" style="endArrow=block;endFill=1;html=1;strokeColor=#000000;fillColor=#000000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="n4" target="n5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" style="endArrow=block;endFill=1;html=1;strokeColor=#000000;fillColor=#000000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="n5" target="n6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" style="endArrow=block;endFill=1;html=1;strokeColor=#000000;fillColor=#000000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="n6" target="n7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" style="endArrow=block;endFill=1;html=1;strokeColor=#000000;fillColor=#000000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="n7" target="n8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" style="endArrow=block;endFill=1;html=1;strokeColor=#000000;fillColor=#000000;exitX=0.5;exitY=1;entryX=0.5;entryY=0;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="n8" target="n9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
