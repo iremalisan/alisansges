@@ -1,8 +1,15 @@
-# İş Akım Şeması
+# İş Akım Şeması — indirme
 
-Birinci listedeki adımlar aynı sırayla, ikinci örnekteki gibi düzgün kutular ve aşağı oklarla çizildi. Yan stok kutusu veya yeni adım eklenmedi.
+Bilgisayara indirip açmak için şu üç dosyayı kullanın (kök klasörde):
 
-## Adımlar
+- [Is_Akim_Semasi.docx](../../Is_Akim_Semasi.docx) — Word (çift tıklayınca açılır)
+- [Is_Akim_Semasi.png](../../Is_Akim_Semasi.png) — resim
+- [Is_Akim_Semasi.pdf](../../Is_Akim_Semasi.pdf) — PDF
+- [Is_Akim_Semasi_INDIR.zip](../../Is_Akim_Semasi_INDIR.zip) — üçünü birden indir
+
+GitHub’da dosyanın üzerine tıklayıp **Download raw file** / **View raw** deyin.
+
+Şemadaki adımlar (ekstra kutu yok):
 
 1. Hammadde Kabul
 2. Hammadde Depolama
@@ -13,13 +20,3 @@ Birinci listedeki adımlar aynı sırayla, ikinci örnekteki gibi düzgün kutul
 7. Sarım ve Paketleme
 8. Depolama
 9. Sevkiyat
-
-## Dosyalar
-
-| Dosya | Kullanım |
-| --- | --- |
-| `is-akim-semasi.png` | Görsel (Word, sunum, e-posta) |
-| `is-akim-semasi.pdf` | Yazdırma / ek |
-| `is-akim-semasi.svg` | Vektör |
-| `is-akim-semasi.html` | Tarayıcıda açıp yazdırma |
-| `is-akim-semasi.drawio` | [diagrams.net](https://app.diagrams.net/) ile düzenleme |
