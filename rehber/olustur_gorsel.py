@@ -108,7 +108,7 @@ def footer(draw: ImageDraw.ImageDraw, page: int):
     text(
         draw,
         (58, 1028),
-        "7 günde hızlı manifest  •  tek istek  •  369 + SATS + WOOP  •  her gün 1 somut adım",
+        "Kendi arabam  •  369 + SATS + WOOP  •  her gün 1 araba adımı",
         font("regular", 16),
         MUTED,
         width=1600,
@@ -128,18 +128,18 @@ def slide_cover() -> Image.Image:
     d.rectangle((1560, 0, W, H), fill=PLUM2)
     rrect(d, (80, 150, 640, 206), ROSE, 22)
     text(d, (80, 162), "NE YAP  •  NEREYE BAK  •  BUGÜN BAŞLA", font("bold", 18), WHITE, width=560, align="center")
-    text(d, (80, 240), "7 günde hızlı\nmanifest teknikleri", font("bold", 72), WHITE, width=1400, line_gap=10)
+    text(d, (80, 240), "Kendi arabam\niçin 7 günlük manifest", font("bold", 68), WHITE, width=1400, line_gap=10)
     text(
         d,
         (80, 470),
-        "Tek istek seç. Aynı cümleyi 3-6-9 yaz. Gece olmuş gibi uyu.\nGündüz bir somut adım at. Hız buradan gelir.",
+        "Cümleyi yaz. Direksiyonda uyu. Gündüz bir araba adımı at.\nBu 7 günün tek isteği: kendi araban.",
         font("regular", 28),
         (236, 220, 232),
         width=1400,
         line_gap=10,
     )
-    rrect(d, (80, 620, 920, 692), GOLD, 28)
-    text(d, (80, 638), "Hedef: 7 gün sonra otomatik alışkanlık", font("bold", 24), PLUM, width=840, align="center")
+    rrect(d, (80, 620, 980, 692), GOLD, 28)
+    text(d, (80, 638), "Kilit cümle: kendi arabamla yola çıkıyorum", font("bold", 22), PLUM, width=900, align="center")
     for i, (num, label, col) in enumerate([("01", "Netleş", ROSE), ("02", "Hisset", ROSE), ("03", "Hareket", GOLD)]):
         y = 210 + i * 220
         oval(d, (1630, y, 1760, y + 130), col)
@@ -151,11 +151,11 @@ def slide_cover() -> Image.Image:
 
 def slide_frame() -> Image.Image:
     img, d = canvas()
-    header(d, "Çerçeve", "Hızlı sonuç isteyenler neyi yanlış anlıyor?", "Sadece hayal etmek yetmez. Hız = netlik + his + bugünkü adım.")
+    header(d, "Çerçeve", "Araba ‘gelsin’ diye beklemek neden yavaştır?", "Hız = direksiyon hissi + bugün atılan 1 araba adımı.")
     boxes = [
-        (LILAC, "Yavaş yol", "20 teknik birden denemek, sürekli video izlemek, “evren göndersin” deyip beklemek. Zihin dağılır, istek bulanık kalır."),
-        (BLUSH, "Hızlı yol", "7 gün boyunca tek istek. Aynı cümle. Aynı gece sahnesi. Her gün o isteği 10 dakikalık gerçek bir adımla ilerletmek."),
-        (SAND, "Dürüst kural", "Manifest bir sihir garantisi değildir. Dikkatini ve davranışını aynı yöne kilitler. Kilitlenen şey daha çabuk görünür hale gelir."),
+        (LILAC, "Yavaş yol", "20 model, 20 reel, “birden param gelir” diye beklemek. Zihin dağılır, araba hayali kalır."),
+        (BLUSH, "Hızlı yol", "7 gün sadece kendi araban. Aynı cümle. Aynı gece sahnesi. Her gün 10 dakikalık gerçek adım: bütçe, ilan, galeri, biriktirme."),
+        (SAND, "Dürüst kural", "Anahtar evrene sipariş değildir. Dikkatini ve adımını arabaya kilitlersen fırsat, ilan ve cesaret daha çabuk görünür."),
     ]
     for i, (color, title, body) in enumerate(boxes):
         x = 58 + i * 612
@@ -167,7 +167,7 @@ def slide_frame() -> Image.Image:
     text(
         d,
         (90, 805),
-        "Neville Goddard’ın SATS’ı (uykuya yakın halde “oldu” hissi) + 369 yazma (günde 18 kez aynı cümle) + WOOP (istek, sonuç, engel, eğer-o zaman planı). İlk ikisi zihni hizalar, üçüncüsü sonucu hızlandırır. Araştırmalarda tek başına pozitif hayal eylemi bazen azaltır; WOOP ise eylemi artırır.",
+        "Neville’in SATS’ı (uykuya yakın halde direksiyonda “bu benim” hissi) + 369 (günde 18 kez aynı araba cümlesi) + WOOP (para korkusu ve ertelemeyi 2 dakikalık plana bağlamak). Hayal tek başına yetmez; araba, bütçe ve bir telefonla yaklaşır.",
         font("regular", 22),
         INK,
         width=1720,
@@ -179,23 +179,23 @@ def slide_frame() -> Image.Image:
 
 def slide_desire() -> Image.Image:
     img, d = canvas()
-    header(d, "Kural 1", "7 gün boyunca sadece bir şey iste", "Birden fazla dilek = hiçbirinin enerjisi yetmez. Önce bir tanesini bitir.")
+    header(d, "Kural 1", "Bu 7 günün tek isteği: kendi arabam", "Ev, iş, ilişki yok. Sadece araba. Model savaşını da 3 adaya indir.")
     rrect(d, (58, 220, 1160, 1000), WHITE)
     text(d, (90, 250), "Cümle formülü (25 kelimeyi geçme)", font("bold", 24), PLUM)
     text(
         d,
         (90, 310),
-        "Şablon: “Çok minnettarım, [somut sonuç] artık hayatımda ve kendimi [duygu] hissediyorum.”\nŞimdi zamanı. “İstiyorum / olacak” yok. Olumsuz yok. Rakam varsa yaz.",
+        "Senin kilit cümlen: “Çok minnettarım, kendi arabamla yola çıkıyorum ve özgür hissediyorum.”\nŞimdi zamanı. “İstiyorum / olacak” yok. Marka takıntısı yok; his “kendi arabam”.",
         font("regular", 22),
         INK,
         width=1020,
         line_gap=8,
     )
     examples = [
-        (BLUSH, CORAL, "Zayıf", "Bol para istiyorum, stresim bitsin."),
-        (MINT, GREEN, "Güçlü", "Çok minnettarım, bu ay faturalarım rahat ödeniyor ve kendimi güvende hissediyorum."),
-        (BLUSH, CORAL, "Zayıf", "O beni özlesin, yazsın."),
-        (MINT, GREEN, "Güçlü", "Sakin ve seçilmiş hissediyorum; karşılıklı, net bir bağ içindeyim."),
+        (BLUSH, CORAL, "Zayıf", "Araba istiyorum, bir an önce olsun."),
+        (MINT, GREEN, "Güçlü", "Çok minnettarım, kendi arabamla yola çıkıyorum ve özgür hissediyorum."),
+        (BLUSH, CORAL, "Zayıf", "Param yetmez, belki biri alır."),
+        (MINT, GREEN, "Güçlü", "Kendi arabamın anahtarı çantamda; her yere rahatça gidiyorum."),
     ]
     y = 500
     for bg, ink, tag, line in examples:
@@ -206,11 +206,11 @@ def slide_desire() -> Image.Image:
     rrect(d, (1195, 220, 1862, 1000), LILAC)
     text(d, (1230, 250), "Seçim süzgeci", font("bold", 24), PLUM)
     checks = [
-        "90 gün içinde mümkün mü?",
-        "Hayal edince vücutta yumuşama var mı?",
-        "Atabileceğin en az bir adım var mı?",
-        "Başkasının iradesini zorlamıyor mu?",
-        "Ölçülebilir mi? (tarih, tutar, olay)",
+        "90 günde peşinat / kredi / 2. el mümkün mü?",
+        "Direksiyonda hayal edince vücut yumuşuyor mu?",
+        "Bugün atabileceğin 1 araba adımı var mı?",
+        "Başkasının sana almasını dayatmıyor musun?",
+        "Ölçülebilir mi? (bütçe aralığı, 2. el / yeni)",
     ]
     y = 330
     for i, line in enumerate(checks):
@@ -226,10 +226,10 @@ def slide_protocol() -> Image.Image:
     img, d = canvas()
     header(d, "Sistem", "Günde 20–25 dakika, dört katman", "Aynı sırayı 7 gün bozma. Yeni teknik ekleme.")
     layers = [
-        (ROSE, WHITE, "Sabah", "5 dk", "Uyanır uyanmaz 369 cümlenı 3 kez elle yaz. Bitince 10 saniye gözün kapalı, “oldu” hissini al."),
-        (ROSE, WHITE, "Gündüz", "10 dk", "WOOP’taki eğer-o zaman planını çalıştır. Bugünün tek somut adımını bitirmeden telefonu açma."),
-        (ROSE, WHITE, "İkindi", "5 dk", "Aynı cümleyi 6 kez yaz. Şüphe gelirse cümleyi tartışma; yaz ve kapat."),
-        (GOLD, PLUM, "Gece", "8 dk", "Cümleyi 9 kez yaz. Yatağa gir. SATS sahnesini 5–10 saniyelik döngüde uykuya kadar tekrarla."),
+        (ROSE, WHITE, "Sabah", "5 dk", "Uyanır uyanmaz araba cümlenı 3 kez elle yaz. Bitince 10 saniye: anahtar elde, direksiyonda “bu benim”."),
+        (ROSE, WHITE, "Gündüz", "10 dk", "Bugünün araba adımını bitir: bütçe, ilan, galeri, sigorta veya biriktirme. Bitirmeden kaydırma."),
+        (ROSE, WHITE, "İkindi", "5 dk", "Aynı cümleyi 6 kez yaz. “Param yetmez” gelirse yaz ve kapat; cümleyi tartışma."),
+        (GOLD, PLUM, "Gece", "8 dk", "Cümleyi 9 kez yaz. Yatağa gir. Anahtarı çevirdiğin 5 saniyelik sahneyi uykuya kadar döngüle."),
     ]
     y = 220
     for i, (pill, fg, when, mins, body) in enumerate(layers):
@@ -248,9 +248,9 @@ def slide_369() -> Image.Image:
     img, d = canvas()
     header(d, "Teknik 1", "369: aynı cümleyi 3 + 6 + 9 yaz", "Tesla’ya ait sihirli bir formül değil. Dikkat kilidi. Elle yazmak ekrandan daha iyi işler.")
     cols = [
-        (ROSE, WHITE, "Sabah ×3", "Yataktan kalkınca, telefonu eline almadan.\n\nAmaç: günün ilk izi “oldu” olsun.\n\nYazarken acele etme. Her satırda nefes al, minnettarlığı bir saniye hisset."),
-        (PLUM, GOLD, "Öğlen ×6", "Günün ortasında zihin dağılır. 6 tekrar onu geri çağırır.\n\nŞüphe gelirse yandaki sayfaya 1 cümle yaz: “Nasıl olacağını bilmiyorum, yine de oldu.” Sonra 369’a dön."),
-        (GOLD, PLUM, "Gece ×9", "Uyumadan 30 dakika içinde bitir.\n\n9. satırdan sonra defteri kapat. Kanıt ara, mesaj kontrol etme. Hemen SATS’a geç."),
+        (ROSE, WHITE, "Sabah ×3", "Yataktan kalkınca, ilan sitesini açmadan.\n\nAmaç: günün ilk izi “kendi arabam” olsun.\n\nHer satırda 1 saniye direksiyon hissi: elin simitte, omuzlar düşük."),
+        (PLUM, GOLD, "Öğlen ×6", "Günün ortasında “alamam” gelir. 6 tekrar onu geri çağırır.\n\nŞüphe gelirse bir satır yaz: “Nasıl olacağını bilmiyorum, anahtar yine de benim.” Sonra 369’a dön."),
+        (GOLD, PLUM, "Gece ×9", "Uyumadan 30 dakika içinde bitir.\n\n9. satırdan sonra ilan bakma. Defteri kapat. Hemen SATS: evin önünde park, anahtarı çevir, “geldik”."),
     ]
     for i, (bg, fg, title, body) in enumerate(cols):
         x = 58 + i * 612
@@ -273,9 +273,9 @@ def slide_script() -> Image.Image:
     lines = [
         "Tarih at: “21 Eylül. Bugün …”",
         "Şimdiki veya geçmiş zaman: “uyandım / oturuyorum / attım”.",
-        "5 duyu: ne gördün, ne duydun, vücutta ne vardı?",
-        "Küçük ayrıntı: kupa, ışık, bir cümle, bir imza.",
-        "Duygu: rahatlama, sıradanlık, “tabii ki böyle”.",
+        "5 duyu: koku, kumaş, motor sesi, simidin ısısı.",
+        "Küçük ayrıntı: anahtarlık, ruhsat, park yeri, emniyet kemeri klik.",
+        "Duygu: rahatlama, sıradanlık, “tabii ki benim arabam”.",
         "Bir teşekkür cümlesi ile bitir. Defteri kapat. Okuyup düzeltme.",
     ]
     y = 255
@@ -289,7 +289,7 @@ def slide_script() -> Image.Image:
     text(
         d,
         (1315, 330),
-        "“Salı sabahı masamda kahvemi içiyorum. Mail kutusunda onay var. Omuzlarım düşük, nefesim rahat. Anneme ‘oldu’ diye yazıyorum. Teşekkür ederim, bu artık normalim.”",
+        "“Salı sabahı kendi arabamın kapısını açıyorum. Koltuk bana göre. Anahtarı çeviriyorum, motor tok çalışıyor. Evin önünden çıkıp yola karışıyorum. Teşekkür ederim, bu artık normalim.”",
         font("regular", 22),
         INK,
         width=500,
@@ -303,7 +303,7 @@ def slide_sats() -> Image.Image:
     img, d = canvas()
     header(d, "Teknik 3", "SATS: uykunun eşiğinde 5 saniyelik sahne", "Neville Goddard. Feeling is the Secret. Sahne, dileğin gerçekleşmesinden SONRA olmalıdır.")
     steps = [
-        ("Sahneyi gündüz kur", "El sıkışma, anahtar çevirme, “tebrikler” cümlesi, bakiyeyi görme. 5–10 saniye. Birinci tekil şahıs."),
+        ("Sahneyi gündüz kur", "Evin önünde park. Çantadan kendi anahtarın. Sürücü koltuğu. Anahtarı çevir. 5–10 saniye. Birinci tekil şahıs."),
         ("Bedeni bırak", "Yat. Telefon dışarı. Ayak ucundan çeneye kadar her bölgeyi ağırlaştır. Uykulu ol, analiz etme."),
         ("İçeriden yaşa", "Kendini dışarıdan izleme. Elin, ses, oda sıcaklığı, yüzündeki ifade. GIF gibi döngüle."),
         ("Hisle uyu", "Heyecan değil, doğallık. “Tabii ki benim.” Uyuyakalmak başarıdır. Sabah sahneyi zorlama."),
@@ -324,10 +324,10 @@ def slide_woop() -> Image.Image:
     img, d = canvas()
     header(d, "Teknik 4", "WOOP: hayali eyleme çeviren bilimsel katman", "Gabriele Oettingen. woopmylife.org  •  Sadece olumlu fantezi, çabayı düşürebilir.")
     woop = [
-        ("W", ROSE, "Wish · İstek", "Tek, net, senin için zor ama mümkün dilek. 3-6-9 cümlenle aynı olsun."),
-        ("O", GOLD, "Outcome · Sonuç", "Olduğunda en güzel an. 30 saniye gözün kapalı yaşa. Göğüste ne açılıyor?"),
-        ("O", ROSE, "Obstacle · Engel", "Dış dünya değil, içindeki asıl fren: erteleme, utanç, “hak etmiyorum”, gece telefon."),
-        ("P", GOLD, "Plan · Plan", "Eğer [engel belirirse], o zaman [2 dakikalık davranış]. Önceden yaz."),
+        ("W", ROSE, "Wish · İstek", "Kendi arabam. 369 cümlenle aynı olsun. Marka savaşını 3 adaya bırak."),
+        ("O", GOLD, "Outcome · Sonuç", "Kapıyı açıp koltuğa oturduğun an. Kemer klik. “Geldik” hissi göğüste."),
+        ("O", ROSE, "Obstacle · Engel", "Dış fiyat değil: “param yetmez” kaydırması, ilanlara bakıp hiçbirini aramamak."),
+        ("P", GOLD, "Plan · Plan", "Eğer “alamam” gelirse, o zaman 2 dk: biriktirme notu veya 1 ilan mesajı."),
     ]
     for i, (letter, col, title, body) in enumerate(woop):
         x = 58 + i * 460
@@ -341,7 +341,7 @@ def slide_woop() -> Image.Image:
     text(
         d,
         (90, 880),
-        "Eğer öğleden sonra “nasıl olsa olmaz” diye kaydırırsam, o zaman telefonu başka odaya koyar, 2 dakikalık adımı (mail / arama / dosya / fiyat) hemen bitiririm.",
+        "Eğer öğleden sonra “nasıl olsa araba alamam” diye kaydırırsam, o zaman telefonu bırakır, bütçe satırını doldurur veya 1 satıcıya mesaj atarım.",
         font("regular", 22),
         INK,
         width=1720,
@@ -353,15 +353,15 @@ def slide_woop() -> Image.Image:
 
 def slide_week() -> Image.Image:
     img, d = canvas()
-    header(d, "Takvim", "7 günlük hız protokolü", "Her gün: 369 + SATS + 1 adım. Tema değişir, sistem değişmez.")
+    header(d, "Takvim", "7 günde arabaya yaklaş", "Her gün: 369 + SATS + 1 araba adımı. Tema değişir, sistem değişmez.")
     days = [
-        ("1", "Netleş", "Tek istek, 369 cümlesi, SATS sahnesi, WOOP. İlk somut adım bugün atılır."),
-        ("2", "Ritim", "Aynı cümle. En küçük görünür hareket: bir mesaj, bir dosya, bir fiyat."),
-        ("3", "Hikâye", "8 dakikalık scripting. Bir insanla konuş veya bir kapı çal."),
-        ("4", "Engel", "WOOP’u yeniden yaz. Asıl iç freni adlandır. Planı sıkılaştır."),
-        ("5", "Kimlik", "Günü bunu zaten yaşayan kişi olarak geçir. Tonun uyumlu olsun."),
-        ("6", "Kanıt", "3 küçük işaret not et. Bir büyükçe adım: başvuru, teklif, bitirme."),
-        ("7", "Mühürle", "7 günü oku. Cümleyi %10 netleştir. 21 güne kilit at. Kontrolü bırak."),
+        ("1", "Netleş", "Cümle + SATS sahnesi. Bütçe aralığı ve 2. el / yeni kararı. En fazla 3 model."),
+        ("2", "Ritim", "Ehliyet, trafik, kasko için kaba fiyat. Biriktirme hesabı aç veya ayır."),
+        ("3", "Hikâye", "8 dk scripting: salı sabahı kendi araban. 5 ilan kaydet, 2’sini yaz."),
+        ("4", "Engel", "“Param yetmez”i adlandır. İlk küçük transferi yap. WOOP’u sıkılaştır."),
+        ("5", "Kimlik", "Galeride benzer bir arabaya otur veya park yerinden geç."),
+        ("6", "Kanıt", "1 satıcı / galeri ara. 1 fiyat sor. 3 küçük işaret not et."),
+        ("7", "Mühürle", "3 adayı 1–2’ye indir. 21 güne kilit: her hafta bakış + biriktirme."),
     ]
     for i, (num, title, body) in enumerate(days):
         x = 50 + i * 266
@@ -379,13 +379,13 @@ def slide_mistakes() -> Image.Image:
     img, d = canvas()
     header(d, "Engel", "Hızı kesen yedi hata", "Bunları yaparsan teknikler çalışmaz gibi gelir. Çoğu zaman teknik değil, dağınıklık bozar.")
     mistakes = [
-        ("Çok dilek", "Aynı hafta para, ilişki, ev, iş. Birini seç."),
-        ("Gelecek zaman", "“Olacak” cümlesi isteği sürekli yarına iter."),
-        ("Kanıt avı", "Her saat “geldi mi” diye bakmak, yokluk hissini büyütür."),
-        ("Başkasını zorlamak", "Birinin seni seçmesini dayatmak. Serbest, karşılıklı hali iste."),
-        ("Sadece hayal", "Gündüz sıfır adım. WOOP atlanmış demektir."),
-        ("Teknik koleksiyonu", "Her gün yeni yöntem. 7 gün aynı protokol."),
-        ("İnanç eşiğini aşmak", "Cümle alay ettiriyorsa küçült. İnanılır gerilim kalsın."),
+        ("20 model", "Her gün başka araba. En fazla 3 aday, sonra 1–2."),
+        ("Gelecek zaman", "“Araba olacak” cümlesi anahtarı yarına iter."),
+        ("İlan avı", "Saatlerce bakıp hiçbirini aramamak yokluk hissini büyütür."),
+        ("Mucize peşinat", "Birinin sana almasını beklemek. Senin adımın: biriktir / kredi / 2. el."),
+        ("Sadece hayal", "Direksiyon sahnesi var, galeri yok. WOOP atlanmış demektir."),
+        ("Lüks eşiği", "Cümle alay ettiriyorsa önce sahibinden 2. el, sonra yükselt."),
+        ("Teknik koleksiyonu", "Her gün yeni yöntem. 7 gün aynı araba protokolü."),
     ]
     y = 215
     for i, (title, body) in enumerate(mistakes):
@@ -402,9 +402,9 @@ def slide_research() -> Image.Image:
     img, d = canvas()
     header(d, "Harita", "Nereleri araştır, nerede takılma", "Önce kısa asıllar. Sonsuz reel değil. 7 gün pratik, sonra okuma.")
     cols = [
-        (ROSE, WHITE, "Bu hafta oku (kısa)", "• Neville Goddard — Feeling is the Secret\n  (kısa, SATS’ın kaynağı)\n• Neville — The Power of Awareness\n  (kimlik / varsayım)\n• woopmylife.org — WOOP’u 5 dakikada öğren\n• Gollwitzer: “eğer-o zaman” planları"),
-        (PLUM, WHITE, "Sonra, istersen", "• Neville — The Law and the Promise\n• Gabriele Oettingen — Rethinking Positive Thinking\n• James Clear — Atomic Habits\n• r/NevilleGoddard — başarı hikâyesi\n  bağımlılığı yapmadan oku"),
-        (GOLD, PLUM, "Şimdilik uzak dur", "• Her gün başka koç, başka “anında zengin ol” videosu\n• 10 tekniği aynı anda karıştıran listeler\n• Başkasının iradesini manipüle etme vaatleri\n• The Secret’i tek kaynak sanmak"),
+        (ROSE, WHITE, "Bu hafta oku (kısa)", "• Neville — Feeling is the Secret (SATS)\n• 369: kendi arabamla yola çıkıyorum\n• woopmylife.org — para korkusunu plana bağla\n• Sahibinden / galeri: 3 aday, gerçek fiyat"),
+        (PLUM, WHITE, "Sonra, istersen", "• The Power of Awareness (sürücü kimliği)\n• Rethinking Positive Thinking (WOOP)\n• 2. el: ekspertiz, tramer, kasko\n• Ehliyet eksikse onu da takvime al"),
+        (GOLD, PLUM, "Şimdilik uzak dur", "• “Evren bugün araba yollar” reelleri\n• 10 modeli aynı anda hayal etmek\n• Marka takıntısı yüzünden 0 adım\n• Sadece hayal edip ilan / biriktirme yok"),
     ]
     for i, (bg, fg, title, body) in enumerate(cols):
         x = 58 + i * 612
@@ -419,11 +419,11 @@ def slide_start() -> Image.Image:
     img, d = canvas()
     header(d, "Bugün", "20 dakikada başla — sonra defteri kapat", "Mükemmel cümle arama. %80 netlik yeter. Hareket cümleyi düzeltir.")
     items = [
-        ("0–3 dk", "Tek isteği bir satıra yaz. Süzgeçten geçir."),
-        ("3–7 dk", "369 cümlesini yaz. Sesli oku. Vücutta sıkışma varsa yumuşat."),
-        ("7–12 dk", "SATS sahnesini 5 saniyeye indir. Kağıda 3 duyusal ayrıntı."),
-        ("12–16 dk", "WOOP: istek / sonuç / iç engel / eğer-o zaman."),
-        ("16–20 dk", "Bugünün 1 adımını bitir. Sonra akşam 9 yazış + SATS."),
+        ("0–3 dk", "Kilit cümleyi yaz: kendi arabamla yola çıkıyorum."),
+        ("3–7 dk", "Bütçe alt–üst ve 2. el / yeni. En fazla 3 model."),
+        ("7–12 dk", "SATS: evin önü, kendi anahtarın, çevir, kemer klik."),
+        ("12–16 dk", "WOOP: “param yetmez” → 2 dk biriktirme veya 1 mesaj."),
+        ("16–20 dk", "Bugün 1 ilan kaydet veya 1 fiyat sor. Akşam 9 yazış + SATS."),
     ]
     y = 215
     for mins, body in items:
@@ -437,7 +437,7 @@ def slide_start() -> Image.Image:
     text(
         d,
         (1355, 340),
-        "Bir istek.\nAynı cümle.\nAynı sahne.\nHer gün bir adım.\n\n7 gün sonra yeni teknik arama. 21 güne uzat.",
+        "Kendi arabam.\nAynı cümle.\nAnahtarı çevir.\nHer gün 1 adım.\n\n7 gün sonra yeni teknik arama. 21 güne uzat.",
         font("semibold", 26),
         WHITE,
         width=460,

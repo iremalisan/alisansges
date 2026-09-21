@@ -63,13 +63,13 @@ def heading_bar(doc, kicker, title):
 
 
 THEMES = [
-    ("1. gün · Netleş", "Bugün tek isteği kilitle. İlk somut adımı bugün at."),
-    ("2. gün · Ritim", "Aynı cümle. En küçük görünür hareket yeter."),
-    ("3. gün · Hikâye", "8 dakikalık scripting yaz. Bir kapı çal."),
-    ("4. gün · Engel", "İç freni adlandır. WOOP planını sıkılaştır."),
-    ("5. gün · Kimlik", "Günü bunu zaten yaşayan kişi olarak geçir."),
-    ("6. gün · Kanıt", "3 küçük işaret + 1 büyükçe adım."),
-    ("7. gün · Mühürle", "Cümleyi %10 netleştir. 21 güne kilit at."),
+    ("1. gün · Netleş", "Bugün: bütçe alt–üst + 2. el/yeni + en fazla 3 model."),
+    ("2. gün · Ritim", "Bugün: ehliyet kontrolü, kasko/trafik kaba fiyat, biriktirme yeri."),
+    ("3. gün · Hikâye", "Bugün: 8 dk araba scripting + 5 ilan kaydet, 2’sine yaz."),
+    ("4. gün · Engel", "Bugün: ‘param yetmez’i yaz. İlk küçük transferi yap."),
+    ("5. gün · Kimlik", "Bugün: galeride benzer arabaya otur veya park yerinden geç."),
+    ("6. gün · Kanıt", "Bugün: 1 satıcı/galeri ara. 1 fiyat veya ekspertiz sor."),
+    ("7. gün · Mühürle", "Bugün: 3 adayı 1–2’ye indir. 21 günlük bakış + biriktirme kilidi."),
 ]
 
 
@@ -83,13 +83,12 @@ def build() -> Path:
     section.top_margin = Cm(1.6)
     section.bottom_margin = Cm(1.6)
 
-    p(doc, "7 GÜNLÜK HIZLI MANIFEST DEFTERİ", 11, True, GOLD, 4, "center")
-    p(doc, "Yaz, hisset, bir adım at.", 28, True, PLUM, 8, "center")
+    p(doc, "KENDİ ARABAM İÇİN 7 GÜNLÜK MANIFEST DEFTERİ", 11, True, GOLD, 4, "center")
+    p(doc, "Anahtarı çevir. Bir adım at.", 26, True, PLUM, 8, "center")
     p(
         doc,
-        "Bu defter izlenecek 12 slaytlık rehberin uygulama yüzüdür. "
-        "Her gün aynı iskelet: sabah 3, öğlen 6, gece 9 yazış + SATS + 1 somut adım. "
-        "Yeni teknik ekleme. Mükemmel cümle arama.",
+        "Tek istek: kendi arabam. Her gün aynı iskelet: sabah 3, öğlen 6, gece 9 yazış + direksiyon SATS + 1 araba adımı. "
+        "Yeni teknik ekleme. 20 model karıştırma.",
         12,
         False,
         MUTED,
@@ -99,9 +98,9 @@ def build() -> Path:
 
     table = doc.add_table(rows=3, cols=1)
     notes = [
-        "Kural: 7 gün boyunca tek istek.",
-        "Kural: Cümle şimdiki zamanda, 25 kelimeyi geçmesin.",
-        "Kural: Kanıt avı yok. Defteri kapat, güne dön.",
+        "Kural: 7 gün boyunca tek istek — kendi arabam.",
+        "Kural: Cümle şimdiki zamanda. En fazla 3 model adayı.",
+        "Kural: İlan avı yok. Defteri kapat, 1 gerçek adım at.",
     ]
     for i, note in enumerate(notes):
         cell = table.rows[i].cells[0]
@@ -112,22 +111,26 @@ def build() -> Path:
         set_run(run, 13, True, PLUM)
 
     p(doc, "", 8, space_after=6)
-    heading_bar(doc, "Sayfa 1", "İstek kilidi")
+    heading_bar(doc, "Sayfa 1", "İstek kilidi — kendi arabam")
     p(doc, "Bu 7 günde tek isteğim:", 12, True)
+    p(doc, "Kendi arabam. (Markayı 3 adaya indirmeden büyütme.)", 12, False, MUTED, 6, italic=True)
+    lines(doc, 1)
+    p(doc, "369 cümlem (her gün 3 + 6 + 9 kez elle yaz):", 12, True)
+    p(doc, "Çok minnettarım, kendi arabamla yola çıkıyorum ve özgür hissediyorum.", 13, True, ROSE, 8)
+    p(doc, "Yedek cümle (daha somut istersen): Kendi arabamın anahtarı çantamda; her yere rahatça gidiyorum.", 11, False, MUTED, 10, italic=True)
+    p(doc, "Bütçe aralığım (alt – üst) ve 2. el / yeni:", 12, True)
     lines(doc, 2)
-    p(doc, "369 cümlem (şimdiki zaman, minnettarlık + duygu):", 12, True)
-    lines(doc, 3)
-    p(doc, "Bunu 90 günde mümkün kılan en küçük gerçek işaret:", 12, True)
+    p(doc, "En fazla 3 model adayı:", 12, True)
     lines(doc, 2)
 
     doc.add_page_break()
-    heading_bar(doc, "Sayfa 2", "SATS sahnesi")
-    p(doc, "Sahne, dileğin gerçekleşmesinden SONRA olmalıdır. 5–10 saniye, birinci tekil şahıs, GIF gibi döngü.", 12, False, MUTED, 10)
+    heading_bar(doc, "Sayfa 2", "SATS sahnesi — anahtarı çevir")
+    p(doc, "Sahne, arabaya bindikten SONRA olmalıdır. 5–10 saniye, birinci tekil şahıs, GIF gibi döngü. Uyuyakalmak başarıdır.", 12, False, MUTED, 10)
     prompts = [
-        "Neredeyim, saat kaç?",
-        "Kiminle / hangi cümleyi duyuyorum?",
-        "Elimde, yüzümde, odada ne var? (3 duyu)",
-        "Vücutta hangi ‘tabii ki böyle’ hissi var?",
+        "Hazır sahne: Evin önünde kendi arabam park halinde. Çantamdan anahtarı alıyorum, kapıyı açıyorum, koltuğa oturuyorum, anahtarı çeviriyorum, kemer klik, ‘geldik’.",
+        "Neredeyim, saat kaç? (ör. salı 08:40, evin önü)",
+        "Elimde / kulağımda / burnumda ne var? (anahtarlık, motor sesi, kumaş kokusu)",
+        "Vücutta hangi ‘tabii ki benim arabam’ hissi var?",
     ]
     for prompt in prompts:
         p(doc, prompt, 12, True)
@@ -136,10 +139,10 @@ def build() -> Path:
     doc.add_page_break()
     heading_bar(doc, "Sayfa 3", "WOOP")
     labels = [
-        ("W · Wish / İstek", "Tek dilek, 369 cümlesiyle aynı."),
-        ("O · Outcome / Sonuç", "Olduğunda en güzel 30 saniye."),
-        ("O · Obstacle / Engel", "Dış dünya değil: içindeki asıl fren."),
-        ("P · Plan", "Eğer [engel], o zaman [2 dakikalık davranış]."),
+        ("W · Wish / İstek", "Kendi arabam. 369 cümlesiyle aynı."),
+        ("O · Outcome / Sonuç", "Kapıyı açıp koltuğa oturduğun an. Kemer klik. Geldik."),
+        ("O · Obstacle / Engel", "Dış fiyat değil: ‘param yetmez’ kaydırması, ilan bakıp hiç aramamak."),
+        ("P · Plan", "Eğer ‘alamam’ dersem, o zaman 2 dk biriktirme notu veya 1 satıcı mesajı."),
     ]
     for title, hint in labels:
         p(doc, title, 14, True, ROSE, 2)
@@ -169,7 +172,7 @@ def build() -> Path:
                         set_run(run, 12, True, PLUM)
 
         p(doc, "", 6, space_after=8)
-        p(doc, "Bugünün tek somut adımı (10 dakikayı geçmesin):", 12, True)
+        p(doc, "Bugünün tek araba adımı (10 dakikayı geçmesin):", 12, True)
         lines(doc, 2)
         p(doc, "Adımı attım mı, ne oldu?", 12, True)
         lines(doc, 2)
@@ -178,16 +181,17 @@ def build() -> Path:
         p(doc, "Bugün ‘oldu’ hissine en çok yaklaştığım an:", 12, True)
         lines(doc, 2)
         if "3. gün" in day:
-            p(doc, "Scripting (olmuş bir salı sabahı, 8 dakika):", 12, True, ROSE)
+            p(doc, "Scripting (salı sabahı kendi araban, 8 dakika):", 12, True, ROSE)
+            p(doc, "Kapıyı açıyorum… koltuk… anahtar… motor… evin önünden çıkıyorum…", 11, False, MUTED, 6, italic=True)
             lines(doc, 8)
         if "7. gün" in day:
-            p(doc, "7 günün özeti ve önümüzdeki 21 güne kilit cümle:", 12, True, ROSE)
+            p(doc, "7 günün özeti + 21 güne kilit (her hafta 1 bakış + 1 biriktirme):", 12, True, ROSE)
             lines(doc, 6)
 
     p(doc, "", 8)
     p(
         doc,
-        "Kapanış: Bir istek. Aynı cümle. Aynı sahne. Her gün bir adım. 7 günden sonra yeni teknik arama.",
+        "Kapanış: Kendi arabam. Aynı cümle. Anahtarı çevir. Her gün 1 adım.",
         12,
         True,
         PLUM,

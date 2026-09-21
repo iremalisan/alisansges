@@ -76,18 +76,18 @@ def build() -> Path:
     ws.sheet_view.showGridLines = False
     ws.sheet_properties.tabColor = ROSE
     ws.merge_cells("B2:G2")
-    ws["B2"] = "7 günde hızlı manifest — takip tablosu"
+    ws["B2"] = "Kendi arabam — 7 günlük manifest takibi"
     ws["B2"].font = font(True, PLUM, 22)
     ws.merge_cells("B3:G3")
-    ws["B3"] = "Sarı hücrelere yaz. Diğer sütunlar otomatik dolar. 7 gün aynı istek, aynı cümle."
+    ws["B3"] = "Sarı hücrelere yaz. 7 günün tek isteği: kendi arabam. Aynı cümle, her gün 1 araba adımı."
     ws["B3"].font = font(False, MUTED, 12)
 
     steps = [
-        ("1", "Cümle sayfasına 369 cümleni yaz. Süzgeç 5/5 olana kadar küçült veya somutlaştır."),
-        ("2", "WOOP sayfasında iç engeli ve eğer-o zaman planını doldur."),
-        ("3", "Her gün Takip sayfasında Evet/Hayır işaretle, somut adımı bir cümleyle yaz, his notunu 1–10 ver."),
-        ("4", "Skor %80 altındaysa teknik ekleme; eksik katmanı (yazış / SATS / adım) tamamla."),
-        ("5", "7. gün özet satırını oku. Cümleyi gerekirse %10 netleştir, 21 güne uzat."),
+        ("1", "Cümle sayfasındaki araba cümlesini kilitle. Süzgeç 5/5 olsun."),
+        ("2", "WOOP’ta ‘param yetmez’ engelini ve 2 dakikalık planı yaz."),
+        ("3", "Araba sayfasında bütçe, 2. el/yeni ve 3 modeli doldur."),
+        ("4", "Her gün Takip’te 369 + SATS + 1 araba adımını işaretle."),
+        ("5", "7. gün 3 adayı 1–2’ye indir; 21 güne bakış + biriktirme kilidi."),
     ]
     header_row(ws, 5, ["", "Adım", "Ne yapacaksın", "", "", "", ""])
     ws.merge_cells("C5:G5")
@@ -105,7 +105,7 @@ def build() -> Path:
             ws.cell(r, c).border = thin
 
     ws.merge_cells("B12:G12")
-    ws["B12"] = "Hız formülü: tek istek + 369 (3-6-9) + gece SATS + her gün 1 somut adım (WOOP)."
+    ws["B12"] = "Hız formülü: kendi arabam + 369 + gece direksiyon SATS + her gün 1 araba adımı."
     ws["B12"].font = font(True, PLUM, 13)
     ws["B12"].fill = fill(YELLOW)
     ws["B12"].alignment = align("left")
@@ -133,7 +133,7 @@ def build() -> Path:
     c.sheet_properties.tabColor = GOLD
     c.sheet_view.showGridLines = False
     c.merge_cells("B2:F2")
-    c["B2"] = "369 cümlesi"
+    c["B2"] = "369 — kendi arabam"
     c["B2"].font = font(True, PLUM, 20)
     c.merge_cells("B3:F3")
     c["B3"] = "Sarı hücre senin. Şimdiki zaman, minnettarlık, duygu, 25 kelimeyi geçme."
@@ -168,11 +168,11 @@ def build() -> Path:
 
     header_row(c, 14, ["", "Süzgeç", "Evet / Hayır", "Not", "", ""])
     checks = [
-        "90 gün içinde mümkün mü?",
-        "Hayal edince vücutta yumuşama var mı?",
-        "Atabileceğin en az bir adım var mı?",
-        "Başkasının iradesini zorlamıyor mu?",
-        "Ölçülebilir mi? (tarih, tutar, olay)",
+        "90 günde peşinat / kredi / 2. el mümkün mü?",
+        "Direksiyonda hayal edince vücut yumuşuyor mu?",
+        "Bugün 1 araba adımı atabiliyor musun?",
+        "Başkasının sana almasını dayatmıyor musun?",
+        "Ölçülebilir mi? (bütçe aralığı, 2. el / yeni)",
     ]
     dv_yn = DataValidation(type="list", formula1='"Evet,Hayır"', allow_blank=True)
     dv_yn.error = "Evet veya Hayır seç"
@@ -240,8 +240,8 @@ def build() -> Path:
         w.row_dimensions[row + 2].height = 28
     w.merge_cells("B25:E26")
     w["B25"] = (
-        "Hazır iskelet: Eğer öğleden sonra “nasıl olsa olmaz” diye kaydırırsam, "
-        "o zaman telefonu başka odaya koyar 2 dakikalık adımı hemen bitiririm."
+        "Eğer öğleden sonra “nasıl olsa araba alamam” diye kaydırırsam, "
+        "o zaman telefonu bırakır, bütçe satırını doldurur veya 1 satıcıya mesaj atarım."
     )
     w["B25"].font = font(False, INK, 12)
     w["B25"].fill = fill("E8F4EC")
@@ -253,7 +253,7 @@ def build() -> Path:
     t.sheet_properties.tabColor = GREEN
     t.freeze_panes = "C5"
     t.merge_cells("B2:L2")
-    t["B2"] = "7 günlük ritim — sarı hücreleri doldur"
+    t["B2"] = "7 günlük araba ritmi — sarı hücreleri doldur"
     t["B2"].font = font(True, PLUM, 20)
     t.merge_cells("B3:L3")
     t["B3"] = '= "Kilit cümle: " & IF(Cümle!B8="","(Cümle sayfasına yaz)",Cümle!B8)'
@@ -268,7 +268,7 @@ def build() -> Path:
         "Öğlen ×6",
         "Gece ×9",
         "SATS",
-        "Somut adım (ne yaptım?)",
+        "Somut araba adımı (ne yaptım?)",
         "Adım oldu mu?",
         "His 1–10",
         "Gün skoru",
@@ -386,6 +386,81 @@ def build() -> Path:
     t.print_title_rows = "1:5"
     t.page_setup.paperSize = t.PAPERSIZE_A4
 
+    # --- ARABA ---
+    a = wb.create_sheet("Araba")
+    a.sheet_properties.tabColor = ROSE
+    a.sheet_view.showGridLines = False
+    a.merge_cells("B2:F2")
+    a["B2"] = "Kendi arabam — gerçek dünya alanları"
+    a["B2"].font = font(True, PLUM, 20)
+    a.merge_cells("B3:F3")
+    a["B3"] = "Sarıya yaz. 3 modelden fazlası yok. Her gün Takip’teki adım buradan seçilir."
+    a["B3"].font = font(False, MUTED, 12)
+
+    header_row(a, 5, ["", "Alan", "Senin cevabın", "", "İpucu", ""])
+    car_fields = [
+        ("Yeni / 2. el", "2. el", "İnanç eşiği zorlanıyorsa 2. el ile başla."),
+        ("Bütçe alt (TL)", "", "Rahat verebileceğin taban. Sıfır yazma."),
+        ("Bütçe üst (TL)", "", "Zorlama tavan. Üstünü 7 gün hayal etme."),
+        ("Peşinat hedefi (TL)", "", "Bu hafta ayırabileceğin ilk tutar bile sayılır."),
+        ("Aylık biriktirme (TL)", "", "Küçük ve tekrarlanabilir olsun."),
+        ("Ehliyet", "Var / Yok / Yenileme", "Yoksa SATS durmaz; ehliyet adımı da 7 güne girer."),
+        ("Aday 1", "", "Tek cümle: marka + vites + yakıt."),
+        ("Aday 2", "", ""),
+        ("Aday 3", "", "4. aday yok. Beğenirsen birini çıkar."),
+        ("Trafik + kasko kaba (aylık)", "", "Araba fiyatının yanında aylık gerçek maliyet."),
+    ]
+    dv_yeni = DataValidation(type="list", formula1='"2. el,Yeni,Kararsız"', allow_blank=True)
+    a.add_data_validation(dv_yeni)
+    for i, (field, sample, hint) in enumerate(car_fields):
+        r = 6 + i
+        a.cell(r, 2, field).font = font(True, PLUM, 12)
+        a.cell(r, 2).fill = fill(LILAC)
+        a.merge_cells(start_row=r, start_column=3, end_row=r, end_column=4)
+        a.cell(r, 3, sample).fill = fill(YELLOW)
+        a.cell(r, 3).font = font(False, INK, 12)
+        a.merge_cells(start_row=r, start_column=5, end_row=r, end_column=6)
+        a.cell(r, 5, hint).font = font(False, MUTED, 11)
+        for col in range(2, 7):
+            a.cell(r, col).border = thin
+            a.cell(r, col).alignment = align("left")
+        a.row_dimensions[r].height = 32
+    dv_yeni.add(a["C6"])
+
+    header_row(a, 17, ["", "Gün", "Hazır adım (bittiysen Evet)", "Evet / Hayır", "Not", ""])
+    day_actions = [
+        "Bütçe alt–üst + 2. el/yeni + 3 model yazıldı",
+        "Ehliyet kontrol + kasko/trafik kaba fiyat + biriktirme yeri",
+        "5 ilan kaydedildi, 2 satıcıya mesaj",
+        "İlk küçük transfer yapıldı",
+        "Galeride / park yerinde ‘sürücü’ günü",
+        "1 fiyat veya ekspertiz soruldu",
+        "Adaylar 1–2’ye indi, 21 günlük kilit yazıldı",
+    ]
+    dv_yn3 = DataValidation(type="list", formula1='"Evet,Hayır"', allow_blank=True)
+    a.add_data_validation(dv_yn3)
+    for i, action in enumerate(day_actions):
+        r = 18 + i
+        a.cell(r, 2, i + 1).font = font(True, WHITE, 12)
+        a.cell(r, 2).fill = fill(ROSE)
+        a.cell(r, 2).alignment = align("center")
+        a.cell(r, 3, action).font = font(False, INK, 12)
+        a.cell(r, 4).fill = fill(YELLOW)
+        a.merge_cells(start_row=r, start_column=5, end_row=r, end_column=6)
+        a.cell(r, 5).fill = fill(YELLOW)
+        for col in range(2, 7):
+            a.cell(r, col).border = thin
+        dv_yn3.add(a.cell(r, 4))
+        a.row_dimensions[r].height = 28
+    a.merge_cells("B26:F26")
+    a["B26"] = '=IF(COUNTIF(D18:D24,"Evet")=7,"7 araba adımı tamam. 21 güne uzat.","Kalan adım: "&(7-COUNTIF(D18:D24,"Evet"))&" — teknik ekleme, eksik günü bitir.")'
+    a["B26"].font = font(True, PLUM, 13)
+    a["B26"].fill = fill(CREAM)
+    col_widths(a, {"A": 3, "B": 14, "C": 52, "D": 16, "E": 28, "F": 22})
+    a.freeze_panes = "B6"
+    a["D18"] = "Evet"
+    a["E18"] = "Bütçe aralığı yazıldı, 3 aday seçildi."
+
     # --- KAYNAKLAR ---
     k = wb.create_sheet("Kaynaklar")
     k.sheet_properties.tabColor = "C99A4A"
@@ -402,9 +477,11 @@ def build() -> Path:
         ("Sonra", "Gabriele Oettingen — Rethinking Positive Thinking", "Neden sadece hayal yetmez", "WOOP’un kitabı."),
         ("Sonra", "Neville — The Law and the Promise", "Uygulama hikâyeleri", "Teknik oturduktan sonra."),
         ("Sonra", "James Clear — Atomic Habits", "Küçük günlük adım", "WOOP’un davranış yüzü."),
-        ("Uzak dur", "Sonsuz koç reeli / anında zengin ol vaadi", "Dağıtır", "7 gün protokolü bozar."),
-        ("Uzak dur", "Başkasının iradesini manipüle etme teknikleri", "Zararlı ve boşa", "Karşılıklı, serbest hali iste."),
-        ("Uzak dur", "Aynı anda 10 yöntem", "Odak kaçması", "Tek protokol, 7 gün."),
+        ("Bu hafta", "Sahibinden / yetkili galeri", "3 aday, gerçek fiyat", "Saatlerce bakma; 2 mesaj at."),
+        ("Bu hafta", "Trafik sigortası + kasko teklifi", "Aylık gerçek maliyet", "Araba fiyatının yanında bunu da yaz."),
+        ("Uzak dur", "“Evren bugün araba yollar” reelleri", "Dağıtır", "7 gün protokolü bozar."),
+        ("Uzak dur", "10 modeli aynı anda hayal", "Odak kaçması", "En fazla 3 aday."),
+        ("Uzak dur", "Birinin sana almasını beklemek", "Pasiflik", "Biriktir / kredi / 2. el senin adımın."),
     ]
     for i, (prio, src, why, note) in enumerate(rows):
         r = 5 + i
@@ -425,24 +502,24 @@ def build() -> Path:
     k.freeze_panes = "B5"
 
     # sample data so the file is not an empty skeleton
-    c["B6"] = "Bu ay nakit akışım rahatlasın"
-    c["B8"] = "Çok minnettarım, bu ay faturalarım rahat ödeniyor ve kendimi güvende hissediyorum."
-    c["B10"] = "Mutfakta kahvemi içerken bakiyeyi görüp omuzlarımın düştüğünü hissediyorum."
-    c["B12"] = "Bugün bir teklif maili gönderiyorum."
+    c["B6"] = "Kendi arabam"
+    c["B8"] = "Çok minnettarım, kendi arabamla yola çıkıyorum ve özgür hissediyorum."
+    c["B10"] = "Evin önünde kendi arabam park. Anahtarı çeviriyorum, kemer klik, geldik."
+    c["B12"] = "Bugün bütçe alt–üst ve 3 model adayını yazıyorum."
     for r in range(15, 20):
         c.cell(r, 3, "Evet")
-    w["B11"] = "Faturalar ödenmiş, omuzlar düşük, nefes rahat; ‘artık böyle’ hissi."
-    w["B16"] = "Öğleden sonra ‘nasıl olsa olmaz’ deyip telefonu kaydırmak."
-    w["B21"] = "Eğer kaydırmaya başlarsam, telefonu başka odaya koyar 2 dakikalık maili hemen bitiririm."
+    w["B11"] = "Kapıyı açıp koltuğa oturuyorum, kemer klik, ‘geldik’; omuzlar düşük."
+    w["B16"] = "Öğleden sonra ‘nasıl olsa araba alamam’ deyip ilan kaydırmak."
+    w["B21"] = "Eğer ‘alamam’ dersem, telefonu bırakır 1 satıcıya mesaj atar veya küçük transferi yaparım."
     t["C6"] = "21.09.2026"
     t["D6"] = "Evet"
     t["E6"] = "Evet"
     t["F6"] = "Evet"
     t["G6"] = "Evet"
-    t["H6"] = "Teklif maili taslağını bitirdim."
+    t["H6"] = "Bütçe aralığını ve 3 model adayını yazdım."
     t["I6"] = "Evet"
     t["J6"] = 8
-    t["L6"] = "Şüphe geldi, yazıp kapattım."
+    t["L6"] = "Şüphe geldi, yazıp kapattım. Anahtar sahnesine döndüm."
 
     wb.save(OUT)
     return OUT

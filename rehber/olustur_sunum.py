@@ -151,7 +151,7 @@ def footer(slide, page):
         7.16,
         11.2,
         0.26,
-        "7 günde hızlı manifest  •  tek istek  •  369 + SATS + WOOP  •  her gün 1 somut adım",
+        "Kendi arabam  •  369 + SATS + WOOP  •  her gün 1 araba adımı",
         10,
         False,
         MUTED,
@@ -174,20 +174,20 @@ def build() -> Path:
     rect(s, 10.85, 0, 2.49, 7.5, PLUM2, rounded=False)
     pill(s, 0.55, 1.05, 3.9, 0.38, ROSE)
     tb(s, 0.55, 1.1, 3.9, 0.3, "NE YAP  •  NEREYE BAK  •  BUGÜN BAŞLA", 12, True, WHITE, PP_ALIGN.CENTER)
-    tb(s, 0.55, 1.65, 10.0, 1.2, "7 günde hızlı\nmanifest teknikleri", 40, True, WHITE)
+    tb(s, 0.55, 1.65, 10.0, 1.2, "Kendi arabam\niçin 7 günlük manifest", 38, True, WHITE)
     tb(
         s,
         0.55,
         3.35,
         9.8,
         0.7,
-        "Tek istek seç. Aynı cümleyi 3-6-9 yaz. Gece olmuş gibi uyu.\nGündüz bir somut adım at. Hız buradan gelir.",
+        "Cümleyi yaz. Direksiyonda uyu. Gündüz bir araba adımı at.\nBu 7 günün tek isteği: kendi araban.",
         18,
         False,
         RGBColor(236, 220, 232),
     )
     pill(s, 0.55, 4.3, 6.15, 0.5, GOLD)
-    tb(s, 0.55, 4.38, 6.15, 0.36, "Hedef: 7 gün sonra otomatik alışkanlık", 15, True, PLUM, PP_ALIGN.CENTER)
+    tb(s, 0.55, 4.38, 6.15, 0.36, "Kilit cümle: kendi arabamla yola çıkıyorum", 15, True, PLUM, PP_ALIGN.CENTER)
     for i, (num, label) in enumerate([("01", "Netleş"), ("02", "Hisset"), ("03", "Hareket")]):
         y = 1.45 + i * 1.55
         oval(s, 11.5, y, 0.9, 0.9, GOLD if i == 2 else ROSE)
@@ -197,11 +197,11 @@ def build() -> Path:
 
     # 2 HIZ NASIL GELIR
     s = blank(prs)
-    header_bar(s, "Çerçeve", "Hızlı sonuç isteyenler neyi yanlış anlıyor?", "Sadece hayal etmek yetmez. Hız = netlik + his + bugünkü adım.")
+    header_bar(s, "Çerçeve", "Araba ‘gelsin’ diye beklemek neden yavaştır?", "Hız = direksiyon hissi + bugün atılan 1 araba adımı.")
     boxes = [
-        (LILAC, "Yavaş yol", "20 teknik birden denemek, sürekli video izlemek, ‘evren göndersin’ deyip beklemek. Zihin dağılır, istek bulanık kalır."),
-        (BLUSH, "Hızlı yol", "7 gün boyunca tek istek. Aynı cümle. Aynı gece sahnesi. Her gün o isteği 10 dakikalık gerçek bir adımla ilerletmek."),
-        (SAND, "Dürüst kural", "Manifest bir sihir garantisi değildir. Dikkatini ve davranışını aynı yöne kilitler. Kilitlenen şey daha çabuk görünür hale gelir."),
+        (LILAC, "Yavaş yol", "20 model, 20 reel, ‘birden param gelir’ diye beklemek. Zihin dağılır, araba hayali kalır."),
+        (BLUSH, "Hızlı yol", "7 gün sadece kendi araban. Aynı cümle. Aynı gece sahnesi. Her gün 10 dakikalık gerçek adım: bütçe, ilan, galeri, biriktirme."),
+        (SAND, "Dürüst kural", "Anahtar evrene sipariş değildir. Dikkatini ve adımını arabaya kilitlersen fırsat, ilan ve cesaret daha çabuk görünür."),
     ]
     for i, (color, title, body) in enumerate(boxes):
         card(s, 0.4 + i * 4.25, 1.55, 4.05, 3.35, color)
@@ -215,8 +215,8 @@ def build() -> Path:
         5.65,
         12.1,
         1.05,
-        "Neville Goddard’ın SATS’ı (uykuya yakın halde ‘oldu’ hissi) + 369 yazma (günde 18 kez aynı cümle) + WOOP (istek, sonuç, engel, eğer-o zaman planı). "
-        "İlk ikisi zihni hizalar, üçüncüsü sonucu hızlandırır. Araştırmalarda tek başına pozitif hayal, eylemi bazen azaltır; WOOP ise eylemi artırır.",
+        "Neville’in SATS’ı (uykuya yakın halde direksiyonda ‘bu benim’ hissi) + 369 (günde 18 kez aynı araba cümlesi) + WOOP (para korkusu ve ertelemeyi 2 dakikalık plana bağlamak). "
+        "Hayal tek başına yetmez; araba, bütçe ve bir telefonla yaklaşır.",
         15,
         False,
         INK,
@@ -225,7 +225,7 @@ def build() -> Path:
 
     # 3 TEK ISTEK
     s = blank(prs)
-    header_bar(s, "Kural 1", "7 gün boyunca sadece bir şey iste", "Birden fazla dilek = hiçbirinin enerjisi yetmez. Önce bir tanesini bitir.")
+    header_bar(s, "Kural 1", "Bu 7 günün tek isteği: kendi arabam", "Ev, iş, ilişki yok. Sadece araba. Model savaşını da 3 adaya indir.")
     card(s, 0.4, 1.55, 7.7, 5.35, WHITE)
     tb(s, 0.65, 1.75, 7.2, 0.35, "Cümle formülü (25 kelimeyi geçme)", 16, True, PLUM)
     tb(
@@ -234,16 +234,16 @@ def build() -> Path:
         2.2,
         7.2,
         1.35,
-        "Şablon:\n“Çok minnettarım, [somut sonuç] artık hayatımda ve kendimi [duygu] hissediyorum.”\n\nŞimdi zamanı. “İstiyorum / olacak” yok. Olumsuz yok. Rakam varsa yaz.",
+        "Senin kilit cümlen:\n“Çok minnettarım, kendi arabamla yola çıkıyorum ve özgür hissediyorum.”\n\nŞimdi zamanı. ‘İstiyorum / olacak’ yok. Marka takıntısı yok; his ‘kendi arabam’.",
         15,
         False,
         INK,
     )
     examples = [
-        ("Zayıf", "Bol para istiyorum, stresim bitsin."),
-        ("Güçlü", "Çok minnettarım, bu ay faturalarım rahat ödeniyor ve kendimi güvende hissediyorum."),
-        ("Zayıf", "O beni özlesin, yazsın."),
-        ("Güçlü", "Sakin ve seçilmiş hissediyorum; karşılıklı, net bir bağ içindeyim."),
+        ("Zayıf", "Araba istiyorum, bir an önce olsun."),
+        ("Güçlü", "Çok minnettarım, kendi arabamla yola çıkıyorum ve özgür hissediyorum."),
+        ("Zayıf", "Param yetmez, belki biri alır."),
+        ("Güçlü", "Kendi arabamın anahtarı çantamda; her yere rahatça gidiyorum."),
     ]
     for i, (tag, line) in enumerate(examples):
         y = 3.7 + i * 0.72
@@ -255,11 +255,11 @@ def build() -> Path:
     card(s, 8.3, 1.55, 4.6, 5.35, LILAC)
     tb(s, 8.5, 1.75, 4.2, 0.4, "Seçim süzgeci", 16, True, PLUM)
     checks = [
-        "90 gün içinde mümkün mü?",
-        "Olduğunu hayal edince vücutta bir yumuşama var mı?",
-        "Senin atabileceğin en az bir adım var mı?",
-        "Başkasının iradesini zorlamıyor mu?",
-        "Ölçülebilir mi? (tarih, tutar, olay)",
+        "90 günde peşinat / kredi / 2. el mümkün mü?",
+        "Direksiyonda hayal edince vücut yumuşuyor mu?",
+        "Bugün atabileceğin 1 araba adımı var mı?",
+        "Başkasının sana araba almasını dayatmıyor musun?",
+        "Ölçülebilir mi? (bütçe aralığı, 2. el / yeni)",
     ]
     for i, line in enumerate(checks):
         y = 2.35 + i * 0.8
@@ -272,10 +272,10 @@ def build() -> Path:
     s = blank(prs)
     header_bar(s, "Sistem", "Günde 20–25 dakika, dört katman", "Aynı sırayı 7 gün bozma. Yeni teknik ekleme.")
     layers = [
-        ("Sabah", "5 dk", "Uyanır uyanmaz 369 cümlenı 3 kez elle yaz. Bitince 10 saniye gözün kapalı, ‘oldu’ hissini al."),
-        ("Gündüz", "10 dk", "WOOP’taki eğer-o zaman planını çalıştır. Bugünün tek somut adımını bitirmeden telefonu açma."),
-        ("İkindi", "5 dk", "Aynı cümleyi 6 kez yaz. Şüphe gelirse cümleyi tartışma; yaz ve kapat."),
-        ("Gece", "8 dk", "Cümleyi 9 kez yaz. Yatağa gir. SATS sahnesini 5–10 saniyelik döngüde uykuya kadar tekrarla."),
+        ("Sabah", "5 dk", "Uyanır uyanmaz araba cümlenı 3 kez elle yaz. Bitince 10 saniye: anahtar elde, direksiyonda ‘bu benim’."),
+        ("Gündüz", "10 dk", "Bugünün araba adımını bitir: bütçe, ilan, galeri, sigorta veya biriktirme. Bitirmeden kaydırma."),
+        ("İkindi", "5 dk", "Aynı cümleyi 6 kez yaz. ‘Param yetmez’ gelirse yaz ve kapat; cümleyi tartışma."),
+        ("Gece", "8 dk", "Cümleyi 9 kez yaz. Yatağa gir. Anahtarı çevirdiğin 5 saniyelik sahneyi uykuya kadar döngüle."),
     ]
     for i, (when, mins, body) in enumerate(layers):
         y = 1.5 + i * 1.3
@@ -291,13 +291,13 @@ def build() -> Path:
     header_bar(s, "Teknik 1", "369: aynı cümleyi 3 + 6 + 9 yaz", "Tesla’ya ait sihirli bir formül değil. Dikkat kilidi. Elle yazmak ekrandan daha iyi işler.")
     card(s, 0.4, 1.55, 4.05, 5.35, ROSE)
     tb(s, 0.6, 1.75, 3.65, 0.4, "Sabah ×3", 20, True, WHITE)
-    tb(s, 0.6, 2.25, 3.65, 4.3, "Yataktan kalkınca, telefonu eline almadan.\n\nAmaç: günün ilk izi ‘oldu’ olsun.\n\nYazarken acele etme. Her satırda nefes al, minnettarlığı bir saniye hisset.", 15, False, WHITE)
+    tb(s, 0.6, 2.25, 3.65, 4.3, "Yataktan kalkınca, ilan sitesini açmadan.\n\nAmaç: günün ilk izi ‘kendi arabam’ olsun.\n\nHer satırda 1 saniye direksiyon hissi: elin simitte, omuzlar düşük.", 15, False, WHITE)
     card(s, 4.65, 1.55, 4.05, 5.35, PLUM)
     tb(s, 4.85, 1.75, 3.65, 0.4, "Öğlen ×6", 20, True, GOLD)
-    tb(s, 4.85, 2.25, 3.65, 4.3, "Günün ortasında zihin dağılır. 6 tekrar onu geri çağırır.\n\nŞüphe gelirse yandaki sayfaya 1 cümle yaz: “Nasıl olacağını bilmiyorum, yine de oldu.” Sonra 369’a dön.", 15, False, WHITE)
+    tb(s, 4.85, 2.25, 3.65, 4.3, "Günün ortasında ‘alamam’ gelir. 6 tekrar onu geri çağırır.\n\nŞüphe gelirse bir satır yaz: “Nasıl olacağını bilmiyorum, anahtar yine de benim.” Sonra 369’a dön.", 15, False, WHITE)
     card(s, 8.9, 1.55, 4.0, 5.35, GOLD)
     tb(s, 9.1, 1.75, 3.6, 0.4, "Gece ×9", 20, True, PLUM)
-    tb(s, 9.1, 2.25, 3.6, 4.3, "Uyumadan 30 dakika içinde bitir.\n\n9. satırdan sonra defteri kapat. Kanıt ara, mesaj kontrol etme, ‘çalıştı mı’ diye evrene bakma. Hemen SATS’a geç.", 15, False, PLUM)
+    tb(s, 9.1, 2.25, 3.6, 4.3, "Uyumadan 30 dakika içinde bitir.\n\n9. satırdan sonra ilan bakma. Defteri kapat. Hemen SATS: evin önünde park, anahtarı çevir, ‘geldik’.", 15, False, PLUM)
     footer(s, 5)
 
     # 6 SCRIPTING
@@ -307,9 +307,9 @@ def build() -> Path:
     lines = [
         "Tarih at: “21 Eylül. Bugün …”",
         "Şimdiki veya geçmiş zaman: “uyandım / oturuyorum / attım”.",
-        "5 duyu: ne gördün, ne duydun, vücutta ne vardı?",
-        "Küçük ayrıntı: kupa, ışık, bir cümle, bir imza.",
-        "Duygu: rahatlama, sıradanlık, ‘tabii ki böyle’.",
+        "5 duyu: koku, kumaş, motor sesi, simidin ısısı.",
+        "Küçük ayrıntı: anahtarlık, ruhsat, park yeri, emniyet kemeri klik.",
+        "Duygu: rahatlama, sıradanlık, ‘tabii ki benim arabam’.",
         "Bir teşekkür cümlesi ile bitir. Defteri kapat. Okuyup düzeltme.",
     ]
     for i, line in enumerate(lines):
@@ -325,7 +325,7 @@ def build() -> Path:
         2.3,
         3.6,
         4.2,
-        "“Salı sabahı masamda kahvemi içiyorum. Mail kutusunda onay var. Omuzlarım düşük, nefesim rahat. Anneme ‘oldu’ diye yazıyorum. Teşekkür ederim, bu artık normalim.”",
+        "“Salı sabahı kendi arabamın kapısını açıyorum. Koltuk bana göre. Anahtarı çeviriyorum, motor tok çalışıyor. Evin önünden çıkıp yola karışıyorum. Teşekkür ederim, bu artık normalim.”",
         15,
         False,
         INK,
@@ -336,7 +336,7 @@ def build() -> Path:
     s = blank(prs)
     header_bar(s, "Teknik 3", "SATS: uykunun eşiğinde 5 saniyelik sahne", "Neville Goddard. Feeling is the Secret. Sahne, dileğin gerçekleşmesinden SONRA olmalıdır.")
     steps = [
-        ("Sahneyi gündüz kur", "El sıkışma, anahtar çevirme, ‘tebrikler’ cümlesi, hesap bakiyesini görme. 5–10 saniye. Birinci tekil şahıs."),
+        ("Sahneyi gündüz kur", "Evin önünde park. Çantadan kendi anahtarın. Sürücü koltuğu. Anahtarı çevir. 5–10 saniye. Birinci tekil şahıs."),
         ("Bedeni bırak", "Yat. Telefon dışarı. Ayak ucundan çeneye kadar her bölgeyi ağırlaştır. Uykulu ol, uyanık analiz etme."),
         ("İçeriden yaşa", "Kendini dışarıdan izleme. Elin, ses, oda sıcaklığı, yüzündeki ifade. GIF gibi döngüle."),
         ("Hisle uyu", "Heyecan değil, doğallık. ‘Tabii ki benim’ hissi. Uyuyakalmak başarıdır. Sabah sahneyi zorlama."),
@@ -355,10 +355,10 @@ def build() -> Path:
     s = blank(prs)
     header_bar(s, "Teknik 4", "WOOP: hayali eyleme çeviren bilimsel katman", "Gabriele Oettingen. woopmylife.org  •  Sadece olumlu fantezi, çabayı düşürebilir.")
     woop = [
-        ("W", "Wish", "İstek", "Tek, net, senin için zor ama mümkün dilek. 3-6-9 cümlenle aynı olsun."),
-        ("O", "Outcome", "Sonuç", "Olduğunda en güzel an. 30 saniye gözün kapalı yaşa. Göğüste ne açılıyor?"),
-        ("O", "Obstacle", "Engel", "Dış dünya değil, içindeki asıl fren: erteleme, utanç, ‘hak etmiyorum’, gece telefon."),
-        ("P", "Plan", "Plan", "Eğer [engel belirirse], o zaman [2 dakikalık davranış]. Önceden yaz, karar anında düşünme."),
+        ("W", "Wish", "İstek", "Kendi arabam. 369 cümlenle aynı olsun. Marka savaşını 3 adaya bırak."),
+        ("O", "Outcome", "Sonuç", "Kapıyı açıp koltuğa oturduğun an. Kemer klik. ‘Geldik’ hissi göğüste."),
+        ("O", "Obstacle", "Engel", "Dış fiyat değil: ‘param yetmez’ kaydırması, ilanlara bakıp hiçbirini aramamak."),
+        ("P", "Plan", "Plan", "Eğer ‘alamam’ gelirse, o zaman 2 dk: biriktirme notu veya 1 ilan mesajı."),
     ]
     for i, (letter, en, tr, body) in enumerate(woop):
         x = 0.4 + i * 3.2
@@ -375,7 +375,7 @@ def build() -> Path:
         6.2,
         12.1,
         0.55,
-        "Eğer öğleden sonra ‘nasıl olsa olmaz’ diye kaydırırsam, o zaman telefonu başka odaya koyar, 2 dakikalık adımı (mail / arama / dosya / fiyat) hemen bitiririm.",
+        "Eğer öğleden sonra ‘nasıl olsa araba alamam’ diye kaydırırsam, o zaman telefonu bırakır, bütçe satırını doldurur veya 1 satıcıya mesaj atarım.",
         15,
         False,
         INK,
@@ -384,15 +384,15 @@ def build() -> Path:
 
     # 9 YEDI GUN
     s = blank(prs)
-    header_bar(s, "Takvim", "7 günlük hız protokolü", "Her gün: 369 + SATS + 1 adım. Tema değişir, sistem değişmez.")
+    header_bar(s, "Takvim", "7 günde arabaya yaklaş", "Her gün: 369 + SATS + 1 araba adımı. Tema değişir, sistem değişmez.")
     days = [
-        ("1", "Netleş", "Tek istek, 369 cümlesi, SATS sahnesi, WOOP. İlk somut adım bugün atılır."),
-        ("2", "Ritim", "Aynı cümle. En küçük görünür hareket: bir mesaj, bir dosya, bir fiyat, bir yürüyüş."),
-        ("3", "Hikâye", "8 dakikalık scripting. Bir insanla konuş veya bir kapı çal."),
-        ("4", "Engel", "WOOP’u yeniden yaz. Asıl iç freni adlandır. Eğer-o zaman planını sıkılaştır."),
-        ("5", "Kimlik", "Günü ‘bunu zaten yaşayan kişi’ olarak geçir. Kıyafet, masa, konuşma tonu uyumlu olsun."),
-        ("6", "Kanıt", "3 küçük işaret not et (zorlama). Bir büyükçe adım: başvuru, teklif, ödeme, bitirme."),
-        ("7", "Mühürle", "7 günü oku. Cümleyi gerekirse %10 netleştir. Önündeki 21 güne kilit at. Kontrolü bırak."),
+        ("1", "Netleş", "Cümle + SATS sahnesi. Bütçe aralığı ve 2. el / yeni kararı. En fazla 3 model."),
+        ("2", "Ritim", "Aynı cümle. Ehliyet, trafik sigortası, kasko için kaba fiyat. Biriktirme hesabı aç veya ayır."),
+        ("3", "Hikâye", "8 dk scripting: salı sabahı kendi araban. 5 ilan kaydet, 2’sini yaz."),
+        ("4", "Engel", "‘Param yetmez’i adlandır. İlk küçük transferi yap. WOOP planını sıkılaştır."),
+        ("5", "Kimlik", "Galeride benzer bir arabaya otur veya park yerinden geç. ‘Zaten sürücüyüm’ günü."),
+        ("6", "Kanıt", "1 satıcı / galeri ara. 1 ekspertiz veya fiyat sor. 3 küçük işaret not et."),
+        ("7", "Mühürle", "3 adayı 1–2’ye indir. 21 güne kilit: her hafta 1 bakış + her hafta 1 biriktirme."),
     ]
     for i, (num, title, body) in enumerate(days):
         x = 0.35 + i * 1.85
@@ -407,13 +407,13 @@ def build() -> Path:
     s = blank(prs)
     header_bar(s, "Engel", "Hızı kesen yedi hata", "Bunları yaparsan teknikler çalışmaz gibi gelir. Çoğu zaman teknik değil, dağınıklık bozar.")
     mistakes = [
-        ("Çok dilek", "Aynı hafta para, ilişki, ev, iş. Birini seç."),
-        ("Gelecek zaman", "‘Olacak’ cümlesi isteği sürekli yarına iter."),
-        ("Kanıt avı", "Her saat ‘geldi mi’ diye bakmak, yokluk hissini büyütür."),
-        ("Başkasını zorlamak", "Birinin seni seçmesini dayatmak. Serbest, karşılıklı hali iste."),
-        ("Sadece hayal", "Gündüz sıfır adım. WOOP atlanmış demektir."),
-        ("Teknik koleksiyonu", "Her gün yeni yöntem. 7 gün aynı protokol."),
-        ("İnanç eşiğini aşmak", "Cümle alay ettiriyorsa küçült. İnanılır gerilim kalsın."),
+        ("20 model", "Her gün başka araba. En fazla 3 aday, sonra 1–2."),
+        ("Gelecek zaman", "‘Araba olacak’ cümlesi anahtarı yarına iter."),
+        ("İlan avı", "Saatlerce bakıp hiçbirini aramamak yokluk hissini büyütür."),
+        ("Mucize peşinat", "Birinin sana almasını beklemek. Senin adımın: biriktir / kredi / 2. el."),
+        ("Sadece hayal", "Direksiyon sahnesi var, galeri yok. WOOP atlanmış demektir."),
+        ("Lüks eşiği", "Cümle alay ettiriyorsa önce sahibinden 2. el, sonra yükselt."),
+        ("Teknik koleksiyonu", "Her gün yeni yöntem. 7 gün aynı araba protokolü."),
     ]
     for i, (title, body) in enumerate(mistakes):
         y = 1.5 + i * 0.75
@@ -430,28 +430,28 @@ def build() -> Path:
             ROSE,
             WHITE,
             "Bu hafta oku (kısa)",
-            "• Neville Goddard — Feeling is the Secret (kısa, SATS’ın kaynağı)\n"
-            "• Neville — The Power of Awareness (kimlik / varsayım)\n"
-            "• woopmylife.org — WOOP’u 5 dakikada öğren\n"
-            "• Gollwitzer: “eğer-o zaman” planları (uygulama niyeti)",
+            "• Neville — Feeling is the Secret (SATS)\n"
+            "• 369 cümlesi: kendi arabamla yola çıkıyorum\n"
+            "• woopmylife.org — para korkusunu plana bağla\n"
+            "• Sahibinden / galeri: 3 aday, gerçek fiyat",
         ),
         (
             PLUM,
             WHITE,
             "Sonra, istersen",
-            "• Neville — The Law and the Promise (örnek hikâyeler)\n"
-            "• Gabriele Oettingen — Rethinking Positive Thinking\n"
-            "• James Clear — Atomic Habits (küçük günlük adım)\n"
-            "• r/NevilleGoddard — dikkat: başarı hikâyesi bağımlılığı yapma",
+            "• The Power of Awareness (sürücü kimliği)\n"
+            "• Rethinking Positive Thinking (WOOP kitabı)\n"
+            "• 2. el: ekspertiz, tramer, kasko teklifi\n"
+            "• Ehliyet / yetki belgesi eksikse onu da takvime al",
         ),
         (
             GOLD,
             PLUM,
             "Şimdilik uzak dur",
-            "• Her gün başka koç, başka ‘anında zengin ol’ videosu\n"
-            "• 10 tekniği aynı anda karıştıran listeler\n"
-            "• Başkasının iradesini manipüle etme vaatleri\n"
-            "• The Secret’i tek kaynak sanmak (çok genel kalır)",
+            "• ‘Evren bugün araba yollar’ reelleri\n"
+            "• 10 modeli aynı anda hayal etmek\n"
+            "• Marka takıntısı yüzünden 0 adım\n"
+            "• Sadece hayal edip ilan / biriktirme yok",
         ),
     ]
     for i, (bg, fg, title, body) in enumerate(cols):
@@ -465,11 +465,11 @@ def build() -> Path:
     s = blank(prs)
     header_bar(s, "Bugün", "20 dakikada başla — sonra defteri kapat", "Mükemmel cümle arama. %80 netlik yeter. Hareket cümleyi düzeltir.")
     items = [
-        ("0–3 dk", "Tek isteği bir satıra yaz. Süzgeçten geçir."),
-        ("3–7 dk", "369 cümlesini yaz. Sesli oku. Vücutta sıkışma varsa yumuşat."),
-        ("7–12 dk", "SATS sahnesini 5 saniyeye indir. Kağıda 3 duyusal ayrıntı."),
-        ("12–16 dk", "WOOP: istek / sonuç / iç engel / eğer-o zaman."),
-        ("16–20 dk", "Bugünün 1 adımını bitir. Sonra akşam 9 yazış + SATS."),
+        ("0–3 dk", "Kilit cümleyi yaz: kendi arabamla yola çıkıyorum."),
+        ("3–7 dk", "Bütçe alt–üst ve 2. el / yeni. En fazla 3 model."),
+        ("7–12 dk", "SATS: evin önü, kendi anahtarın, çevir, kemer klik."),
+        ("12–16 dk", "WOOP: ‘param yetmez’ → 2 dk biriktirme veya 1 mesaj."),
+        ("16–20 dk", "Bugün 1 ilan kaydet veya 1 fiyat sor. Akşam 9 yazış + SATS."),
     ]
     for i, (mins, body) in enumerate(items):
         y = 1.48 + i * 0.78
@@ -485,7 +485,7 @@ def build() -> Path:
         2.5,
         3.4,
         3.9,
-        "Bir istek.\nAynı cümle.\nAynı sahne.\nHer gün bir adım.\n\n7 gün sonra yeni teknik arama. 21 güne uzat.",
+        "Kendi arabam.\nAynı cümle.\nAnahtarı çevir.\nHer gün 1 adım.\n\n7 gün sonra yeni teknik arama. 21 güne uzat.",
         16,
         True,
         WHITE,
