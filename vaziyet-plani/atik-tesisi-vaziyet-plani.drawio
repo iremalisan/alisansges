@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-10-05T08:30:00.000Z" agent="Cursor" version="22.1.0" type="device">
+  <diagram id="vaziyet-plani" name="Vaziyet Planı">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="2339" background="#FFFFFF" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="VAZİYET PLANI" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=32;fontColor=#1C1C1C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="28" width="1510" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="3" value="Şematik yerleşim  ·  ölçeksiz  ·  el çizimindeki düzene göre" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=14;fontColor=#444444;" vertex="1" parent="1">
+          <mxGeometry x="70" y="76" width="1510" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="4" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=1.5;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="70" y="118" as="sourcePoint"/>
+            <mxPoint x="1580" y="118" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5" value="" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=none;strokeWidth=0;fillColor=#F7F6F3;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="150" width="1510" height="2010" as="geometry"/>
+        </mxCell>
+        <mxCell id="6" value="Metaller" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=22;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#D5E2EE;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="150" width="560" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="7" value="Kağıt, Karton&lt;br&gt;ve Plastik Atık" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=20;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#D7EBD8;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="400" width="560" height="270" as="geometry"/>
+        </mxCell>
+        <mxCell id="8" value="Tehlikeli Atık&lt;br&gt;Geçici Depolama&lt;br&gt;Alanı" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=20;fontColor=#8E2A2A;strokeColor=#8E2A2A;strokeWidth=2;fillColor=#F6D0CB;spacing=8;spacingLeft=10;spacingRight=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="740" width="560" height="320" as="geometry"/>
+        </mxCell>
+        <mxCell id="9" value="Diğer Atıklar" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=20;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#EFE4D2;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1060" width="560" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="10" value="Stok Sahası" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=22;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#F8E7B0;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1230" width="860" height="290" as="geometry"/>
+        </mxCell>
+        <mxCell id="11" value="Atık Kabul&lt;br&gt;Birimi" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=22;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#D3E3F6;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="1800" width="560" height="360" as="geometry"/>
+        </mxCell>
+        <mxCell id="12" value="Kesme&lt;br&gt;Makinesi" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#E4E4E4;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="440" width="440" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="13" value="Pres&lt;br&gt;Makinesi" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#E4E4E4;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="710" width="440" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="14" value="" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#F4EFE8;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="1360" width="440" height="800" as="geometry"/>
+        </mxCell>
+        <mxCell id="15" value="Teknik Büro" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#F3E4CF;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="1360" width="440" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="16" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=2;dashed=1;dashPattern=8 6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1140" y="1582" as="sourcePoint"/>
+            <mxPoint x="1580" y="1582" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="17" value="İdari Büro" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#E8DCCB;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="1594" width="440" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="18" value="WC" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#D5E6EA;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="1820" width="440" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="19" value="Soyunma Odası" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#E3DCEA;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="1970" width="440" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="20" value="Acil Çıkış&lt;br&gt;Kapısı" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontColor=#8E2A2A;strokeColor=#8E2A2A;strokeWidth=2;fillColor=#F8D4D4;spacing=8;spacingLeft=10;spacingRight=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="208" width="250" height="118" as="geometry"/>
+        </mxCell>
+        <mxCell id="21" value="" style="startArrow=none;endArrow=classic;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#8E2A2A;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1425.0" y="202" as="sourcePoint"/>
+            <mxPoint x="1425.0" y="152" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22" value="Giriş - Çıkış&lt;br&gt;Kapısı" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=2;fillColor=#FFFFFF;spacing=8;spacingLeft=10;spacingRight=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="1890" width="280" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="23" value="" style="startArrow=classic;endArrow=classic;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="890.0" y="1994" as="sourcePoint"/>
+            <mxPoint x="890.0" y="2168" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="24" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=2;dashed=1;dashPattern=8 6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="770" y="150" as="sourcePoint"/>
+            <mxPoint x="770" y="350" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="25" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=2;dashed=1;dashPattern=8 6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1050" y="150" as="sourcePoint"/>
+            <mxPoint x="1050" y="400" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="26" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="70" y="150" as="sourcePoint"/>
+            <mxPoint x="1375.0" y="150" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="27" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1475.0" y="150" as="sourcePoint"/>
+            <mxPoint x="1580" y="150" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="28" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1580" y="150" as="sourcePoint"/>
+            <mxPoint x="1580" y="2160" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="29" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1580" y="2160" as="sourcePoint"/>
+            <mxPoint x="1080" y="2160" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="30" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="2160" as="sourcePoint"/>
+            <mxPoint x="70" y="2160" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="31" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="70" y="2160" as="sourcePoint"/>
+            <mxPoint x="70" y="150" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="32" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1375.0" y="150" as="sourcePoint"/>
+            <mxPoint x="1375.0" y="166" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1475.0" y="150" as="sourcePoint"/>
+            <mxPoint x="1475.0" y="166" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="34" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="2160" as="sourcePoint"/>
+            <mxPoint x="700" y="2144" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="35" value="" style="startArrow=none;endArrow=none;startFill=1;endFill=1;html=1;rounded=0;strokeColor=#1C1C1C;strokeWidth=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1080" y="2160" as="sourcePoint"/>
+            <mxPoint x="1080" y="2144" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="36" value="Alan ayrımı" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=13;fontColor=#1C1C1C;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="2224" width="160" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="37" value="" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=1;fillColor=#D5E2EE;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="250" y="2228" width="22" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="38" value="Metaller" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontColor=#1C1C1C;" vertex="1" parent="1">
+          <mxGeometry x="278" y="2224" width="180" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="39" value="" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=1;fillColor=#D7EBD8;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="430" y="2228" width="22" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="40" value="Kağıt, karton, plastik" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontColor=#1C1C1C;" vertex="1" parent="1">
+          <mxGeometry x="458" y="2224" width="180" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="41" value="" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=1;fillColor=#F6D0CB;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="700" y="2228" width="22" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="42" value="Tehlikeli atık" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontColor=#1C1C1C;" vertex="1" parent="1">
+          <mxGeometry x="728" y="2224" width="180" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="43" value="" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=1;fillColor=#EFE4D2;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="2228" width="22" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="44" value="Diğer atıklar" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontColor=#1C1C1C;" vertex="1" parent="1">
+          <mxGeometry x="928" y="2224" width="180" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="45" value="" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=1;fillColor=#F8E7B0;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="2228" width="22" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="46" value="Stok sahası" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontColor=#1C1C1C;" vertex="1" parent="1">
+          <mxGeometry x="1108" y="2224" width="180" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="47" value="" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=1;fillColor=#D3E3F6;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="2228" width="22" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="48" value="Atık kabul" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontColor=#1C1C1C;" vertex="1" parent="1">
+          <mxGeometry x="1268" y="2224" width="180" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="49" value="" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Arial;fontSize=18;fontColor=#1C1C1C;strokeColor=#1C1C1C;strokeWidth=1;fillColor=#E4E4E4;spacing=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="2228" width="22" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="50" value="Makine" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontColor=#1C1C1C;" vertex="1" parent="1">
+          <mxGeometry x="1428" y="2224" width="180" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="51" value="Ölçeksizdir. Üstteki kesik çizgiler el çizimindeki bölme izleridir; bu izlere isim verilmemiştir." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=12;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="70" y="2264" width="1480" height="24" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
