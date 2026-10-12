@@ -9,6 +9,7 @@ import { KioskSection } from './sections/KioskSection';
 import { MaterialsSection } from './sections/MaterialsSection';
 import { PanelTableSection } from './sections/PanelTableSection';
 import { ProjectSection } from './sections/ProjectSection';
+import { WORD_DOCUMENT_FILENAME, WORD_DOCUMENT_HREF } from './downloads';
 import { useAppState } from './state/useAppState';
 import './App.css';
 
@@ -68,6 +69,13 @@ export default function App() {
           <button type="button" className="btn btn--secondary" onClick={resetForm}>
             Formu Temizle
           </button>
+          <a
+            className="btn btn--secondary"
+            href={WORD_DOCUMENT_HREF}
+            download={WORD_DOCUMENT_FILENAME}
+          >
+            Word dosyasını indir
+          </a>
         </div>
         <p className="app-toolbar__hint">
           Girdiler değiştikçe malzeme sonuçları anında yeniden hesaplanır.
