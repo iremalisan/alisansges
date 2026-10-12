@@ -36,6 +36,20 @@ describe('GES Metraj Pro — PR-001 foundation', () => {
     ).toBeInTheDocument();
   });
 
+  it('downloads the Word document when the Word link is used', () => {
+    render(<App />);
+
+    const link = screen.getByRole('link', { name: 'Word dosyasını indir' });
+    expect(link).toHaveAttribute(
+      'href',
+      '/belgeler/2025-is-akim-semasi-ve-proses-ozeti-vaziyet-planlari.docx?v=5',
+    );
+    expect(link).toHaveAttribute(
+      'download',
+      '2025 İş Akım Şeması ve Proses Özeti Vaziyet Planları.docx',
+    );
+  });
+
   it('loads sample project input values when örnek proje is clicked', async () => {
     const user = userEvent.setup();
     render(<App />);
