@@ -10,6 +10,10 @@ function wordFileDownloadPlugin(): Plugin {
   const attach: Connect.NextHandleFunction = (req, res, next) => {
     const path = decodeURIComponent((req.url ?? '').split('?')[0] ?? '');
     if (path === WORD_DOCUMENT_HREF) {
+      res.setHeader(
+        'Content-Type',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      );
       res.setHeader('Content-Disposition', disposition);
     }
     next();
