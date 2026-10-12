@@ -42,7 +42,7 @@ describe('GES Metraj Pro — PR-001 foundation', () => {
     const link = screen.getByRole('link', { name: 'Word dosyasını indir' });
     expect(link).toHaveAttribute(
       'href',
-      '/belgeler/2025-is-akim-semasi-ve-proses-ozeti-vaziyet-planlari.docx?v=4',
+      '/belgeler/2025-is-akim-semasi-ve-proses-ozeti-vaziyet-planlari.docx?v=5',
     );
     expect(link).toHaveAttribute(
       'download',
